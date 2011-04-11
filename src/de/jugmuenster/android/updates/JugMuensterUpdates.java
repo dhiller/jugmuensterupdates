@@ -1,15 +1,10 @@
 package de.jugmuenster.android.updates;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,25 +19,18 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 
 public class JugMuensterUpdates extends ListActivity {
 
 	final List<Item> items = new ArrayList<Item>();
-
-	static class Item {
-		String title;
-		String link;
-		String description;
-
-		@Override
-		public String toString() {
-			return title;
-		}
-	}
 
 	enum CurrentElement {
 		TITLE, LINK, DESCRIPTION;
@@ -97,6 +85,9 @@ public class JugMuensterUpdates extends ListActivity {
 						if (current != null && localName.equals("title")) {
 							current.title = builder.toString();
 						}
+						if (current != null && localName.equals("link")) {
+							current.link = builder.toString();
+						}
 						if (localName.equals("item")) {
 							items.add(current);
 							current = null;
@@ -122,11 +113,21 @@ public class JugMuensterUpdates extends ListActivity {
 			strings.add(e.toString());
 		}
 
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+		ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(this,
 				R.layout.list_item);
 		for (Item i : items)
-			arrayAdapter.add(i.toString());
+			arrayAdapter.add(i);
 		setListAdapter(arrayAdapter);
+
+		getListView().setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				final Item item = (Item) arg0.getItemAtPosition(arg2);
+				Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse(item.link));
+				startActivity(browserIntent);			}
+		});
 
 	}
 }
