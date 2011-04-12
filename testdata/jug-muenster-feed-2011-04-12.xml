@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Java User Group Münster</title>
+	<atom:link href="http://www.jug-muenster.de/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.jug-muenster.de</link>
+	<description>Java User Group für Münster und das Münsterland</description>
+	<lastBuildDate>Mon, 11 Apr 2011 10:12:00 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.1.1</generator>
+<atom:link rel="hub" href="http://pubsubhubbub.appspot.com" />
+	<atom:link rel="hub" href="http://superfeedr.com/hubbub" />
+			<item>
+		<title>Swing Workshop I + II</title>
+		<link>http://www.jug-muenster.de/swing-workshop-i-ii-999/</link>
+		<comments>http://www.jug-muenster.de/swing-workshop-i-ii-999/#comments</comments>
+		<pubDate>Mon, 11 Apr 2011 10:10:44 +0000</pubDate>
+		<dc:creator>Gerrit</dc:creator>
+				<category><![CDATA[events]]></category>
+		<category><![CDATA[Termine]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=999</guid>
+		<description><![CDATA[Termin: 20.04.2011 Ort: Leonardo Campus der Universität Münster (GoogleMaps) Einlass: ab 18:00 Uhr Abstract: Beschreibung Teil I: Swing Basics: Grundlagen der GUI-Programmierung mit Swing. Das Ziel im ersten Teil ist es einen Überblick über die grundlegenden Themen der GUI-Programmierung mit Swing zu geben. Dabei werden folgende Themen angesprochen: Historie, Standard-Komponenten, EDT, Layout Manager, Event Listener, Actions, SwingWorker und Usability. [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/swing-workshop-179/' rel='bookmark' title='Permanent Link: Swing WorkShop'>Swing WorkShop</a></li>
+<li><a href='http://www.jug-muenster.de/swing-event-departure-board-518/' rel='bookmark' title='Permanent Link: Swing event departure board'>Swing event departure board</a></li>
+<li><a href='http://www.jug-muenster.de/swing-nixieclock-321/' rel='bookmark' title='Permanent Link: Swing NixieClock'>Swing NixieClock</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p><strong><a href="http://www.jug-muenster.de/wp-content/uploads/2011/04/Daniel_Gerrit1.jpg" rel="lightbox[999]"><img class="alignright size-full wp-image-1004" title="Daniel_Gerrit" src="http://www.jug-muenster.de/wp-content/uploads/2011/04/Daniel_Gerrit1.jpg" alt="" width="264" height="185" /></a>Termin:</strong> 20.04.2011</p>
+<p><strong>Ort:</strong> Leonardo Campus der Universität Münster (<a href="http://goo.gl/maps/9lkx">GoogleMaps</a>)</p>
+<p><strong>Einlass:</strong> ab 18:00 Uhr</p>
+<p><strong>Abstract: </strong>Beschreibung Teil I:<br />
+Swing Basics: Grundlagen der GUI-Programmierung mit Swing. Das Ziel im ersten Teil ist es einen Überblick über die grundlegenden Themen der GUI-Programmierung mit Swing zu geben. Dabei werden folgende Themen angesprochen: Historie, Standard-Komponenten, EDT, Layout Manager, Event Listener, Actions, SwingWorker und Usability.</p>
+<p><strong>Dozent: </strong>Daniel Hiller ist 38 Jahre alt, entwickelt in Java seit 1996 und ist Senior-Java-Entwickler bei der dbap GmbH in Münster. Schwerpunkte seiner Tätigkeit sind Qualitätssicherung und R&amp;D.</p>
+<p><strong>Abstract:</strong> Beschreibung Teil II:<br />
+Das Ziel des zweiten Teils ist es eine Kurzeinführung über das Erstellen eigener Komponenten zu geben. Es kommt gelegentlich vor, daß man eine Komponente benötigt, welche auf ein spezielles Problem zugeschnitten ist und somit selbst erstellt werden muß. Dabei gibt es das eine oder andere zu beachten, angesprochen werden sollen die Themen: MVC Pattern, JavaBeans, JComponent, PropertyChangeEvents, Scalability, etc.</p>
+<p><strong>Dozent:</strong> Gerrit Grunwald ist 41 Jahre alt und arbeitet als Teamleiter in der Softwareentwicklung der Raith GmbH in Dortmund. Schwerpunktmäßig beschäftigt er sich mit Java Desktop Technologien, HTML5 Canvas und ähnlichem.</p>
+<p><strong>Anmeldung:</strong> Damit wir ungefähr eine Vorstellung davon haben, mit wievielen Teilnehmern wir rechnen können, wäre es nett, wenn Ihr Euch bei <a href="http://www.xing.com/">Xing</a> an dem Event der JUG Münster anmeldet. Ihr findet den Event <a href="https://www.xing.com/events/swing-workshop-ii-752143">hier</a>.</p>
+<p>&nbsp;</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/swing-workshop-i-ii-999/";
+		var dzone_title = "Swing Workshop I + II";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/swing-workshop-179/' rel='bookmark' title='Permanent Link: Swing WorkShop'>Swing WorkShop</a></li>
+<li><a href='http://www.jug-muenster.de/swing-event-departure-board-518/' rel='bookmark' title='Permanent Link: Swing event departure board'>Swing event departure board</a></li>
+<li><a href='http://www.jug-muenster.de/swing-nixieclock-321/' rel='bookmark' title='Permanent Link: Swing NixieClock'>Swing NixieClock</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/swing-workshop-i-ii-999/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>JUG Münster Stammtisch: 6.4.</title>
+		<link>http://www.jug-muenster.de/jug-munster-stammtisch-6-4-987/</link>
+		<comments>http://www.jug-muenster.de/jug-munster-stammtisch-6-4-987/#comments</comments>
+		<pubDate>Tue, 29 Mar 2011 11:46:55 +0000</pubDate>
+		<dc:creator>k.jeschka</dc:creator>
+				<category><![CDATA[Termine]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=987</guid>
+		<description><![CDATA[Der nächste Java Stammtisch der Java Usergroup Münster findet am 6.4. im Cuba Nova ab 18:30 Uhr statt. Eingeladen sind (wie immer alle) an Java, Softwareentwicklung, HTML5, Android, Webentwicklung und Projektmanagement interessierten Personen. Für Teilnehmer am Java Stammtisch gibt es einen Sonderpreis für Weizen bzw. alkoholfreies Weizen! Das Cuba Nova befindet sich in der Achtermannstrasse [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/nachster-java-stammtisch-01072009-60/' rel='bookmark' title='Permanent Link: Nächster Java Stammtisch Münster: 01.07.2009'>Nächster Java Stammtisch Münster: 01.07.2009</a></li>
+<li><a href='http://www.jug-muenster.de/stammtisch-update-13/' rel='bookmark' title='Permanent Link: Stammtisch update'>Stammtisch update</a></li>
+<li><a href='http://www.jug-muenster.de/java-roundup-meeting-am-23-09-145/' rel='bookmark' title='Permanent Link: Java Roundup Meeting am 23.09.'>Java Roundup Meeting am 23.09.</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p>Der nächste Java Stammtisch der Java Usergroup Münster findet am 6.4. im Cuba Nova ab 18:30  Uhr  statt. Eingeladen sind (wie immer alle) an Java, Softwareentwicklung, HTML5, Android, Webentwicklung und Projektmanagement interessierten Personen.</p>
+<p><span id="more-987"></span>Für Teilnehmer am Java Stammtisch gibt es einen Sonderpreis für Weizen bzw. alkoholfreies Weizen!</p>
+<p>Das Cuba Nova befindet sich in der Achtermannstrasse in der Nähe vom Hauptbahnhof. (4 Minuten zu Fuß, wenn man langsam geht.)<br />
+Parkmöglichkeiten und Anfahrt zum JUG Münster Treff: Parkhaus Engelenschanze ist am nächsten gelegen. Ansonsten empfehlen wir die Anreise mit dem Rad oder öffentlichen Verkehrsmitteln &#8211; insbesondere für Weizen-Fans. (<a href="http://maps.google.de/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=cuba+nova+m%C3%BCnster&amp;sll=51.151786,10.415039&amp;sspn=17.844126,28.916016&amp;ie=UTF8&amp;ll=51.957893,7.633417&amp;spn=0.002136,0.00353&amp;z=18" target="_blank">Google Maps Link</a>)</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/jug-munster-stammtisch-6-4-987/";
+		var dzone_title = "JUG Münster Stammtisch: 6.4.";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/nachster-java-stammtisch-01072009-60/' rel='bookmark' title='Permanent Link: Nächster Java Stammtisch Münster: 01.07.2009'>Nächster Java Stammtisch Münster: 01.07.2009</a></li>
+<li><a href='http://www.jug-muenster.de/stammtisch-update-13/' rel='bookmark' title='Permanent Link: Stammtisch update'>Stammtisch update</a></li>
+<li><a href='http://www.jug-muenster.de/java-roundup-meeting-am-23-09-145/' rel='bookmark' title='Permanent Link: Java Roundup Meeting am 23.09.'>Java Roundup Meeting am 23.09.</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/jug-munster-stammtisch-6-4-987/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Vortrag: &#8220;Scala Live&#8221;</title>
+		<link>http://www.jug-muenster.de/vortrag-scala-live-959/</link>
+		<comments>http://www.jug-muenster.de/vortrag-scala-live-959/#comments</comments>
+		<pubDate>Thu, 03 Mar 2011 13:20:53 +0000</pubDate>
+		<dc:creator>Gerrit</dc:creator>
+				<category><![CDATA[Allgemein]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=959</guid>
+		<description><![CDATA[Termin: 23.03.2011 Ort: Leo 18, Leonardo Campus der Universität Münster (GoogleMaps) Einlass: ab 18:00 Uhr Abstract: Scala Live. Sie sprechen noch nicht Scala? Dann zeigen wir Ihnen in diesem Vortrag, warum Scala gute Chancen hat, bald auf einer Augenhöhe mit Java zu stehen. Anhand weniger Folien und viel Live Coding demonstrieren wir, wie Sie mit [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/' rel='bookmark' title='Permanent Link: Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011'>Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p><strong>Termin:</strong> 23.03.2011</p>
+<p><strong>Ort:</strong> Leo 18, Leonardo Campus der Universität Münster (<a href="http://goo.gl/maps/9lkx">GoogleMaps</a>)</p>
+<p><strong>Einlass:</strong> ab 18:00 Uhr</p>
+<p><strong>Abstract:</strong> Scala Live. Sie sprechen noch nicht Scala? Dann zeigen wir Ihnen in diesem Vortrag, warum Scala gute Chancen hat, bald auf einer Augenhöhe mit Java zu stehen. Anhand weniger Folien und viel Live Coding demonstrieren wir, wie Sie mit Scala die Lines of Code signifikant reduzieren, wirklich ausdrucksstarken und damit gut verständlichen Code schreiben und neue Möglichkeiten wie z.B. Closures einsetzen können.</p>
+<p><strong>Dozent:</strong><a href="http://www.jug-muenster.de/wp-content/uploads/2011/02/RomanRoelofsen.jpg" rel="lightbox[959]"><img class="alignright size-full wp-image-960" title="RomanRoelofsen" src="http://www.jug-muenster.de/wp-content/uploads/2011/02/RomanRoelofsen.jpg" alt="Roman Roelofsen" width="146" height="198" /></a> Roman Roelofsen beschäftigt sich seit vielen Jahren mit der funktionalen Programmierung und deren Vorzügen für die alltägliche Softwareentwicklung. Roman ist als Technology Evangelist und Berater tätig, wobei die Schwerpunkte auf der serverseitigen Programmierung mit Scala und Java EE, der funktionalen und komponentenorientierten Softwareentwicklung und der Beratung zum Einsatz aktueller Technologien liegen. Seine jahrelange Expetise in diesen Feldern gibt er in Open Source-Projekten, Fachartikeln und Konferenzenbeiträgen wider.</p>
+<p><strong>Anmeldung:</strong> Damit wir ungefähr eine Vorstellung davon haben, mit wievielen Teilnehmern wir rechnen können, wäre es nett, wenn Ihr Euch bei <a href="http://www.xing.com">Xing</a> an dem Event der JUG Münster anmeldet. Ihr findet den Event <a href="https://www.xing.com/events/einfuhrung-scala-709763">hier</a>.</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/vortrag-scala-live-959/";
+		var dzone_title = "Vortrag: &#8220;Scala Live&#8221;";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/' rel='bookmark' title='Permanent Link: Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011'>Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/vortrag-scala-live-959/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Nächster JUG Münster Stammtisch: 9.2.</title>
+		<link>http://www.jug-muenster.de/jug-munster-stammtisch-9-2-951/</link>
+		<comments>http://www.jug-muenster.de/jug-munster-stammtisch-9-2-951/#comments</comments>
+		<pubDate>Thu, 03 Feb 2011 10:02:18 +0000</pubDate>
+		<dc:creator>Thomas</dc:creator>
+				<category><![CDATA[Termine]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=951</guid>
+		<description><![CDATA[Der nächste Java Stammtisch der Java Usergroup Münster findet am 9.2. im Cuba Nova ab 18:30  Uhr  statt. Eingeladen sind (wie immer alle) an Java, Softwareentwicklung, HTML5, Android, Webentwicklung und Projektmanagement interessierten Personen. Für Teilnehmer am Java Stammtisch gibt es einen Sonderpreis für Weizen bzw. alkoholfreies Weizen,  zudem gibt es auch Aktionsangbote bei Speisen. Das [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/nachster-java-stammtisch-01072009-60/' rel='bookmark' title='Permanent Link: Nächster Java Stammtisch Münster: 01.07.2009'>Nächster Java Stammtisch Münster: 01.07.2009</a></li>
+<li><a href='http://www.jug-muenster.de/nachster-stammtisch-am-mittwoch-06052009-15/' rel='bookmark' title='Permanent Link: Nächster Stammtisch am Mittwoch 06.05.2009'>Nächster Stammtisch am Mittwoch 06.05.2009</a></li>
+<li><a href='http://www.jug-muenster.de/nachster-java-stammtisch-84-1800-uhr-12/' rel='bookmark' title='Permanent Link: Nächster Java Stammtisch: 8.4. 18:00 Uhr'>Nächster Java Stammtisch: 8.4. 18:00 Uhr</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p>Der nächste Java Stammtisch der Java Usergroup Münster findet am 9.2.  im Cuba Nova ab 18:30  Uhr  statt.</p>
+<p>Eingeladen sind (wie immer alle) an  Java, Softwareentwicklung, HTML5, Android, Webentwicklung und  Projektmanagement interessierten Personen.</p>
+<p>Für Teilnehmer am Java Stammtisch gibt es einen Sonderpreis für  Weizen bzw. alkoholfreies Weizen,  zudem gibt es auch Aktionsangbote bei  Speisen.</p>
+<p>Das Cuba Nova befindet sich in der Achtermannstrasse in der Nähe vom Hauptbahnhof. (4 Minuten zu Fuß, wenn man langsam geht.)<br />
+Parkmöglichkeiten und Anfahrt zum JUG Münster Treff: Parkhaus  Engelenschanze ist am nächsten gelegen. Ansonsten empfehlen wir die  Anreise mit dem Rad oder öffentlichen Verkehrsmitteln &#8211; insbesondere für  Weizen-Fans.</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/jug-munster-stammtisch-9-2-951/";
+		var dzone_title = "Nächster JUG Münster Stammtisch: 9.2.";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/nachster-java-stammtisch-01072009-60/' rel='bookmark' title='Permanent Link: Nächster Java Stammtisch Münster: 01.07.2009'>Nächster Java Stammtisch Münster: 01.07.2009</a></li>
+<li><a href='http://www.jug-muenster.de/nachster-stammtisch-am-mittwoch-06052009-15/' rel='bookmark' title='Permanent Link: Nächster Stammtisch am Mittwoch 06.05.2009'>Nächster Stammtisch am Mittwoch 06.05.2009</a></li>
+<li><a href='http://www.jug-muenster.de/nachster-java-stammtisch-84-1800-uhr-12/' rel='bookmark' title='Permanent Link: Nächster Java Stammtisch: 8.4. 18:00 Uhr'>Nächster Java Stammtisch: 8.4. 18:00 Uhr</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/jug-munster-stammtisch-9-2-951/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Vortrag: &#8220;REST mit Java&#8221;</title>
+		<link>http://www.jug-muenster.de/vortrag-rest-mit-java-924/</link>
+		<comments>http://www.jug-muenster.de/vortrag-rest-mit-java-924/#comments</comments>
+		<pubDate>Fri, 21 Jan 2011 22:19:54 +0000</pubDate>
+		<dc:creator>Gerrit</dc:creator>
+				<category><![CDATA[events]]></category>
+		<category><![CDATA[Termine]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=924</guid>
+		<description><![CDATA[Termin: 23.02.2011 Ort: Leo 18, Leonardo Campus der Universität Münster (GoogleMaps) Einlass: ab 18:00 Uhr Abstract: Immer häufiger kommt für die Integration von Anwendungen und für öffentlich zugängliche APIs die Architektur des WWW, RESTful HTTP zum Einsatz. In diesem Vortrag werden die unterschiedlichen Möglichkeiten gegenübergestellt, die im Java-Umfeld für die Realisierung von RESTful-HTTP-Services zur Verfügung [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/vortrag-scala-live-959/' rel='bookmark' title='Permanent Link: Vortrag: &#8220;Scala Live&#8221;'>Vortrag: &#8220;Scala Live&#8221;</a></li>
+<li><a href='http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/' rel='bookmark' title='Permanent Link: Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011'>Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011</a></li>
+<li><a href='http://www.jug-muenster.de/modular-java-238/' rel='bookmark' title='Permanent Link: Modular Java (Buch)'>Modular Java (Buch)</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p><strong>Termin:</strong> 23.02.2011</p>
+<p><strong>Ort:</strong> Leo 18, Leonardo Campus der Universität Münster (<a href="http://goo.gl/maps/9lkx">GoogleMaps</a>)</p>
+<p><strong>Einlass:</strong> ab 18:00 Uhr</p>
+<p><strong>Abstract: </strong>Immer häufiger kommt für die Integration von Anwendungen und für öffentlich zugängliche APIs die Architektur des WWW, RESTful HTTP zum Einsatz. In diesem Vortrag werden die unterschiedlichen Möglichkeiten gegenübergestellt, die im Java-Umfeld für die Realisierung von RESTful-HTTP-Services zur Verfügung stehen (u. a. das Servlet-API, Restlet, JAX-RS und Spring MVC).</p>
+<p><strong>Dozent:</strong> <a href="http://www.jug-muenster.de/wp-content/uploads/2011/01/StefanTilkov.jpg" rel="lightbox[924]"><img class="alignright size-thumbnail wp-image-925" title="StefanTilkov" src="http://www.jug-muenster.de/wp-content/uploads/2011/01/StefanTilkov-150x150.jpg" alt="" width="150" height="150" /></a>Stefan Tilkov ist Geschäftsführer der innoQ Deutschland GmbH und beschäftigt sich seit Anfang der 90er Jahre mit Architekturen für starkverteilte, große Systeme und Anwendungslandschaften. Nach seinem Studium der Technischen Informatik als BA-Student der IBM arbeitete er zunächst als Softwareentwickler, Teilprojekt-, Gesamtprojekt- und schließlich Abteilungsleiter bei einem mittelständischen Softwarehaus, bevor ihn die Sehnsucht nach der Technik wieder erfasste und er sich als 1998 als freiberuflicher IT-Architekt selbstständig machte. 1999 gründete er zusammen mit Roman Roth die innoQ Deutschland GmbH. Seine technologischen Schwerpunkte haben sich im Laufe der Zeit von C/C++ und DCE, C++/CORBA, Java/CORBA über J2EE, MDA und Web Services hin zu SOA, REST und Ruby verschoben. Stefan Tilkov ist Autor zahlreicher Artikel und Kolumnen, ein aktiver Blogger und einer der SOA-Editoren der Online-Community InfoQ.</p>
+<p><strong>Anmeldung:</strong> Damit wir ungefähr eine Vorstellung davon haben, mit wievielen Teilnehmern wir rechnen können, wäre es nett, wenn Ihr Euch bei <a href="http://www.xing.com">Xing</a> an dem Event der JUG Münster anmeldet. Ihr findet den Event <a href="https://www.xing.com/events/rest-java-673990">hier</a>.</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/vortrag-rest-mit-java-924/";
+		var dzone_title = "Vortrag: &#8220;REST mit Java&#8221;";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/vortrag-scala-live-959/' rel='bookmark' title='Permanent Link: Vortrag: &#8220;Scala Live&#8221;'>Vortrag: &#8220;Scala Live&#8221;</a></li>
+<li><a href='http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/' rel='bookmark' title='Permanent Link: Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011'>Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011</a></li>
+<li><a href='http://www.jug-muenster.de/modular-java-238/' rel='bookmark' title='Permanent Link: Modular Java (Buch)'>Modular Java (Buch)</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/vortrag-rest-mit-java-924/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Java Testing best practice: Projekt Organisation</title>
+		<link>http://www.jug-muenster.de/java-testing-best-practice-projekt-organisation-941/</link>
+		<comments>http://www.jug-muenster.de/java-testing-best-practice-projekt-organisation-941/#comments</comments>
+		<pubDate>Fri, 21 Jan 2011 15:43:20 +0000</pubDate>
+		<dc:creator>Thomas</dc:creator>
+				<category><![CDATA[Contributed]]></category>
+		<category><![CDATA[eclipse]]></category>
+		<category><![CDATA[java]]></category>
+		<category><![CDATA[junit]]></category>
+		<category><![CDATA[maven]]></category>
+		<category><![CDATA[netbeans]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=941</guid>
+		<description><![CDATA[Im folgenden wird beschrieben, wie man sein Projekt so strukturieren kann, dass auf der einen Seite das Testen erleichtert wird, auf der anderen Seite die Tests vom produktiven Java Quellcode separiert werden. Das erleichtert zum Beispiel die Paketierung zur Auslieferung an Kunden, die lediglich den produktiven Quellcode erhalten sollen. Bei einigen Entwicklungsumgebungen, wie z.B. Netbeans, [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/swingdemo-projekt-175/' rel='bookmark' title='Permanent Link: SwingDemo Projekt'>SwingDemo Projekt</a></li>
+<li><a href='http://www.jug-muenster.de/java-for-mac-os-x-10-6-update-3-855/' rel='bookmark' title='Permanent Link: Java for Mac OS X 10.6 Update 3'>Java for Mac OS X 10.6 Update 3</a></li>
+<li><a href='http://www.jug-muenster.de/jpa-tutorial-jpa-einrichtung-829/' rel='bookmark' title='Permanent Link: JPA Tutorial: JPA Einrichtung'>JPA Tutorial: JPA Einrichtung</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p>Im folgenden wird beschrieben, wie man sein Projekt so strukturieren kann, dass auf der einen Seite das Testen erleichtert wird, auf der anderen Seite die Tests vom produktiven Java Quellcode separiert werden. Das erleichtert zum Beispiel die Paketierung zur Auslieferung an Kunden, die lediglich den produktiven Quellcode erhalten sollen.</p>
+<p>Bei einigen Entwicklungsumgebungen, wie z.B. Netbeans, ist bereits bei einem leeren Java Projekt eine Separierung von Test Quellcode und Java Quellcode vorgesehen: Es gibt einen Ordner für &#8220;Test Packages&#8221; und einen für &#8220;Source Packages&#8221;. Im Dateisystem werden diese auf die Ordner &#8220;src&#8221; und &#8220;test&#8221; entsprechend abgebildet. Bei der Tastenausführung werden aus beiden Verzeichnissen die Quellen übersetzt und die Ergebnisse zusammen geführt. Bei dem von Netbeans standardmäßig erstellten Buildfile kann man auch von der Kommandozeile mittels &#8220;ant test&#8221; die Tests ausführen, bei &#8220;ant jar&#8221; wird eine JAR Datei (im &#8220;dist&#8221; Verzeichnis) erstellt, die lediglich den produktiven Code enthält.<span id="more-941"></span><a href="http://www.jug-muenster.de/wp-content/uploads/2011/01/netbeans-struktur.png" rel="lightbox[941]"><img class="alignnone size-medium wp-image-942" title="netbeans-struktur" src="http://www.jug-muenster.de/wp-content/uploads/2011/01/netbeans-struktur-300x185.png" alt="" width="300" height="185" /></a></p>
+<p>Durch das ant Buildfile und die Projektstruktur ist damit ein Netbeans Projekt von Haus aus direkt für eine Continuos Integration Umgebung optimal vorbereitet.</p>
+<p>Eclipse ist noch nicht ganz soweit, jedoch sollte man seine Projektstruktur auch hier so aufbauen: Der Code ist klar getrennt, verwendet man eine parallele Paket Struktur, können auch Methoden die &#8220;protected&#8221; oder &#8220;default&#8221; Sichtbarkeit haben, einfach getestet werden. So vermeidet man zu grob geschnittene Tests (nur &#8220;public&#8221; Methoden testen) bzw. unnötige Erweiterung der Sichtbarkeit, in dem man Methoden &#8220;public&#8221; macht, nur um sie testen zu können.</p>
+<p>Das ganze ist sehr einfach: Startet man ein neues Projekt, so kann man bei der Einrichtung direkt ueber &#8220;create new source folder&#8221; neben &#8220;src&#8221; einen &#8220;test&#8221; Source-Folder anlegen.</p>
+<p><a href="http://www.jug-muenster.de/wp-content/uploads/2011/01/eclipse-test-source-folder.png" rel="lightbox[941]"><img class="alignnone size-medium wp-image-943" title="eclipse-test-source-folder" src="http://www.jug-muenster.de/wp-content/uploads/2011/01/eclipse-test-source-folder-217x300.png" alt="" width="217" height="300" /></a></p>
+<p>Eclipse fügt dann entsprechend alle übersetzten Class Dateien, in diesem Fall &#8220;Sample&#8221; aus den produktiven Sourcen und &#8220;SampleTest&#8221; aus den Test Quellen im &#8220;bin&#8221; Verzeichnis zusammen:</p>
+<p><a href="http://www.jug-muenster.de/wp-content/uploads/2011/01/kompilierte-klassen.png" rel="lightbox[941]"><img class="alignnone size-full wp-image-944" title="kompilierte-klassen" src="http://www.jug-muenster.de/wp-content/uploads/2011/01/kompilierte-klassen.png" alt="" width="289" height="165" /></a></p>
+<p>Bei Eclipse muss man sich noch selber um ein Build-System kümmern, wenn man von der IDE unabhängig bauen möchte &#8211; und das möchte man. Immer.</p>
+<p>Hier bietet sich z.B. &#8220;Maven&#8221; an, welches für einfache Projekte auch schnell einzurichten ist. Alternativ kann man auch ant oder das neue Gradle benutzen. Übrigens: Möchte man von Anfang an seine Projektstruktur bereits entlang der Maven Konventionen aufbauen, sollte man seine produktiven Sourcen unter &#8220;src/main/java&#8221; und seine Test Klassen unter &#8220;src/test/java&#8221; anlegen. Setzt man kein Maven ein, macht das keinen großen Unterschied, da die IDE-Ansicht sich nicht unterscheidet. Moechte man jedoch auf Maven später umstellen, spart man sich etwas Arbeit und hat sich bereits an die Konventionen gewöhnt.</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/java-testing-best-practice-projekt-organisation-941/";
+		var dzone_title = "Java Testing best practice: Projekt Organisation";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/swingdemo-projekt-175/' rel='bookmark' title='Permanent Link: SwingDemo Projekt'>SwingDemo Projekt</a></li>
+<li><a href='http://www.jug-muenster.de/java-for-mac-os-x-10-6-update-3-855/' rel='bookmark' title='Permanent Link: Java for Mac OS X 10.6 Update 3'>Java for Mac OS X 10.6 Update 3</a></li>
+<li><a href='http://www.jug-muenster.de/jpa-tutorial-jpa-einrichtung-829/' rel='bookmark' title='Permanent Link: JPA Tutorial: JPA Einrichtung'>JPA Tutorial: JPA Einrichtung</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/java-testing-best-practice-projekt-organisation-941/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Warum ich TDD liebe</title>
+		<link>http://www.jug-muenster.de/warum-ich-tdd-liebe-931/</link>
+		<comments>http://www.jug-muenster.de/warum-ich-tdd-liebe-931/#comments</comments>
+		<pubDate>Fri, 21 Jan 2011 10:15:45 +0000</pubDate>
+		<dc:creator>dhiller</dc:creator>
+				<category><![CDATA[Allgemein]]></category>
+		<category><![CDATA[agile]]></category>
+		<category><![CDATA[junit]]></category>
+		<category><![CDATA[tdd]]></category>
+		<category><![CDATA[test]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=931</guid>
+		<description><![CDATA[Ich liebe TDD. Nicht deswegen, weil es so ein toller Hype ist, oder weil mich die Theorie vollkommen überzeugt hat. Sondern deswegen, weil es mir schon oft den Hintern gerettet hat. Gestern Abend hatte sich herausgestellt, das ich es mal wieder versaut hatte. Das kommt nicht mehr so häufig vor, wie früher, aber es kommt [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/fehler-unter-mac-os-x-10-6-beim-verwenden-des-system-lookandfeel-867/' rel='bookmark' title='Permanent Link: Fehler unter Mac OS X 10.6 beim Verwenden des System LookAndFeel'>Fehler unter Mac OS X 10.6 beim Verwenden des System LookAndFeel</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p>Ich liebe TDD. Nicht deswegen, weil es so ein toller Hype ist, oder weil mich die Theorie vollkommen überzeugt hat. Sondern deswegen, weil es mir schon oft den Hintern gerettet hat.</p>
+<p>Gestern Abend hatte sich herausgestellt, das ich es mal wieder versaut hatte. Das kommt nicht mehr so häufig vor, wie früher, aber es kommt immer noch vor. Nicht, dass man mir deswegen einen Vorwurf gemacht hätte. Wir sind alle Menschen, und Menschen machen nun mal auch Fehler.</p>
+<p><span id="more-931"></span></p>
+<p>Das eigentliche Problem war, das ich die Änderung des Verhaltens nicht in allen betroffenen Problemfällen getestet hatte. Aber ich fange einfach mal anders an:</p>
+<p>Es war Donnerstag spätnachmittags. Nachdem ich Erfolg bei der Implementierung der Erweiterung gemeldet hatte, war die neue Version auf dem Testssystem installiert worden. Nun kam es beim Testen zu Laufzeitfehlern, unter Anderem zu meinem Lieblingsfehler, der NullPointerException. (Thomas, Du erinnerst Dich?)</p>
+<p>Mir fiel auf, dass ich einen Fall, der im Betrieb sehr häufig vorkommen würde, einfach vergessen hatte, zu testen. Genauer hatte ich keine Tests für die entsprechenden Konstellationen geschrieben, und deshalb waren die Probleme nicht aufgefallen. Ich hatte mich in der Sicherheit der Tests (insgesamt allein ca. 140 Integrationstests) gewogen und fiel aufgrund der Fehlermeldung aus allen Wolken.</p>
+<p>Nun war es bereits Donnerstag spätnachmittags, kurz vor Feierabend, und das Feature sollte am Freitag demonstriert werden. Die ersten Perlen des Angstschweißes bildeten sich auf meiner Stirn. Natürlich nicht wirklich, dazu neige ich nicht, aber ich merkte, das ich ein ernsthaftes Problem hatte.</p>
+<p>Nun tat ich, was zunächst jeder tut, ich bekam Panik, und versuchte, auf Biegen und Brechen das Verhalten zu ändern. Aber immerhin hatte ich vorher noch etwas sehr Vernünftiges getan, wie sich später herausstellen sollte: Ich hatte Testfälle erstellt, die das bestehende Problem belegten.</p>
+<p>Das genaue Problem war ein Fehler in einem Datencontainer, der, um die Daten später schneller wiederfinden zu können, auf dem Datentyp Short als Schlüssel basierte. Durch die Erweiterung konnte aber nicht mehr Short als Schlüssel benutzt werden, sondern es musste String-basiert sein.</p>
+<p>Wie man sich vorstellen kann, ist das Ändern eines öffentlichen Interfaces, das diverse Zugriffsmethoden per Schlüssel besitzt, keine leichte Aufgabe, da ja auch andere Klassen als Client diese Klasse benutzen und es beim Durchführen der nötigen Änderungen dadurch zu diversen Compile-Fehlern kommt.</p>
+<p>Wie gesagt, tat ich, was ich früher in solchen Fällen getan hatte. Aufgrund meiner aufkommenden Panik versuchte ich, mit dem brutalen Ansatz „Suchen-Ersetzen“ dem Problem der Interface-Änderung beizukommen, was sich natürlich aufgrund des Maßstabs der Änderungen als unmöglich herausstellte.</p>
+<p>Nach zwei erfolglosen Versuchen und circa eineinhalb Stunden unnütz investierter Zeit gab ich kurz auf. Der Vorteil, wenn es spät ist, ist: man ist allein im Büro und kann in Ruhe nachdenken. Das tat ich, und beschloss einen neuen Schlachtplan:</p>
+<ul>
+<li>Compile-Fehler 	außerhalb der zu ändernden Klasse und der Testklasse ignorieren</li>
+<li>Nur kleine 	Iterationen</li>
+<li>Sobald die 	Klasse und die Testklasse selbst wieder kompilierbar sind, sofort 	alle diese Tests ausführen, mit anderen Worten : Red – Green – Refactor</li>
+</ul>
+<p>Nach einer halben Stunde hatte ich die Änderungen an dieser einen Klasse und ihrer Testklasse durchgeführt. Danach machte ich mich daran, zunächst die Compile-Fehler in den benutzenden Klassen zu beheben, und als alles wieder kompilierbar war, checkte ich ein.</p>
+<p>Dann führte ich die Integrationstests aus und stellte erfreulicherweise fest, dass „nur“ circa 20 Test fehlschlugen.</p>
+<p>Als ich dann letztendlich alle Fehler behoben hatte, und alle Tests wieder grün waren, waren insgesamt vier Stunden vergangen. Wobei ich zugeben muss, dass ungefähr die Hälfte der Zeit unnötig war, wenn ich Ruhe bewahrt hätte und wie immer vorgegangen wäre.</p>
+<p>Nachdem ich eine Nacht über den Vorfall geschlafen habe, kann ich drei Schlüsse ziehen:</p>
+<ol>
+<li>Wenn man 	unter Stress gerät, neigt man dazu, in ursprüngliche (und in 	diesem Fall schlechte) Vorgehensweisen zurückzukehren.</li>
+<li>Ohne die 	vorhandenen Tests wäre ich nicht in der Lage gewesen, so 	vorzugehen, wie es letztendlich nötig war, um zum Erfolg zu 	gelangen.</li>
+<li>Den Vorteil von TDD sieht man erst wirklich ein, wenn man während der Entwicklung in ernsthafte Probleme gerät.</li>
+</ol>
+<p>Übrigens: Wäre dies zwei Tage eher passiert, hätte ich eine hervorragende Geschichte für den Vortrag vom 19.01. gehabt, aber dies ist halt keine konstruierte Geschichte, sondern wirklich passiert. Dann hätte ich aber wahrscheinlich auch den Vortrag nicht gehalten.</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/warum-ich-tdd-liebe-931/";
+		var dzone_title = "Warum ich TDD liebe";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/fehler-unter-mac-os-x-10-6-beim-verwenden-des-system-lookandfeel-867/' rel='bookmark' title='Permanent Link: Fehler unter Mac OS X 10.6 beim Verwenden des System LookAndFeel'>Fehler unter Mac OS X 10.6 beim Verwenden des System LookAndFeel</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/warum-ich-tdd-liebe-931/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011</title>
+		<link>http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/</link>
+		<comments>http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/#comments</comments>
+		<pubDate>Thu, 20 Jan 2011 07:50:33 +0000</pubDate>
+		<dc:creator>dhiller</dc:creator>
+				<category><![CDATA[Allgemein]]></category>
+		<category><![CDATA[events]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=914</guid>
+		<description><![CDATA[Nochmals vielen Dank an alle, die den Vortrag besucht haben, und trotz der anfänglichen technischen Probleme nicht das Weite gesucht haben. Die Slides zum Vortrag findet ihr hier. Dort ist im Weiteren sowohl das Repository des Quellcodes aus dem Vortrag als auch eine Lösung der Kata im Mercurial-Format zum Download bereit gestellt. Eine Übersicht über alle [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/vortrag-scala-live-959/' rel='bookmark' title='Permanent Link: Vortrag: &#8220;Scala Live&#8221;'>Vortrag: &#8220;Scala Live&#8221;</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p>Nochmals vielen Dank an alle, die den Vortrag besucht haben, und trotz der anfänglichen technischen Probleme nicht das Weite gesucht haben.</p>
+<p>Die Slides zum Vortrag findet ihr <a href="http://wiki.jug-muenster.de/display/pub/TDD+By+Example+-+2010-01-19">hier</a>. Dort ist im Weiteren sowohl das Repository des Quellcodes aus dem Vortrag als auch eine Lösung der Kata im Mercurial-Format zum Download bereit gestellt.</p>
+<p>Eine Übersicht über alle Veranstaltungen der JUG Münster in 2011 findet ihr <a href="http://www.jug-muenster.de/veranstaltungen-2011-891/">hier</a>.</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/";
+		var dzone_title = "Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/vortrag-scala-live-959/' rel='bookmark' title='Permanent Link: Vortrag: &#8220;Scala Live&#8221;'>Vortrag: &#8220;Scala Live&#8221;</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Stammtisch: 12.01. im CubaNova</title>
+		<link>http://www.jug-muenster.de/stammtisch-12-01-im-cubanova-908/</link>
+		<comments>http://www.jug-muenster.de/stammtisch-12-01-im-cubanova-908/#comments</comments>
+		<pubDate>Mon, 10 Jan 2011 09:54:04 +0000</pubDate>
+		<dc:creator>Thomas</dc:creator>
+				<category><![CDATA[Termine]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=908</guid>
+		<description><![CDATA[Der nächste Java Stammtisch findet am 12.01. im Cuba Nova in Münster ab 18:30 Uhr statt. Eingeladen sind (wie immer alle) an Java, Softwareentwicklung, HTML5, Android, Webentwicklung und Projektmanagement interessierten Personen. Für Teilnehmer am Java Stammtisch gibt es einen Sonderpreis für Weizen bzw. alkoholfreies Weizen, zudem gibt es auch Aktionsangbote bei Speisen. Das Cuba Nova [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/nachster-java-stammtisch-01072009-60/' rel='bookmark' title='Permanent Link: Nächster Java Stammtisch Münster: 01.07.2009'>Nächster Java Stammtisch Münster: 01.07.2009</a></li>
+<li><a href='http://www.jug-muenster.de/java-roundup-meeting-am-23-09-145/' rel='bookmark' title='Permanent Link: Java Roundup Meeting am 23.09.'>Java Roundup Meeting am 23.09.</a></li>
+<li><a href='http://www.jug-muenster.de/nachster-stammtisch-am-mittwoch-06052009-15/' rel='bookmark' title='Permanent Link: Nächster Stammtisch am Mittwoch 06.05.2009'>Nächster Stammtisch am Mittwoch 06.05.2009</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p>Der nächste Java Stammtisch findet am 12.01. im Cuba Nova in Münster ab 18:30  Uhr  statt. Eingeladen sind (wie immer alle) an Java, Softwareentwicklung, HTML5, Android, Webentwicklung und Projektmanagement interessierten Personen.<span id="more-908"></span></p>
+<p>Für Teilnehmer am Java Stammtisch gibt es einen Sonderpreis für Weizen bzw. alkoholfreies Weizen,  zudem gibt es auch Aktionsangbote bei Speisen.</p>
+<p>Das Cuba Nova befindet sich in der Achtermannstrasse in der Nähe vom Hauptbahnhof. (4 Minuten zu Fuß, wenn man langsam geht.)<br />
+Parkmöglichkeiten und Anfahrt zum Java Usergroup Münster Treff: Parkhaus Engelenschanze ist am nächsten gelegen. Ansonsten empfehlen wir die Anreise mit dem Rad oder öffentlichen Verkehrsmitteln &#8211; insbesondere für Weizen-Fans. (<a href="http://maps.google.de/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=cuba+nova+m%C3%BCnster&amp;sll=51.151786,10.415039&amp;sspn=17.844126,28.916016&amp;ie=UTF8&amp;ll=51.957893,7.633417&amp;spn=0.002136,0.00353&amp;z=18" target="_blank">Google Maps Link</a>)</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/stammtisch-12-01-im-cubanova-908/";
+		var dzone_title = "Stammtisch: 12.01. im CubaNova";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/nachster-java-stammtisch-01072009-60/' rel='bookmark' title='Permanent Link: Nächster Java Stammtisch Münster: 01.07.2009'>Nächster Java Stammtisch Münster: 01.07.2009</a></li>
+<li><a href='http://www.jug-muenster.de/java-roundup-meeting-am-23-09-145/' rel='bookmark' title='Permanent Link: Java Roundup Meeting am 23.09.'>Java Roundup Meeting am 23.09.</a></li>
+<li><a href='http://www.jug-muenster.de/nachster-stammtisch-am-mittwoch-06052009-15/' rel='bookmark' title='Permanent Link: Nächster Stammtisch am Mittwoch 06.05.2009'>Nächster Stammtisch am Mittwoch 06.05.2009</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/stammtisch-12-01-im-cubanova-908/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Vortrag: &#8220;Testdriven development by example&#8221;</title>
+		<link>http://www.jug-muenster.de/vortrag-testdriven-development-by-example-900/</link>
+		<comments>http://www.jug-muenster.de/vortrag-testdriven-development-by-example-900/#comments</comments>
+		<pubDate>Fri, 07 Jan 2011 05:09:56 +0000</pubDate>
+		<dc:creator>Gerrit</dc:creator>
+				<category><![CDATA[Allgemein]]></category>
+		<category><![CDATA[events]]></category>
+		<category><![CDATA[Termine]]></category>
+
+		<guid isPermaLink="false">http://www.jug-muenster.de/?p=900</guid>
+		<description><![CDATA[Termin: 19.01.2011 Ort: Leonardo Campus der Universität Münster (GoogleMaps) Einlass: ab 18:00 Uhr Abstract: Die Zuhörer sollen eine Einführung in Test Driven Development (TDD) anhand eines Live-Coding-Examples durch simuliertes Pair-Programming ( Keyboard: Speaker, Observer: Audience ) erhalten. Dabei werden verschiedene andere Themen touchiert, die nur als Referenz genannt werden. Zunächst werden die Motivation und die [...]
+
+
+Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/' rel='bookmark' title='Permanent Link: Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011'>Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011</a></li>
+</ol>]]></description>
+			<content:encoded><![CDATA[<!--S-ButtonZ 1.1.5 Start--><!--S-ButtonZ 1.1.5 End--><p><strong>Termin:</strong> 19.01.2011</p>
+<p><strong>Ort:</strong> Leonardo Campus der Universität Münster (<a href="http://goo.gl/maps/9lkx">GoogleMaps</a>)</p>
+<p><strong>Einlass:</strong> ab 18:00 Uhr</p>
+<p><strong>Abstract: </strong>Die Zuhörer sollen eine Einführung in Test Driven Development (TDD) anhand eines Live-Coding-Examples durch simuliertes Pair-Programming ( Keyboard: Speaker, Observer: Audience ) erhalten. Dabei werden verschiedene andere Themen touchiert, die nur als Referenz genannt werden. Zunächst werden die Motivation und die Prinzipien von &#8220;Test Driven Development&#8221; und im Zusammenhang stehenden Vorgehensweisen erklärt. Es folgt eine Demonstration von praktischem TDD anhand des Lösens einer Code Kata. Abschließend werden Vor- und Nachteile diskutiert und Fragen des Auditoriums beantwortet.</p>
+<p><strong>Dozent:</strong> <a href="http://www.jug-muenster.de/wp-content/uploads/2011/01/Daniel_Hiller.jpg" rel="lightbox[900]"><img class="size-full wp-image-904 alignright" title="Daniel_Hiller" src="http://www.jug-muenster.de/wp-content/uploads/2011/01/Daniel_Hiller.jpg" alt="" width="140" height="185" /></a>Daniel Hiller ist 38 Jahre alt, entwickelt in Java seit 1996 und ist Senior-Java-Entwickler bei der dbap GmbH in Münster. Schwerpunkte seiner Tätigkeit sind Qualitätssicherung und R&amp;D.</p>
+<p><strong>Anmeldung:</strong> Damit wir ungefähr eine Vorstellung davon haben, mit wievielen Teilnehmern wir rechnen können, wäre es nett, wenn Ihr Euch bei <a href="http://www.xing.com">Xing</a> an dem Event der JUG Münster anmeldet. Ihr findet den Event <a href="https://www.xing.com/events/test-driven-development-by-example-653287">hier</a>.</p>
+<div style="float: left; width: 42px; padding-right: 10px; margin: 0 10px 0 0;">
+		<script type="text/javascript">
+		<!--
+		var dzone_url = "http://www.jug-muenster.de/vortrag-testdriven-development-by-example-900/";
+		var dzone_title = "Vortrag: &#8220;Testdriven development by example&#8221;";
+		var dzone_style = "1";
+		var dzone_blurb = "";
+		//-->
+		</script>
+		<script language="javascript" src="http://widgets.dzone.com/widgets/zoneit.js"></script></div><div style="clear:both;">&nbsp;</div>
+
+<p>Weitere Artikel:<ol><li><a href='http://www.jug-muenster.de/vortrag-tdd-by-example-vom-19-01-2011-914/' rel='bookmark' title='Permanent Link: Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011'>Vortrag &#8220;TDD By Example&#8221; vom 19.01.2011</a></li>
+</ol></p>]]></content:encoded>
+			<wfw:commentRss>http://www.jug-muenster.de/vortrag-testdriven-development-by-example-900/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Dynamic page generated in 0.350 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2011-04-12 05:52:08 -->
