@@ -1,0 +1,7 @@
+
+syntax: regexp
+^bin/classes\.dex$
+syntax: regexp
+^bin$
+syntax: regexp
+^bin$
