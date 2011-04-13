@@ -28,7 +28,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates;
+package de.jugmuenster.android.updates.rss;
 
 import java.io.InputStream;
 

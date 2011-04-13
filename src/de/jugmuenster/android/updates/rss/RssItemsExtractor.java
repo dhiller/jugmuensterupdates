@@ -43,38 +43,41 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public final class RssItemsExtractor extends DefaultHandler {
-    public final List<RssItem> items = new ArrayList<RssItem>();
-    RssItem current;
-    StringBuilder builder;
+public final class RssItemsExtractor {
 
-    @Override
-    public void startElement(String uri, String localName, String qName,
-	    org.xml.sax.Attributes attributes) throws SAXException {
-	if (localName.equals("item")) {
-	    current = new RssItem();
-	}
-	builder = new StringBuilder();
-    }
+    private static final class Handler extends DefaultHandler {
+	final List<RssItem> items = new ArrayList<RssItem>();
+	RssItem current;
+	StringBuilder builder;
 
-    @Override
-    public void characters(char[] ch, int start, int length)
-	    throws SAXException {
-	builder.append(ch, start, length);
-    }
+	@Override
+	public void startElement(String uri, String localName, String qName,
+		org.xml.sax.Attributes attributes) throws SAXException {
+	    if (localName.equals("item")) {
+		current = new RssItem();
+	    }
+	    builder = new StringBuilder();
+	}
 
-    @Override
-    public void endElement(String uri, String localName, String qName)
-	    throws SAXException {
-	if (current != null && localName.equals("title")) {
-	    current.title = builder.toString();
+	@Override
+	public void characters(char[] ch, int start, int length)
+		throws SAXException {
+	    builder.append(ch, start, length);
 	}
-	if (current != null && localName.equals("link")) {
-	    current.link = builder.toString();
-	}
-	if (localName.equals("item")) {
-	    items.add(current);
-	    current = null;
+
+	@Override
+	public void endElement(String uri, String localName, String qName)
+		throws SAXException {
+	    if (current != null && localName.equals("title")) {
+		current.title = builder.toString();
+	    }
+	    if (current != null && localName.equals("link")) {
+		current.link = builder.toString();
+	    }
+	    if (localName.equals("item")) {
+		items.add(current);
+		current = null;
+	    }
 	}
     }
 
@@ -83,10 +86,8 @@ public final class RssItemsExtractor extends DefaultHandler {
 	    SAXException, IOException {
 	SAXParserFactory factory = SAXParserFactory.newInstance();
 	SAXParser saxParser = factory.newSAXParser();
-	this.items.clear();
-	saxParser.parse(content, this);
-	final List<RssItem> items = new ArrayList<RssItem>();
-	items.addAll(this.items);
-	return items;
+	final Handler handler = new Handler();
+	saxParser.parse(content, handler);
+	return handler.items;
     }
 }

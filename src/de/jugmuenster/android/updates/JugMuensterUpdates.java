@@ -17,6 +17,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.xml.sax.SAXException;
 
+import de.jugmuenster.android.updates.rss.RssContentProvider;
 import de.jugmuenster.android.updates.rss.RssItem;
 import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
