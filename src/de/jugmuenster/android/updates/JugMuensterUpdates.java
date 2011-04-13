@@ -29,26 +29,9 @@
  */
 package de.jugmuenster.android.updates;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.xml.sax.SAXException;
-
-import de.jugmuenster.android.updates.rss.RssContentProvider;
-import de.jugmuenster.android.updates.rss.RssItem;
-import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -58,10 +41,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import de.jugmuenster.android.updates.rss.DefaultRssContentProvider;
+import de.jugmuenster.android.updates.rss.RssContentProvider;
+import de.jugmuenster.android.updates.rss.RssItem;
+import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 public class JugMuensterUpdates extends ListActivity {
 
     final List<RssItem> items = new ArrayList<RssItem>();
+    private RssContentProvider rssContentProvider = new DefaultRssContentProvider();
+
+    public RssContentProvider getRssContentProvider() {
+	return rssContentProvider;
+    }
+
+    public void setRssContentProvider(RssContentProvider rssContentProvider) {
+	this.rssContentProvider = rssContentProvider;
+    }
 
     enum CurrentElement {
 	TITLE, LINK, DESCRIPTION;
@@ -75,7 +71,7 @@ public class JugMuensterUpdates extends ListActivity {
 	final List<String> strings = new ArrayList<String>();
 
 	try {
-	    InputStream content = provideContent();
+	    InputStream content = rssContentProvider.provideContent();
 	    try {
 
 		items.clear();
@@ -107,23 +103,5 @@ public class JugMuensterUpdates extends ListActivity {
 	    }
 	});
 
-    }
-
-    private InputStream provideContent() throws Exception {
-	class DefaultRssContentProvider implements RssContentProvider {
-
-	    @Override
-	    public InputStream provideContent() throws Exception {
-		URI uri = new URI("http://www.jug-muenster.de/feed/");
-		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet();
-		request.setURI(uri);
-		HttpResponse response = client.execute(request);
-		InputStream content = response.getEntity().getContent();
-		return content;
-	    }
-
-	}
-	return new DefaultRssContentProvider().provideContent();
     }
 }
