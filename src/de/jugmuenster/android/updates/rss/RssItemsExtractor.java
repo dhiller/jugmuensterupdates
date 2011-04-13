@@ -30,8 +30,15 @@
 
 package de.jugmuenster.android.updates.rss;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -69,5 +76,17 @@ public final class RssItemsExtractor extends DefaultHandler {
 	    items.add(current);
 	    current = null;
 	}
+    }
+
+    public List<RssItem> extract(InputStream content)
+	    throws FactoryConfigurationError, ParserConfigurationException,
+	    SAXException, IOException {
+	SAXParserFactory factory = SAXParserFactory.newInstance();
+	SAXParser saxParser = factory.newSAXParser();
+	this.items.clear();
+	saxParser.parse(content, this);
+	final List<RssItem> items = new ArrayList<RssItem>();
+	items.addAll(this.items);
+	return items;
     }
 }

@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -46,38 +45,17 @@ public class JugMuensterUpdates extends ListActivity {
 	final List<String> strings = new ArrayList<String>();
 
 	try {
-	    URI uri = new URI("http://www.jug-muenster.de/feed/");
-
-	    HttpClient client = new DefaultHttpClient();
-	    HttpGet request = new HttpGet();
-	    request.setURI(uri);
-	    HttpResponse response = client.execute(request);
-	    InputStream content = response.getEntity().getContent();
+	    InputStream content = provideContent();
 	    try {
 
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		SAXParser saxParser = factory.newSAXParser();
-
-		final RssItemsExtractor handler = new RssItemsExtractor();
-
-		saxParser.parse(content, handler);
-
 		items.clear();
-		items.addAll(handler.items);
+		items.addAll(new RssItemsExtractor().extract(content));
 
 	    } finally {
 		content.close();
 	    }
 
-	} catch (ParserConfigurationException e) {
-	    strings.add(e.toString());
-	} catch (SAXException e) {
-	    strings.add(e.toString());
-	} catch (MalformedURLException e) {
-	    strings.add(e.toString());
-	} catch (IOException e) {
-	    strings.add(e.toString());
-	} catch (URISyntaxException e) {
+	} catch (Exception e) {
 	    strings.add(e.toString());
 	}
 
@@ -99,5 +77,23 @@ public class JugMuensterUpdates extends ListActivity {
 	    }
 	});
 
+    }
+
+    private InputStream provideContent() throws Exception {
+	class DefaultRssContentProvider implements RssContentProvider {
+
+	    @Override
+	    public InputStream provideContent() throws Exception {
+		URI uri = new URI("http://www.jug-muenster.de/feed/");
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet();
+		request.setURI(uri);
+		HttpResponse response = client.execute(request);
+		InputStream content = response.getEntity().getContent();
+		return content;
+	    }
+
+	}
+	return new DefaultRssContentProvider().provideContent();
     }
 }
