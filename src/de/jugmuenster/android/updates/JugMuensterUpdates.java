@@ -48,7 +48,6 @@ import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 public class JugMuensterUpdates extends ListActivity {
 
-    final List<RssItem> items = new ArrayList<RssItem>();
     private RssContentProvider rssContentProvider = new DefaultRssContentProvider();
 
     public RssContentProvider getRssContentProvider() {
@@ -68,7 +67,7 @@ public class JugMuensterUpdates extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 
-	final List<String> strings = new ArrayList<String>();
+	final List<RssItem> items = new ArrayList<RssItem>();
 
 	try {
 	    InputStream content = rssContentProvider.provideContent();
@@ -82,7 +81,7 @@ public class JugMuensterUpdates extends ListActivity {
 	    }
 
 	} catch (Exception e) {
-	    strings.add(e.toString());
+	    throw new RuntimeException(e);
 	}
 
 	ArrayAdapter<RssItem> arrayAdapter = new ArrayAdapter<RssItem>(this,
