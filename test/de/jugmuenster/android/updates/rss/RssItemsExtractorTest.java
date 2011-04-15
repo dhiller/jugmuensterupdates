@@ -32,9 +32,13 @@ package de.jugmuenster.android.updates.rss;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.xml.parsers.FactoryConfigurationError;
@@ -49,17 +53,20 @@ import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 public class RssItemsExtractorTest {
 
-    private InputStream openStream;
-
-    @Before
-    public void setUpRssTestStream() {
-	openStream = RssItemsExtractorTest.class
-		.getResourceAsStream("jug-muenster-feed-2011-04-12.xml");
+    @Test
+    public void streamHasItems() throws IOException {
+	final String rss = getFullRss();
+	System.out.println(rss); //$NON-NLS-1$ // TODO: Remove
     }
 
-    @After
-    public void closeTestStream() throws IOException {
-	openStream.close();
+    @Test
+    public void itemsFromStringNotNull() throws Exception {
+	assertNotNull(new RssItemsExtractor().extract(getFullRss()));
+    }
+
+    @Test
+    public void itemsFromStringNotEmpty() throws Exception {
+	assertFalse(new RssItemsExtractor().extract(getFullRss()).isEmpty());
     }
 
     @Test
@@ -74,7 +81,31 @@ public class RssItemsExtractorTest {
 
     private List<RssItem> extractTestItems() throws FactoryConfigurationError,
 	    ParserConfigurationException, SAXException, IOException {
-	return new RssItemsExtractor().extract(openStream);
+	final InputStream openStream = getTestStream();
+	try {
+	    return new RssItemsExtractor().extract(openStream);
+	} finally {
+	    openStream.close();
+	}
+    }
+
+    private InputStream getTestStream() {
+	final InputStream resourceAsStream = RssItemsExtractorTest.class
+		.getResourceAsStream("jug-muenster-feed-2011-04-12.xml");
+	return resourceAsStream;
+    }
+
+    private String getFullRss() throws IOException {
+	final StringBuilder b = new StringBuilder();
+	final InputStreamReader inputStreamReader = new InputStreamReader(
+		getTestStream(), Charset.forName("utf-8"));
+	final BufferedReader s = new BufferedReader(inputStreamReader);
+	String line = null;
+	while ((line = s.readLine()) != null) {
+	    b.append(line + "\n");
+	}
+	final String rss = b.toString();
+	return rss;
     }
 
 }

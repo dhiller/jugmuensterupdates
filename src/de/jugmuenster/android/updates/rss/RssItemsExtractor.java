@@ -30,8 +30,14 @@
 
 package de.jugmuenster.android.updates.rss;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,10 +46,20 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public final class RssItemsExtractor {
+
+    final SAXParserFactory factory = SAXParserFactory.newInstance();
+    final Handler handler = new Handler();
+    final SAXParser saxParser;
+
+    public RssItemsExtractor() throws ParserConfigurationException,
+	    SAXException {
+	saxParser = factory.newSAXParser();
+    }
 
     private static final class Handler extends DefaultHandler {
 	final List<RssItem> items = new ArrayList<RssItem>();
@@ -84,10 +100,16 @@ public final class RssItemsExtractor {
     public List<RssItem> extract(InputStream content)
 	    throws FactoryConfigurationError, ParserConfigurationException,
 	    SAXException, IOException {
-	SAXParserFactory factory = SAXParserFactory.newInstance();
-	SAXParser saxParser = factory.newSAXParser();
-	final Handler handler = new Handler();
-	saxParser.parse(content, handler);
+	saxParser.parse(new InputSource(new BufferedReader(
+		new InputStreamReader(content, Charset.forName("utf-8")))),
+		handler);
+	return handler.items;
+    }
+
+    public List<RssItem> extract(String fullRss) throws SAXException,
+	    IOException {
+	saxParser.parse(new ByteArrayInputStream(fullRss.getBytes("UTF-8")),
+		handler);
 	return handler.items;
     }
 }
