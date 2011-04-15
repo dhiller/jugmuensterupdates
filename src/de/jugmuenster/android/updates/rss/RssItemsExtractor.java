@@ -69,7 +69,7 @@ public final class RssItemsExtractor {
 	@Override
 	public void startElement(String uri, String localName, String qName,
 		org.xml.sax.Attributes attributes) throws SAXException {
-	    if (localName.equals("item")) {
+	    if (qName.equals("item")) {
 		current = new RssItem();
 	    }
 	    builder = new StringBuilder();
@@ -84,13 +84,13 @@ public final class RssItemsExtractor {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 		throws SAXException {
-	    if (current != null && localName.equals("title")) {
+	    if (current != null && qName.equals("title")) {
 		current.title = builder.toString();
 	    }
-	    if (current != null && localName.equals("link")) {
+	    if (current != null && qName.equals("link")) {
 		current.link = builder.toString();
 	    }
-	    if (localName.equals("item")) {
+	    if (qName.equals("item")) {
 		items.add(current);
 		current = null;
 	    }
