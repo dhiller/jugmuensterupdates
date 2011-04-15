@@ -69,7 +69,7 @@ public final class RssItemsExtractor {
 	@Override
 	public void startElement(String uri, String localName, String qName,
 		org.xml.sax.Attributes attributes) throws SAXException {
-	    if (qName.equals("item")) {
+	    if (elementName(localName, qName).equals("item")) {
 		current = new RssItem();
 	    }
 	    builder = new StringBuilder();
@@ -84,17 +84,32 @@ public final class RssItemsExtractor {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 		throws SAXException {
-	    if (current != null && qName.equals("title")) {
+	    if (current != null
+		    && elementName(localName, qName).equals("title")) {
 		current.title = builder.toString();
 	    }
-	    if (current != null && qName.equals("link")) {
+	    if (current != null && elementName(localName, qName).equals("link")) {
 		current.link = builder.toString();
 	    }
-	    if (qName.equals("item")) {
+	    if (elementName(localName, qName).equals("item")) {
 		items.add(current);
 		current = null;
 	    }
 	}
+
+	/**
+	 * Within a Junit Test the runtime behaves seemingly different, so we
+	 * have to use the name value that's set?! TODO: find out why
+	 * 
+	 * @param localName
+	 * @param qName
+	 * @return
+	 */
+	private String elementName(String localName, String qName) {
+	    return localName != null && localName.length() > 0 ? localName
+		    : qName;
+	}
+
     }
 
     public List<RssItem> extract(InputStream content)
