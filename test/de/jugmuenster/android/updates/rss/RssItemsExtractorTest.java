@@ -30,26 +30,51 @@
 
 package de.jugmuenster.android.updates.rss;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 public class RssItemsExtractorTest {
 
-    @Test
-    public void testCreatesItems() throws Exception {
-	final InputStream openStream = RssItemsExtractorTest.class
+    private InputStream openStream;
+
+    @Before
+    public void setUpRssTestStream() {
+	openStream = RssItemsExtractorTest.class
 		.getResourceAsStream("jug-muenster-feed-2011-04-12.xml");
-	try {
-	    assertNotNull(new RssItemsExtractor().extract(openStream));
-	} finally {
-	    openStream.close();
-	}
+    }
+
+    @After
+    public void closeTestStream() throws IOException {
+	openStream.close();
+    }
+
+    @Test
+    public void itemsNotNull() throws Exception {
+	assertNotNull(extractTestItems());
+    }
+
+    @Test
+    public void hasItems() throws Exception {
+	assertFalse(extractTestItems().isEmpty());
+    }
+
+    private List<RssItem> extractTestItems() throws FactoryConfigurationError,
+	    ParserConfigurationException, SAXException, IOException {
+	return new RssItemsExtractor().extract(openStream);
     }
 
 }
