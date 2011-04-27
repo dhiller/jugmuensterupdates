@@ -30,6 +30,8 @@
 package de.jugmuenster.android.updates;
 
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,20 +43,25 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import de.jugmuenster.android.updates.rss.DefaultRssContentProvider;
-import de.jugmuenster.android.updates.rss.RssContentProvider;
+import de.jugmuenster.android.updates.rss.ContentProvider;
+import de.jugmuenster.android.updates.rss.HttpURIContentProvider;
 import de.jugmuenster.android.updates.rss.RssItem;
 import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 public class JugMuensterUpdates extends ListActivity {
 
-    private RssContentProvider rssContentProvider = new DefaultRssContentProvider();
+    private ContentProvider rssContentProvider;
 
-    public RssContentProvider getRssContentProvider() {
+    public JugMuensterUpdates() throws URISyntaxException {
+	rssContentProvider = new HttpURIContentProvider(new URI(
+		"http://www.jug-muenster.de/feed/"));
+    }
+
+    public ContentProvider getRssContentProvider() {
 	return rssContentProvider;
     }
 
-    public void setRssContentProvider(RssContentProvider rssContentProvider) {
+    public void setRssContentProvider(ContentProvider rssContentProvider) {
 	this.rssContentProvider = rssContentProvider;
     }
 

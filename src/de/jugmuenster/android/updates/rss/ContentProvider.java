@@ -31,25 +31,7 @@
 package de.jugmuenster.android.updates.rss;
 
 import java.io.InputStream;
-import java.net.URI;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-
-public class DefaultRssContentProvider implements RssContentProvider {
-
-    @Override
-    public InputStream provideContent() throws Exception {
-        URI uri = new URI("http://www.jug-muenster.de/feed/");
-        HttpClient client = new DefaultHttpClient();
-        HttpGet request = new HttpGet();
-        request.setURI(uri);
-        HttpResponse response = client.execute(request);
-        InputStream content = response.getEntity().getContent();
-        return content;
-    }
-
+public interface ContentProvider {
+    InputStream provideContent() throws Exception;
 }
