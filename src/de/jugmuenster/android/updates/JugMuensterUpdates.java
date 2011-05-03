@@ -45,6 +45,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import de.jugmuenster.android.updates.rss.ContentProvider;
 import de.jugmuenster.android.updates.rss.HttpURIContentProvider;
+import de.jugmuenster.android.updates.rss.Item;
 import de.jugmuenster.android.updates.rss.RssItem;
 import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
@@ -102,9 +103,9 @@ public class JugMuensterUpdates extends ListActivity {
 	    @Override
 	    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 		    long arg3) {
-		final RssItem item = (RssItem) arg0.getItemAtPosition(arg2);
+		final Item item = (Item) arg0.getItemAtPosition(arg2);
 		Intent browserIntent = new Intent("android.intent.action.VIEW",
-			Uri.parse(item.link));
+			Uri.parse(item.getLink()));
 		startActivity(browserIntent);
 	    }
 	});

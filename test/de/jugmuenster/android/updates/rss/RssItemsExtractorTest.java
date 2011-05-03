@@ -30,26 +30,21 @@
 
 package de.jugmuenster.android.updates.rss;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
-
-import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 public class RssItemsExtractorTest {
 

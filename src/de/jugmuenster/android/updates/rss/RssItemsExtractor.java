@@ -86,10 +86,10 @@ public final class RssItemsExtractor {
 		throws SAXException {
 	    if (current != null
 		    && elementName(localName, qName).equals("title")) {
-		current.title = builder.toString();
+		current.setTitle(builder.toString());
 	    }
 	    if (current != null && elementName(localName, qName).equals("link")) {
-		current.link = builder.toString();
+		current.setLink(builder.toString());
 	    }
 	    if (elementName(localName, qName).equals("item")) {
 		items.add(current);
