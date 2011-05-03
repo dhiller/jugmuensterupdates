@@ -69,35 +69,21 @@ public class JugMuensterUpdates extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 
-	final List<RssItem> items = new ArrayList<RssItem>();
+	final List<Item> items = new ArrayList<Item>();
 
 	try {
+	    items.clear();
 	    for (ContentProvider p : providers) {
-		switch (p.type()) {
-		case RSS:
-		    InputStream content = p.provideContent();
-		    try {
-
-			items.clear();
-			items.addAll(new RssItemsExtractor().extract(content));
-
-		    } finally {
-			content.close();
-		    }
-		    break;
-		default:
-		    throw new IllegalStateException(MessageFormat.format(
-			    "type {0} not supported!", p.type()));
-		}
+		items.addAll(p.type().extract(p));
 	    }
 
 	} catch (Exception e) {
 	    throw new RuntimeException(e);
 	}
 
-	ArrayAdapter<RssItem> arrayAdapter = new ArrayAdapter<RssItem>(this,
+	ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(this,
 		R.layout.list_item);
-	for (RssItem i : items)
+	for (Item i : items)
 	    arrayAdapter.add(i);
 	setListAdapter(arrayAdapter);
 

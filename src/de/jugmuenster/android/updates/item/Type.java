@@ -30,11 +30,30 @@
 
 package de.jugmuenster.android.updates.item;
 
+import java.io.InputStream;
+import java.util.List;
+
+import de.jugmuenster.android.updates.rss.RssItemsExtractor;
+
 public enum Type {
 
-    RSS,
+    RSS {
+
+	public List<Item> extract(ContentProvider p) throws Exception {
+	    InputStream content = p.provideContent();
+	    try {
+		return new RssItemsExtractor().extract(content);
+	    } finally {
+		content.close();
+	    }
+	}
+
+    },
     ;
 
     private Type() {
     }
+
+    public abstract List<Item> extract(ContentProvider p) throws Exception;
+
 }

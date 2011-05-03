@@ -46,6 +46,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import de.jugmuenster.android.updates.item.Item;
+
 public class RssItemsExtractorTest {
 
     @Test
@@ -74,7 +76,7 @@ public class RssItemsExtractorTest {
 	assertFalse(extractTestItems().isEmpty());
     }
 
-    private List<RssItem> extractTestItems() throws FactoryConfigurationError,
+    private List<Item> extractTestItems() throws FactoryConfigurationError,
 	    ParserConfigurationException, SAXException, IOException {
 	final InputStream openStream = getTestStream();
 	try {

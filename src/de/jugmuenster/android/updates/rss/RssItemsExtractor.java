@@ -48,6 +48,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import de.jugmuenster.android.updates.item.Item;
+
 public final class RssItemsExtractor {
 
     final SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -60,7 +62,7 @@ public final class RssItemsExtractor {
     }
 
     private static final class Handler extends DefaultHandler {
-	final List<RssItem> items = new ArrayList<RssItem>();
+	final List<Item> items = new ArrayList<Item>();
 	RssItem current;
 	StringBuilder builder;
 
@@ -110,7 +112,7 @@ public final class RssItemsExtractor {
 
     }
 
-    public List<RssItem> extract(InputStream content)
+    public List<Item> extract(InputStream content)
 	    throws FactoryConfigurationError, ParserConfigurationException,
 	    SAXException, IOException {
 	saxParser.parse(new InputSource(new BufferedReader(
@@ -119,7 +121,7 @@ public final class RssItemsExtractor {
 	return handler.items;
     }
 
-    public List<RssItem> extract(String fullRss) throws SAXException,
+    public List<Item> extract(String fullRss) throws SAXException,
 	    IOException {
 	saxParser.parse(new ByteArrayInputStream(fullRss.getBytes("UTF-8")),
 		handler);
