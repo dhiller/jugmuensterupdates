@@ -28,45 +28,21 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates.rss;
+package de.jugmuenster.android.updates.item;
 
-public class Item {
+import de.jugmuenster.android.util.Test;
 
-    private String title;
-    private String link;
-    private String description;
+public abstract class BaseContentProvider implements ContentProvider {
 
-    public Item() {
+    protected final Type type;
+
+    public BaseContentProvider(Type type) {
 	super();
+	this.type = Test.notNull(type);
     }
 
-    @Override
-    public String toString() {
-        return getTitle();
-    }
-
-    public void setTitle(String title) {
-	this.title = title;
-    }
-
-    public String getTitle() {
-	return title;
-    }
-
-    public void setLink(String link) {
-	this.link = link;
-    }
-
-    public String getLink() {
-	return link;
-    }
-
-    public void setDescription(String description) {
-	this.description = description;
-    }
-
-    public String getDescription() {
-	return description;
+    public Type type() {
+	return type;
     }
 
 }

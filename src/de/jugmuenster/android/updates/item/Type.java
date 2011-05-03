@@ -28,10 +28,13 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates.rss;
+package de.jugmuenster.android.updates.item;
 
-import java.io.InputStream;
+public enum Type {
 
-public interface ContentProvider {
-    InputStream provideContent() throws Exception;
+    RSS,
+    ;
+
+    private Type() {
+    }
 }

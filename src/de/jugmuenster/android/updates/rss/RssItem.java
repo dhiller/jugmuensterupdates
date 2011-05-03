@@ -29,5 +29,7 @@
  */
 package de.jugmuenster.android.updates.rss;
 
+import de.jugmuenster.android.updates.item.Item;
+
 public class RssItem extends Item {
 }

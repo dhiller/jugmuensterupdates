@@ -32,6 +32,7 @@ package de.jugmuenster.android.updates;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,27 +44,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import de.jugmuenster.android.updates.rss.ContentProvider;
+import de.jugmuenster.android.updates.item.ContentProvider;
+import de.jugmuenster.android.updates.item.Item;
+import de.jugmuenster.android.updates.item.Type;
 import de.jugmuenster.android.updates.rss.HttpURIContentProvider;
-import de.jugmuenster.android.updates.rss.Item;
 import de.jugmuenster.android.updates.rss.RssItem;
 import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 public class JugMuensterUpdates extends ListActivity {
 
-    private ContentProvider rssContentProvider;
+    private final List<ContentProvider> providers = new ArrayList<ContentProvider>();
 
     public JugMuensterUpdates() throws URISyntaxException {
-	rssContentProvider = new HttpURIContentProvider(new URI(
-		"http://www.jug-muenster.de/feed/"));
-    }
-
-    public ContentProvider getRssContentProvider() {
-	return rssContentProvider;
-    }
-
-    public void setRssContentProvider(ContentProvider rssContentProvider) {
-	this.rssContentProvider = rssContentProvider;
+	providers.add(new HttpURIContentProvider(Type.RSS, new URI(
+		"http://www.jug-muenster.de/feed/")));
     }
 
     enum CurrentElement {
@@ -78,14 +72,23 @@ public class JugMuensterUpdates extends ListActivity {
 	final List<RssItem> items = new ArrayList<RssItem>();
 
 	try {
-	    InputStream content = rssContentProvider.provideContent();
-	    try {
+	    for (ContentProvider p : providers) {
+		switch (p.type()) {
+		case RSS:
+		    InputStream content = p.provideContent();
+		    try {
 
-		items.clear();
-		items.addAll(new RssItemsExtractor().extract(content));
+			items.clear();
+			items.addAll(new RssItemsExtractor().extract(content));
 
-	    } finally {
-		content.close();
+		    } finally {
+			content.close();
+		    }
+		    break;
+		default:
+		    throw new IllegalStateException(MessageFormat.format(
+			    "type {0} not supported!", p.type()));
+		}
 	    }
 
 	} catch (Exception e) {

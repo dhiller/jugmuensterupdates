@@ -28,41 +28,45 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates.rss;
+package de.jugmuenster.android.updates.item;
 
-import java.io.InputStream;
-import java.net.URI;
+public class Item {
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+    private String title;
+    private String link;
+    private String description;
 
-import de.jugmuenster.android.updates.item.BaseContentProvider;
-import de.jugmuenster.android.updates.item.ContentProvider;
-import de.jugmuenster.android.updates.item.Type;
-
-public class HttpURIContentProvider extends BaseContentProvider implements
-	ContentProvider {
-
-    protected final URI feedURI;
-
-    public HttpURIContentProvider(Type t, URI feedURI) {
-	super(t);
-	if (feedURI == null) {
-	    throw new IllegalArgumentException("feedURI is null!"); //$NON-NLS-1$
-	}
-	this.feedURI = feedURI;
+    public Item() {
+	super();
     }
 
     @Override
-    public InputStream provideContent() throws Exception {
-	HttpClient client = new DefaultHttpClient();
-	HttpGet request = new HttpGet();
-	request.setURI(feedURI);
-	HttpResponse response = client.execute(request);
-	InputStream content = response.getEntity().getContent();
-	return content;
+    public String toString() {
+        return getTitle();
+    }
+
+    public void setTitle(String title) {
+	this.title = title;
+    }
+
+    public String getTitle() {
+	return title;
+    }
+
+    public void setLink(String link) {
+	this.link = link;
+    }
+
+    public String getLink() {
+	return link;
+    }
+
+    public void setDescription(String description) {
+	this.description = description;
+    }
+
+    public String getDescription() {
+	return description;
     }
 
 }

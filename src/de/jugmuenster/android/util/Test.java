@@ -28,41 +28,18 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates.rss;
+package de.jugmuenster.android.util;
 
-import java.io.InputStream;
-import java.net.URI;
+public final class Test {
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+    private Test() {
+    }
 
-import de.jugmuenster.android.updates.item.BaseContentProvider;
-import de.jugmuenster.android.updates.item.ContentProvider;
-import de.jugmuenster.android.updates.item.Type;
-
-public class HttpURIContentProvider extends BaseContentProvider implements
-	ContentProvider {
-
-    protected final URI feedURI;
-
-    public HttpURIContentProvider(Type t, URI feedURI) {
-	super(t);
-	if (feedURI == null) {
-	    throw new IllegalArgumentException("feedURI is null!"); //$NON-NLS-1$
+    public static <T> T notNull(T t) {
+	if (t == null) {
+	    throw new IllegalArgumentException("t is null!"); //$NON-NLS-1$
 	}
-	this.feedURI = feedURI;
-    }
+	return t;
 
-    @Override
-    public InputStream provideContent() throws Exception {
-	HttpClient client = new DefaultHttpClient();
-	HttpGet request = new HttpGet();
-	request.setURI(feedURI);
-	HttpResponse response = client.execute(request);
-	InputStream content = response.getEntity().getContent();
-	return content;
     }
-
 }
