@@ -40,7 +40,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import de.jugmuenster.android.util.Test;
 
-public class HttpURIContentProvider extends BaseContentProvider {
+public class HttpURIContentProvider extends ContentProvider {
 
     protected final URI feedURI;
 

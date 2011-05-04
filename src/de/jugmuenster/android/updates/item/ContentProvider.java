@@ -33,12 +33,25 @@ package de.jugmuenster.android.updates.item;
 import java.io.InputStream;
 import java.util.List;
 
-public interface ContentProvider {
+import de.jugmuenster.android.util.Test;
 
-    Type type();
+public abstract class ContentProvider {
 
-    InputStream provideContent() throws Exception;
+    protected final Type type;
 
-    List<Item> extract() throws Exception;
+    public ContentProvider(Type type) {
+	super();
+	this.type = Test.notNull(type);
+    }
+
+    public Type type() {
+	return type;
+    }
+
+    public List<Item> extract() throws Exception {
+	return type().extract(this);
+    }
+
+    public abstract InputStream provideContent() throws Exception;
 
 }
