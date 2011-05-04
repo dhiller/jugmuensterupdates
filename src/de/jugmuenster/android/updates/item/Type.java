@@ -40,7 +40,7 @@ public enum Type {
     RSS {
 
 	public List<Item> extract(ContentProvider p) throws Exception {
-	    InputStream content = p.provideContent();
+	    final InputStream content = p.provideContent();
 	    try {
 		return new RssItemsExtractor().extract(content);
 	    } finally {
