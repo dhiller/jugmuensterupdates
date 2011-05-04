@@ -48,7 +48,7 @@ import org.xml.sax.SAXException;
 
 import de.jugmuenster.android.updates.item.Item;
 
-public class RssItemsExtractorTest {
+public class ExtractorTest {
 
     @Test
     public void streamHasItems() throws IOException {
@@ -58,12 +58,12 @@ public class RssItemsExtractorTest {
 
     @Test
     public void itemsFromStringNotNull() throws Exception {
-	assertNotNull(new RssItemsExtractor().extract(getFullRss()));
+	assertNotNull(new Extractor().extract(getFullRss()));
     }
 
     @Test
     public void itemsFromStringNotEmpty() throws Exception {
-	assertFalse(new RssItemsExtractor().extract(getFullRss()).isEmpty());
+	assertFalse(new Extractor().extract(getFullRss()).isEmpty());
     }
 
     @Test
@@ -80,15 +80,14 @@ public class RssItemsExtractorTest {
 	    ParserConfigurationException, SAXException, IOException {
 	final InputStream openStream = getTestStream();
 	try {
-	    return new RssItemsExtractor().extract(openStream);
+	    return new Extractor().extract(openStream);
 	} finally {
 	    openStream.close();
 	}
     }
 
     private InputStream getTestStream() {
-	final InputStream resourceAsStream = RssItemsExtractorTest.class
-		.getResourceAsStream("jug-muenster-feed-2011-04-12.xml");
+	final InputStream resourceAsStream = RssItemsExtractorTest.clExtractorTesttream("jug-muenster-feed-2011-04-12.xml");
 	return resourceAsStream;
     }
 

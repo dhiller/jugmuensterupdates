@@ -45,6 +45,7 @@ import android.widget.ArrayAdapter;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.HttpURIContentProvider;
 import de.jugmuenster.android.updates.item.Item;
+import de.jugmuenster.android.updates.item.Source;
 import de.jugmuenster.android.updates.item.Type;
 
 public class JugMuensterUpdates extends ListActivity {
@@ -54,8 +55,10 @@ public class JugMuensterUpdates extends ListActivity {
 	    this, R.layout.list_item);
 
     public JugMuensterUpdates() throws URISyntaxException {
-	providers.add(new HttpURIContentProvider(Type.RSS, new URI(
-		"http://www.jug-muenster.de/feed/")));
+	final URI jugMuensterHomepageFeed = new URI(
+		"http://www.jug-muenster.de/feed/");
+	providers.add(new HttpURIContentProvider(new Source(Type.RSS,
+		jugMuensterHomepageFeed)));
     }
 
     private final class OnClickShowItemLinkInBrowser implements

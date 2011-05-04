@@ -30,27 +30,26 @@
 
 package de.jugmuenster.android.updates.item;
 
-import java.io.InputStream;
+import java.net.URI;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import de.jugmuenster.android.util.Test;
 
-public class HttpURIContentProvider extends ContentProvider {
+public class Source {
 
-    public HttpURIContentProvider(Source source) {
-	super(source);
+    private final Type type;
+    private final URI uri;
+
+    public Source(Type type, URI source) {
+	this.type = Test.notNull(type);
+	this.uri = Test.notNull(source);
     }
 
-    @Override
-    public InputStream provideContent() throws Exception {
-	HttpClient client = new DefaultHttpClient();
-	HttpGet request = new HttpGet();
-	request.setURI(source().uri());
-	HttpResponse response = client.execute(request);
-	InputStream content = response.getEntity().getContent();
-	return content;
+    public URI uri() {
+	return uri;
+    }
+
+    public Type type() {
+	return type;
     }
 
 }

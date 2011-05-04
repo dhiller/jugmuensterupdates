@@ -51,13 +51,13 @@ import org.xml.sax.helpers.DefaultHandler;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Type;
 
-public final class RssItemsExtractor {
+public final class Extractor {
 
     final SAXParserFactory factory = SAXParserFactory.newInstance();
     final Handler handler = new Handler();
     final SAXParser saxParser;
 
-    public RssItemsExtractor() throws ParserConfigurationException,
+    public Extractor() throws ParserConfigurationException,
 	    SAXException {
 	saxParser = factory.newSAXParser();
     }

@@ -33,7 +33,7 @@ package de.jugmuenster.android.updates.item;
 import java.io.InputStream;
 import java.util.List;
 
-import de.jugmuenster.android.updates.rss.RssItemsExtractor;
+import de.jugmuenster.android.updates.rss.Extractor;
 
 public enum Type {
 
@@ -42,7 +42,7 @@ public enum Type {
 	public List<Item> extract(ContentProvider p) throws Exception {
 	    final InputStream content = p.provideContent();
 	    try {
-		return new RssItemsExtractor().extract(content);
+		return new Extractor().extract(content);
 	    } finally {
 		content.close();
 	    }

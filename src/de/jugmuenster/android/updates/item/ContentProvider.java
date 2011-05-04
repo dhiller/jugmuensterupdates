@@ -31,25 +31,26 @@
 package de.jugmuenster.android.updates.item;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.util.List;
 
 import de.jugmuenster.android.util.Test;
 
 public abstract class ContentProvider {
 
-    protected final Type type;
+    protected final Source source;
 
-    public ContentProvider(Type type) {
+    public ContentProvider(Source source) {
 	super();
-	this.type = Test.notNull(type);
+	this.source = Test.notNull(source);
     }
 
-    public Type type() {
-	return type;
+    public Source source() {
+	return source;
     }
 
     public List<Item> extract() throws Exception {
-	return type().extract(this);
+	return source().type().extract(this);
     }
 
     public abstract InputStream provideContent() throws Exception;
