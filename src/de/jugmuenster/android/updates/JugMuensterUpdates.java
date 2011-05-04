@@ -74,7 +74,6 @@ public class JugMuensterUpdates extends ListActivity {
 	TITLE, LINK, DESCRIPTION;
     }
 
-    /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -94,12 +93,12 @@ public class JugMuensterUpdates extends ListActivity {
 	final List<Item> items = new ArrayList<Item>();
 
 	try {
-	    items.clear();
 	    for (ContentProvider p : providers) {
 		items.addAll(p.extract());
 	    }
 
 	} catch (Exception e) {
+	    // TODO: Fehler Nachricht besser anzeigen
 	    throw new RuntimeException(e);
 	}
 	return items;
