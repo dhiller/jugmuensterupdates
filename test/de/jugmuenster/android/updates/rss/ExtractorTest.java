@@ -87,7 +87,8 @@ public class ExtractorTest {
     }
 
     private InputStream getTestStream() {
-	final InputStream resourceAsStream = RssItemsExtractorTest.clExtractorTesttream("jug-muenster-feed-2011-04-12.xml");
+	final InputStream resourceAsStream = ExtractorTest.class
+		.getResourceAsStream("jug-muenster-feed-2011-04-12.xml");
 	return resourceAsStream;
     }
 
