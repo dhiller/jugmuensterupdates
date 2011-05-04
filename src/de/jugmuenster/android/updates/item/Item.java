@@ -32,6 +32,8 @@ package de.jugmuenster.android.updates.item;
 
 public class Item {
 
+    private Type type;
+
     private String title;
     private String link;
     private String description;
@@ -67,6 +69,14 @@ public class Item {
 
     public String getDescription() {
 	return description;
+    }
+
+    public Type getType() {
+	return type;
+    }
+
+    public void setType(Type type) {
+	this.type = type;
     }
 
 }

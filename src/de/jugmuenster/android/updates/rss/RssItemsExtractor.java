@@ -49,6 +49,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.jugmuenster.android.updates.item.Item;
+import de.jugmuenster.android.updates.item.Type;
 
 public final class RssItemsExtractor {
 
@@ -63,14 +64,15 @@ public final class RssItemsExtractor {
 
     private static final class Handler extends DefaultHandler {
 	final List<Item> items = new ArrayList<Item>();
-	RssItem current;
+	Item current;
 	StringBuilder builder;
 
 	@Override
 	public void startElement(String uri, String localName, String qName,
 		org.xml.sax.Attributes attributes) throws SAXException {
 	    if (elementName(localName, qName).equals("item")) {
-		current = new RssItem();
+		current = new Item();
+		current.setType(Type.RSS);
 	    }
 	    builder = new StringBuilder();
 	}
@@ -121,8 +123,7 @@ public final class RssItemsExtractor {
 	return handler.items;
     }
 
-    public List<Item> extract(String fullRss) throws SAXException,
-	    IOException {
+    public List<Item> extract(String fullRss) throws SAXException, IOException {
 	saxParser.parse(new ByteArrayInputStream(fullRss.getBytes("UTF-8")),
 		handler);
 	return handler.items;
