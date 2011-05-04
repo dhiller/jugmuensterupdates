@@ -43,9 +43,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import de.jugmuenster.android.updates.item.ContentProvider;
+import de.jugmuenster.android.updates.item.HttpURIContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Type;
-import de.jugmuenster.android.updates.rss.HttpURIContentProvider;
 
 public class JugMuensterUpdates extends ListActivity {
 

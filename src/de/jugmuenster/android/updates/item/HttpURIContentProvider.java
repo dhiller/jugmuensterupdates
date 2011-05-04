@@ -28,7 +28,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates.rss;
+package de.jugmuenster.android.updates.item;
 
 import java.io.InputStream;
 import java.net.URI;
@@ -38,8 +38,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import de.jugmuenster.android.updates.item.BaseContentProvider;
-import de.jugmuenster.android.updates.item.Type;
 
 public class HttpURIContentProvider extends BaseContentProvider {
 
