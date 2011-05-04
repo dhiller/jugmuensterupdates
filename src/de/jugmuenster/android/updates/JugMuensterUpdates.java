@@ -29,10 +29,8 @@
  */
 package de.jugmuenster.android.updates;
 
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,16 +46,28 @@ import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Type;
 import de.jugmuenster.android.updates.rss.HttpURIContentProvider;
-import de.jugmuenster.android.updates.rss.RssItem;
-import de.jugmuenster.android.updates.rss.RssItemsExtractor;
 
 public class JugMuensterUpdates extends ListActivity {
 
     private final List<ContentProvider> providers = new ArrayList<ContentProvider>();
+    private final ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(
+	    this, R.layout.list_item);
 
     public JugMuensterUpdates() throws URISyntaxException {
 	providers.add(new HttpURIContentProvider(Type.RSS, new URI(
 		"http://www.jug-muenster.de/feed/")));
+    }
+
+    private final class OnClickShowItemLinkInBrowser implements
+	    OnItemClickListener {
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		long arg3) {
+	    final Item item = (Item) arg0.getItemAtPosition(arg2);
+	    Intent browserIntent = new Intent("android.intent.action.VIEW",
+		    Uri.parse(item.getLink()));
+	    startActivity(browserIntent);
+	}
     }
 
     enum CurrentElement {
@@ -68,36 +78,30 @@ public class JugMuensterUpdates extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
+	show(getAllItems());
+	getListView()
+		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
 
+    }
+
+    private void show(final List<Item> items) {
+	for (Item i : items)
+	    arrayAdapter.add(i);
+	setListAdapter(arrayAdapter);
+    }
+
+    private List<Item> getAllItems() {
 	final List<Item> items = new ArrayList<Item>();
 
 	try {
 	    items.clear();
 	    for (ContentProvider p : providers) {
-		items.addAll(p.type().extract(p));
+		items.addAll(p.extract());
 	    }
 
 	} catch (Exception e) {
 	    throw new RuntimeException(e);
 	}
-
-	ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(this,
-		R.layout.list_item);
-	for (Item i : items)
-	    arrayAdapter.add(i);
-	setListAdapter(arrayAdapter);
-
-	getListView().setOnItemClickListener(new OnItemClickListener() {
-
-	    @Override
-	    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-		    long arg3) {
-		final Item item = (Item) arg0.getItemAtPosition(arg2);
-		Intent browserIntent = new Intent("android.intent.action.VIEW",
-			Uri.parse(item.getLink()));
-		startActivity(browserIntent);
-	    }
-	});
-
+	return items;
     }
 }

@@ -31,9 +31,14 @@
 package de.jugmuenster.android.updates.item;
 
 import java.io.InputStream;
-
+import java.util.List;
 
 public interface ContentProvider {
+
     Type type();
+
     InputStream provideContent() throws Exception;
+
+    List<Item> extract() throws Exception;
+
 }

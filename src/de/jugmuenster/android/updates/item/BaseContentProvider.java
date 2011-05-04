@@ -30,6 +30,8 @@
 
 package de.jugmuenster.android.updates.item;
 
+import java.util.List;
+
 import de.jugmuenster.android.util.Test;
 
 public abstract class BaseContentProvider implements ContentProvider {
@@ -43,6 +45,11 @@ public abstract class BaseContentProvider implements ContentProvider {
 
     public Type type() {
 	return type;
+    }
+
+    @Override
+    public List<Item> extract() throws Exception {
+	return type().extract(this);
     }
 
 }

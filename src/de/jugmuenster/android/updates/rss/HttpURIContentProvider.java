@@ -39,11 +39,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import de.jugmuenster.android.updates.item.BaseContentProvider;
-import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Type;
 
-public class HttpURIContentProvider extends BaseContentProvider implements
-	ContentProvider {
+public class HttpURIContentProvider extends BaseContentProvider {
 
     protected final URI feedURI;
 
