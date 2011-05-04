@@ -77,10 +77,15 @@ public class JugMuensterUpdates extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	show(getAllItems());
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
+	startLoadingItems();
 
+    }
+
+    private void startLoadingItems() {
+	// TODO: in einen Background Thread verschieben
+	show(getAllItems());
     }
 
     private void show(final List<Item> items) {
