@@ -38,6 +38,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import de.jugmuenster.android.util.Test;
 
 public class HttpURIContentProvider extends BaseContentProvider {
 
@@ -45,10 +46,7 @@ public class HttpURIContentProvider extends BaseContentProvider {
 
     public HttpURIContentProvider(Type t, URI feedURI) {
 	super(t);
-	if (feedURI == null) {
-	    throw new IllegalArgumentException("feedURI is null!"); //$NON-NLS-1$
-	}
-	this.feedURI = feedURI;
+	this.feedURI = Test.notNull(feedURI);
     }
 
     @Override
