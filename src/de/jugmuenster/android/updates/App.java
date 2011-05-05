@@ -50,17 +50,6 @@ import de.jugmuenster.android.updates.item.Type;
 
 public class App extends ListActivity {
 
-    private final List<ContentProvider> providers = new ArrayList<ContentProvider>();
-    private final ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(
-	    this, R.layout.list_item);
-
-    public App() throws URISyntaxException {
-	final URI jugMuensterHomepageFeed = new URI(
-		"http://www.jug-muenster.de/feed/");
-	providers.add(new HttpURIContentProvider(new Source(Type.RSS,
-		jugMuensterHomepageFeed)));
-    }
-
     private final class OnClickShowItemLinkInBrowser implements
 	    OnItemClickListener {
 	@Override
@@ -73,8 +62,7 @@ public class App extends ListActivity {
 	}
     }
 
-    enum CurrentElement {
-	TITLE, LINK, DESCRIPTION;
+    public App() {
     }
 
     @Override
@@ -92,6 +80,8 @@ public class App extends ListActivity {
     }
 
     private void show(final List<Item> items) {
+	final ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(this,
+		R.layout.list_item);
 	for (Item i : items)
 	    arrayAdapter.add(i);
 	setListAdapter(arrayAdapter);
@@ -101,14 +91,20 @@ public class App extends ListActivity {
 	final List<Item> items = new ArrayList<Item>();
 
 	try {
-	    for (ContentProvider p : providers) {
+	    for (ContentProvider p : getProviders()) {
 		items.addAll(p.extract());
 	    }
-
 	} catch (Exception e) {
 	    // TODO: Fehler Nachricht besser anzeigen
 	    throw new RuntimeException(e);
 	}
 	return items;
+    }
+
+    private List<ContentProvider> getProviders() throws URISyntaxException {
+	final List<ContentProvider> providers = new ArrayList<ContentProvider>();
+	providers.add(new HttpURIContentProvider(new Source(Type.RSS, new URI(
+		"http://www.jug-muenster.de/feed/"))));
+	return providers;
     }
 }
