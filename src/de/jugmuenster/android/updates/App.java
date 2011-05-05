@@ -43,7 +43,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import de.jugmuenster.android.updates.item.ContentProvider;
-import de.jugmuenster.android.updates.item.HttpURIContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Source;
 import de.jugmuenster.android.updates.item.Type;
@@ -103,8 +102,9 @@ public class App extends ListActivity {
 
     private List<ContentProvider> getProviders() throws URISyntaxException {
 	final List<ContentProvider> providers = new ArrayList<ContentProvider>();
-	providers.add(new HttpURIContentProvider(new Source(Type.RSS, new URI(
-		"http://www.jug-muenster.de/feed/"))));
+	final Source source = new Source("Blog", Type.RSS, new URI(
+		"http://www.jug-muenster.de/feed/"));
+	providers.add(source.createProvider());
 	return providers;
     }
 }

@@ -39,6 +39,7 @@ public enum Type {
 
     RSS {
 
+	@Override
 	public List<Item> extract(ContentProvider p) throws Exception {
 	    final InputStream content = p.provideContent();
 	    try {
@@ -48,6 +49,11 @@ public enum Type {
 	    }
 	}
 
+	@Override
+	public ContentProvider createProvider(Source s) {
+	    return new HttpURIContentProvider(s);
+	}
+
     },
     ;
 
@@ -55,5 +61,7 @@ public enum Type {
     }
 
     public abstract List<Item> extract(ContentProvider p) throws Exception;
+
+    public abstract ContentProvider createProvider(Source s);
 
 }

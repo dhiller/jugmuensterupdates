@@ -38,18 +38,28 @@ public class Source {
 
     private final Type type;
     private final URI uri;
+    private final String name;
 
-    public Source(Type type, URI source) {
+    public Source(String name, Type type, URI source) {
+	this.name = Test.notNull(name);
 	this.type = Test.notNull(type);
 	this.uri = Test.notNull(source);
+    }
+
+    public String name() {
+	return name;
+    }
+
+    public Type type() {
+	return type;
     }
 
     public URI uri() {
 	return uri;
     }
 
-    public Type type() {
-	return type;
+    public ContentProvider createProvider() {
+	return type().createProvider(this);
     }
 
 }

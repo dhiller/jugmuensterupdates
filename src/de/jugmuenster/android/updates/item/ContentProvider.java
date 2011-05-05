@@ -31,7 +31,6 @@
 package de.jugmuenster.android.updates.item;
 
 import java.io.InputStream;
-import java.net.URI;
 import java.util.List;
 
 import de.jugmuenster.android.util.Test;
