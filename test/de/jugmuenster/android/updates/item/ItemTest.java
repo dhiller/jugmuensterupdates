@@ -28,7 +28,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package alltests.de.jugmuenster.android.updates.item;
+package de.jugmuenster.android.updates.item;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -43,29 +43,29 @@ import de.jugmuenster.android.updates.item.Item;
 public class ItemTest {
 
     @Test
-    public void testComparable() throws Exception {
+    public void isComparable() throws Exception {
 	final Item item = new Item();
 	assertTrue(item instanceof Comparable);
     }
 
     @Test
-    public void testCompareNoDate() throws Exception {
+    public void compareNoDate() throws Exception {
 	assertEquals(0, new Item().compareTo(new Item()));
     }
 
     @Test
-    public void testItemWithDateSetIsLessThanItemWithoutDate() throws Exception {
+    public void itemWithDateSetIsLessThanItemWithoutDate() throws Exception {
 	assertTrue(new Item().compareTo(newItem(new Date())) > 0);
     }
 
     @Test
-    public void testItemWithoutDateSetIsGreaterThanItemWithDateSet()
+    public void itemWithoutDateSetIsGreaterThanItemWithDateSet()
 	    throws Exception {
 	assertTrue(newItem(new Date()).compareTo(new Item()) < 0);
     }
 
     @Test
-    public void testItemWithLaterDateIsLessThanItemWithEarlierDate()
+    public void itemWithLaterDateIsLessThanItemWithEarlierDate()
 	    throws Exception {
 	final SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
 	final Date earlierDate = parser.parse("2011-05-01");

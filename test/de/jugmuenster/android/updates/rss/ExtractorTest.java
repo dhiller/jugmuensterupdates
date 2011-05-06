@@ -76,6 +76,11 @@ public class ExtractorTest {
 	assertFalse(extractTestItems().isEmpty());
     }
 
+    @Test
+    public void itemsHaveDate() throws Exception {
+	assertFalse(extractTestItems().isEmpty());
+    }
+
     private List<Item> extractTestItems() throws FactoryConfigurationError,
 	    ParserConfigurationException, SAXException, IOException {
 	final InputStream openStream = getTestStream();
