@@ -97,13 +97,13 @@ public class App extends ListActivity {
     private List<Item> getAllItems() {
 	final List<Item> items = new ArrayList<Item>();
 
-	try {
-	    for (ContentProvider p : getProviders()) {
+	for (ContentProvider p : getProviders()) {
+	    try {
 		items.addAll(p.extract());
+	    } catch (Exception e) {
+		handleError(e, "GetItems", "Could not fetch new items!",
+			"Beim Ermitteln der neuen Beiträge ist ein Fehler aufgetreten!");
 	    }
-	} catch (Exception e) {
-	    handleError(e, "GetItems", "Could not fetch new items!",
-		    "Beim Ermitteln der neuen Beiträge ist ein Fehler aufgetreten!");
 	}
 	return items;
     }
@@ -117,11 +117,16 @@ public class App extends ListActivity {
 	builder.create().show();
     }
 
-    private List<ContentProvider> getProviders() throws URISyntaxException {
+    private List<ContentProvider> getProviders() {
 	final List<ContentProvider> providers = new ArrayList<ContentProvider>();
-	final Source source = new Source("Blog", Type.RSS, new URI(
-		"http://www.jug-muenster.de/feed/"));
-	providers.add(source.createProvider());
+	try {
+	    final Source source = new Source("Blog", Type.RSS, new URI(
+		    "http://www.jug-muenster.de/feed/"));
+	    providers.add(source.createProvider());
+	} catch (Exception e) {
+	    handleError(e, "GetProviders", "Could not get item providers!",
+		    "Beim Ermitteln der Nachrichtenquellen ist ein Fehler aufgetreten!");
+	}
 	return providers;
     }
 }
