@@ -41,6 +41,8 @@ import java.util.prefs.Preferences;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -69,12 +71,16 @@ public class App extends ListActivity {
     private static final class ItemsLoader extends
 	    AsyncTask<Object, Integer, List<Item>> {
 
+	private static final int NOTIFICATION_NEW_ITEMS = 1;
 	private final App a;
 	private final ProgressDialog progressDialog;
+	private final Notification notification = new Notification();
 
 	private ItemsLoader(App a) {
 	    this.a = Test.notNull(a);
 	    progressDialog = new ProgressDialog(a);
+	    notification.tickerText = "Neue JUG Elemente";
+	    notification.when = System.currentTimeMillis();
 	}
 
 	@Override
@@ -91,6 +97,7 @@ public class App extends ListActivity {
 	    final List<Item> allItems = a.getAllItems(a.getProviders());
 	    for (Item i : allItems) {
 		if (i.getFrom().compareTo(a.getLatestItemDate()) > 0) {
+		    notification.number++;
 		    i.setNew();
 		    if (i.getFrom().compareTo(newLatestItemDate) > 0)
 			newLatestItemDate = i.getFrom();
@@ -104,6 +111,10 @@ public class App extends ListActivity {
 	protected void onPostExecute(List<Item> result) {
 	    a.show(result);
 	    progressDialog.dismiss();
+	    if (notification.number > 0) {
+		((NotificationManager) a.getSystemService(NOTIFICATION_SERVICE))
+			.notify(NOTIFICATION_NEW_ITEMS, notification);
+	    }
 	}
     }
 
