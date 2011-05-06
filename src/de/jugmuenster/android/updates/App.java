@@ -32,6 +32,7 @@ package de.jugmuenster.android.updates;
 import java.net.URI;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -126,6 +127,7 @@ public class App extends ListActivity {
 			"Beim Ermitteln der neuen Beiträge ist ein Fehler aufgetreten!");
 	    }
 	}
+	Collections.sort(items);
 	return items;
     }
 
