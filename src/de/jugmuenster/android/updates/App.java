@@ -31,16 +31,17 @@ package de.jugmuenster.android.updates;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -51,12 +52,6 @@ import de.jugmuenster.android.updates.item.Source;
 import de.jugmuenster.android.updates.item.Type;
 
 public class App extends ListActivity {
-
-    private static final GetItemsIntent GET_ITEMS_INTENT = new GetItemsIntent();
-    private static final int REQUEST_CODE_LOAD_ITEMS = 1;
-
-    private static final class GetItemsIntent extends Intent {
-    }
 
     private final class OnClickShowItemLinkInBrowser implements
 	    OnItemClickListener {
@@ -79,34 +74,16 @@ public class App extends ListActivity {
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
 	startLoadingItems();
-
     }
 
     private void startLoadingItems() {
-	// TODO: in einen Background Thread verschieben
+	// show(Collections.<Item> emptyList());
+	// new Thread() {
+	// public void run() {
 	final List<Item> allItems = getAllItems();
-
-	final GetItemsService getItemsService = new GetItemsService("GetItems") {
-	    @Override
-	    protected void onHandleIntent(Intent intent) {
-		super.onHandleIntent(intent);
-	    }
-	};
-
-	bindService(GET_ITEMS_INTENT, new ServiceConnection() {
-
-	    @Override
-	    public void onServiceDisconnected(ComponentName name) {
-	    }
-
-	    @Override
-	    public void onServiceConnected(ComponentName name, IBinder service) {
-	    }
-	}, 0); // TODO: Check flags?
-
-	startActivityForResult(GET_ITEMS_INTENT, REQUEST_CODE_LOAD_ITEMS);
-
 	show(allItems);
+	// }
+	// }.start();
     }
 
     private void show(final List<Item> items) {
@@ -125,10 +102,19 @@ public class App extends ListActivity {
 		items.addAll(p.extract());
 	    }
 	} catch (Exception e) {
-	    // TODO: Fehler Nachricht besser anzeigen
-	    throw new RuntimeException(e);
+	    handleError(e, "GetItems", "Could not fetch new items!",
+		    "Beim Ermitteln der neuen Beiträge ist ein Fehler aufgetreten!");
 	}
 	return items;
+    }
+
+    void handleError(Throwable t, final String logTag, final String logMessage,
+	    String userMessage) {
+	Log.e(logTag, logMessage, t);
+	final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	builder.setTitle("Fehler");
+	builder.setMessage(MessageFormat.format("{0}\n\n{1}", userMessage, t));
+	builder.create().show();
     }
 
     private List<ContentProvider> getProviders() throws URISyntaxException {
