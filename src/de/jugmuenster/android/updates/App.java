@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -63,6 +64,8 @@ import de.jugmuenster.android.util.Test;
 
 public class App extends ListActivity {
 
+    private final Preferences userNodeForPackage = Preferences
+	    .userNodeForPackage(App.class);
     private Date latestItemDate = new Date(0);
 
     private static final class ItemsLoader extends
@@ -78,7 +81,6 @@ public class App extends ListActivity {
 
 	@Override
 	protected void onPreExecute() {
-	    a.showLatestItemDate("onPreExecute");
 	    progressDialog.setTitle("Lade Elemente");
 	    progressDialog.setIndeterminate(true);
 	    progressDialog.show();
@@ -104,7 +106,6 @@ public class App extends ListActivity {
 	protected void onPostExecute(List<Item> result) {
 	    a.show(result);
 	    progressDialog.dismiss();
-	    a.showLatestItemDate("onPostExecute");
 	}
     }
 
@@ -128,16 +129,16 @@ public class App extends ListActivity {
 	super.onCreate(savedInstanceState);
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
-	restoreInstanceState2(savedInstanceState);
+	restoreLatestItemDate();
 	new ItemsLoader(this).execute();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        final boolean onCreateOptionsMenu = super.onCreateOptionsMenu(menu);
-        final MenuItem update = menu.add("Aktualisieren");
-        update.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-	    
+	final boolean onCreateOptionsMenu = super.onCreateOptionsMenu(menu);
+	final MenuItem update = menu.add("Aktualisieren");
+	update.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
 	    @Override
 	    public boolean onMenuItemClick(MenuItem item) {
 		new ItemsLoader(App.this).execute();
@@ -147,38 +148,25 @@ public class App extends ListActivity {
 	return onCreateOptionsMenu;
     }
 
-    private void restoreInstanceState2(Bundle state) {
-	if (state != null) {
-	    final String savedLatestItemDate = state
-		    .getString("latestItemDate");
-	    if (savedLatestItemDate != null)
-		try {
-		    latestItemDate = new SimpleDateFormat()
-			    .parse(savedLatestItemDate);
-		} catch (ParseException e) {
-		    handleError(e, "latestItemDate",
-			    "Could not restore latestItemDate",
-			    "Konnte letzte Aktualisierung nicht wieder herstellen!");
-		}
-	}
-    }
-
-    void showLatestItemDate(String messagePrefix) {
-	Context context = getApplicationContext();
-	CharSequence text = messagePrefix + ": Latest item was from "
-		+ latestItemDate.toString();
-	int duration = Toast.LENGTH_SHORT;
-
-	Toast toast = Toast.makeText(context, text, duration);
-	toast.show();
+    private void restoreLatestItemDate() {
+	final String savedLatestItemDate = userNodeForPackage.get(
+		"latestItemDate", null);
+	if (savedLatestItemDate != null)
+	    try {
+		latestItemDate = new SimpleDateFormat()
+			.parse(savedLatestItemDate);
+	    } catch (ParseException e) {
+		handleError(e, "latestItemDate",
+			"Could not restore latestItemDate",
+			"Konnte letzte Aktualisierung nicht wieder herstellen!");
+	    }
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-	super.onSaveInstanceState(outState);
-	outState.putString("latestItemDate",
+    protected void onPause() {
+	super.onPause();
+	userNodeForPackage.put("latestItemDate",
 		new SimpleDateFormat().format(getLatestItemDate()));
-	showLatestItemDate("onSaveInstanceState");
     }
 
     private void show(final List<Item> items) {
