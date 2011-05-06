@@ -31,22 +31,30 @@ package de.jugmuenster.android.updates;
 
 import java.net.URI;
 import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Source;
@@ -54,6 +62,8 @@ import de.jugmuenster.android.updates.item.Type;
 import de.jugmuenster.android.util.Test;
 
 public class App extends ListActivity {
+
+    private Date latestItemDate = new Date(0);
 
     private static final class ItemsLoader extends
 	    AsyncTask<Object, Integer, List<Item>> {
@@ -68,6 +78,7 @@ public class App extends ListActivity {
 
 	@Override
 	protected void onPreExecute() {
+	    a.showLatestItemDate("onPreExecute");
 	    progressDialog.setTitle("Lade Elemente");
 	    progressDialog.setIndeterminate(true);
 	    progressDialog.show();
@@ -76,13 +87,24 @@ public class App extends ListActivity {
 
 	@Override
 	protected List<Item> doInBackground(Object... unused) {
-	    return a.getAllItems(a.getProviders());
+	    Date newLatestItemDate = a.getLatestItemDate();
+	    final List<Item> allItems = a.getAllItems(a.getProviders());
+	    for (Item i : allItems) {
+		if (i.getFrom().compareTo(a.getLatestItemDate()) > 0) {
+		    i.setNew();
+		    if (i.getFrom().compareTo(newLatestItemDate) > 0)
+			newLatestItemDate = i.getFrom();
+		}
+	    }
+	    a.setLatestItemDate(newLatestItemDate);
+	    return allItems;
 	}
 
 	@Override
 	protected void onPostExecute(List<Item> result) {
 	    a.show(result);
 	    progressDialog.dismiss();
+	    a.showLatestItemDate("onPostExecute");
 	}
     }
 
@@ -106,7 +128,57 @@ public class App extends ListActivity {
 	super.onCreate(savedInstanceState);
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
+	restoreInstanceState2(savedInstanceState);
 	new ItemsLoader(this).execute();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        final boolean onCreateOptionsMenu = super.onCreateOptionsMenu(menu);
+        final MenuItem update = menu.add("Aktualisieren");
+        update.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+	    
+	    @Override
+	    public boolean onMenuItemClick(MenuItem item) {
+		new ItemsLoader(App.this).execute();
+		return false;
+	    }
+	});
+	return onCreateOptionsMenu;
+    }
+
+    private void restoreInstanceState2(Bundle state) {
+	if (state != null) {
+	    final String savedLatestItemDate = state
+		    .getString("latestItemDate");
+	    if (savedLatestItemDate != null)
+		try {
+		    latestItemDate = new SimpleDateFormat()
+			    .parse(savedLatestItemDate);
+		} catch (ParseException e) {
+		    handleError(e, "latestItemDate",
+			    "Could not restore latestItemDate",
+			    "Konnte letzte Aktualisierung nicht wieder herstellen!");
+		}
+	}
+    }
+
+    void showLatestItemDate(String messagePrefix) {
+	Context context = getApplicationContext();
+	CharSequence text = messagePrefix + ": Latest item was from "
+		+ latestItemDate.toString();
+	int duration = Toast.LENGTH_SHORT;
+
+	Toast toast = Toast.makeText(context, text, duration);
+	toast.show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+	super.onSaveInstanceState(outState);
+	outState.putString("latestItemDate",
+		new SimpleDateFormat().format(getLatestItemDate()));
+	showLatestItemDate("onSaveInstanceState");
     }
 
     private void show(final List<Item> items) {
@@ -152,4 +224,13 @@ public class App extends ListActivity {
 	}
 	return providers;
     }
+
+    private Date getLatestItemDate() {
+	return latestItemDate;
+    }
+
+    private void setLatestItemDate(Date latestItemDate) {
+	this.latestItemDate = latestItemDate;
+    }
+
 }

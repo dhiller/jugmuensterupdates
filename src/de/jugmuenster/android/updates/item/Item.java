@@ -41,13 +41,15 @@ public class Item implements Comparable<Item> {
     private String description;
     private Date from;
 
+    private boolean isNew;
+
     public Item() {
 	super();
     }
 
     @Override
     public String toString() {
-	return getTitle();
+	return getTitle() + (isNew() ? " (*)" : "");
     }
 
     public void setTitle(String title) {
@@ -97,6 +99,14 @@ public class Item implements Comparable<Item> {
 	return (another.getFrom() != null ? this.getFrom().compareTo(
 		another.getFrom())
 		* -1 : -1);
+    }
+
+    public void setNew() {
+	this.isNew = true;
+    }
+
+    public boolean isNew() {
+	return this.isNew;
     }
 
 }
