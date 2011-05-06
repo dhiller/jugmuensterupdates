@@ -78,7 +78,7 @@ public class ExtractorTest {
 
     @Test
     public void itemsHaveDate() throws Exception {
-	assertFalse(extractTestItems().isEmpty());
+	assertNotNull(extractTestItems().get(0).getFrom());
     }
 
     private List<Item> extractTestItems() throws FactoryConfigurationError,

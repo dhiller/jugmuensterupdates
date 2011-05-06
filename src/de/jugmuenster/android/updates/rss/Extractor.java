@@ -36,8 +36,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -63,6 +67,10 @@ public final class Extractor {
     }
 
     private static final class Handler extends DefaultHandler {
+
+	private static final SimpleDateFormat RSS_DATE_PARSER = new SimpleDateFormat(
+		"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+
 	final List<Item> items = new ArrayList<Item>();
 	Item current;
 	StringBuilder builder;
@@ -92,6 +100,16 @@ public final class Extractor {
 	    }
 	    if (current != null && elementName(localName, qName).equals("link")) {
 		current.setLink(builder.toString());
+	    }
+	    if (current != null
+		    && elementName(localName, qName).equals("pubDate")) {
+		final String dateAsString = builder.toString();
+		try {
+		    current.setFrom(RSS_DATE_PARSER.parse(dateAsString));
+		} catch (ParseException e) {
+		    System.out.println(RSS_DATE_PARSER.format(new Date())); //$NON-NLS-1$ // TODO: Remove
+		    e.printStackTrace(); // TODO
+		}
 	    }
 	    if (elementName(localName, qName).equals("item")) {
 		items.add(current);
