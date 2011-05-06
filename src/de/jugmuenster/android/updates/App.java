@@ -30,16 +30,15 @@
 package de.jugmuenster.android.updates;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,8 +49,29 @@ import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Source;
 import de.jugmuenster.android.updates.item.Type;
+import de.jugmuenster.android.util.Test;
 
 public class App extends ListActivity {
+
+    private static final class ItemsLoader extends
+	    AsyncTask<Object, Integer, List<Item>> {
+
+	private final App a;
+
+	private ItemsLoader(App a) {
+	    this.a = Test.notNull(a);
+	}
+
+	@Override
+	protected List<Item> doInBackground(Object... unused) {
+	    return a.getAllItems(a.getProviders());
+	}
+
+	@Override
+	protected void onPostExecute(List<Item> result) {
+	    a.show(result);
+	}
+    }
 
     private final class OnClickShowItemLinkInBrowser implements
 	    OnItemClickListener {
@@ -73,17 +93,7 @@ public class App extends ListActivity {
 	super.onCreate(savedInstanceState);
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
-	startLoadingItems();
-    }
-
-    private void startLoadingItems() {
-	// show(Collections.<Item> emptyList());
-	// new Thread() {
-	// public void run() {
-	final List<Item> allItems = getAllItems();
-	show(allItems);
-	// }
-	// }.start();
+	new ItemsLoader(this).execute();
     }
 
     private void show(final List<Item> items) {
@@ -94,10 +104,9 @@ public class App extends ListActivity {
 	setListAdapter(arrayAdapter);
     }
 
-    private List<Item> getAllItems() {
+    private List<Item> getAllItems(List<ContentProvider> providers) {
 	final List<Item> items = new ArrayList<Item>();
-
-	for (ContentProvider p : getProviders()) {
+	for (ContentProvider p : providers) {
 	    try {
 		items.addAll(p.extract());
 	    } catch (Exception e) {
