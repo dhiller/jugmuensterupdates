@@ -28,75 +28,55 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates.item;
+package alltests.de.jugmuenster.android.updates.item;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Item implements Comparable<Item> {
+import org.junit.Test;
 
-    private Type type;
+import de.jugmuenster.android.updates.item.Item;
 
-    private String title;
-    private String link;
-    private String description;
-    private Date from;
+public class ItemTest {
 
-    public Item() {
-	super();
+    @Test
+    public void testComparable() throws Exception {
+	final Item item = new Item();
+	assertTrue(item instanceof Comparable);
     }
 
-    @Override
-    public String toString() {
-	return getTitle();
+    @Test
+    public void testCompareNoDate() throws Exception {
+	assertEquals(0, new Item().compareTo(new Item()));
     }
 
-    public void setTitle(String title) {
-	this.title = title;
+    @Test
+    public void testItemWithDateSetIsLessThanItemWithoutDate() throws Exception {
+	assertTrue(new Item().compareTo(newItem(new Date())) > 0);
     }
 
-    public String getTitle() {
-	return title;
+    @Test
+    public void testItemWithoutDateSetIsGreaterThanItemWithDateSet()
+	    throws Exception {
+	assertTrue(newItem(new Date()).compareTo(new Item()) < 0);
     }
 
-    public void setLink(String link) {
-	this.link = link;
+    @Test
+    public void testItemWithLaterDateIsLessThanItemWithEarlierDate()
+	    throws Exception {
+	final SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+	final Date earlierDate = parser.parse("2011-05-01");
+	final Date laterDate = parser.parse("2011-05-02");
+	assertTrue(newItem(laterDate).compareTo(newItem(earlierDate)) < 0);
     }
 
-    public String getLink() {
-	return link;
-    }
-
-    public void setDescription(String description) {
-	this.description = description;
-    }
-
-    public String getDescription() {
-	return description;
-    }
-
-    public Type getType() {
-	return type;
-    }
-
-    public void setType(Type type) {
-	this.type = type;
-    }
-
-    public void setFrom(Date from) {
-	this.from = from;
-    }
-
-    public Date getFrom() {
-	return from;
-    }
-
-    @Override
-    public int compareTo(Item another) {
-	if (this.getFrom() == null)
-	    return (another.getFrom() == null ? 0 : 1);
-	return (another.getFrom() != null ? this.getFrom().compareTo(
-		another.getFrom())
-		* -1 : -1);
+    private Item newItem(final Date from) {
+	final Item another = new Item();
+	another.setFrom(from);
+	return another;
     }
 
 }
