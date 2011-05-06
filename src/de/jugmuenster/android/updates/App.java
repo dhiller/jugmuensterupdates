@@ -36,6 +36,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -57,9 +58,19 @@ public class App extends ListActivity {
 	    AsyncTask<Object, Integer, List<Item>> {
 
 	private final App a;
+	private final ProgressDialog progressDialog;
 
 	private ItemsLoader(App a) {
 	    this.a = Test.notNull(a);
+	    progressDialog = new ProgressDialog(a);
+	}
+
+	@Override
+	protected void onPreExecute() {
+	    progressDialog.setTitle("Lade Elemente");
+	    progressDialog.setIndeterminate(true);
+	    progressDialog.show();
+	    super.onPreExecute();
 	}
 
 	@Override
@@ -70,6 +81,7 @@ public class App extends ListActivity {
 	@Override
 	protected void onPostExecute(List<Item> result) {
 	    a.show(result);
+	    progressDialog.dismiss();
 	}
     }
 
