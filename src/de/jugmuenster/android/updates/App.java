@@ -67,8 +67,8 @@ import de.jugmuenster.android.util.Test;
 public class App extends ListActivity {
 
     private static final Preferences userNodeForPackage = Preferences
-	    .userNodeForPackage(App.class);
-    private Date latestItemDate = new Date(0);
+	    .systemNodeForPackage(App.class);
+    private static final int NOTIFICATION_NEW_ITEMS = 1;
 
     private static final class NotificationData {
 	final int notificationID;
@@ -86,10 +86,11 @@ public class App extends ListActivity {
     private static final class ItemsLoader extends
 	    AsyncTask<Object, Integer, List<Item>> {
 
-	private static final int NOTIFICATION_NEW_ITEMS = 1;
+	private static final String LATEST_ITEM_DATE = "latestItemDate";
 	private final App a;
 	private final ProgressDialog progressDialog;
 	private int noOfNewItems = 0;
+	private Date latestItemDate = new Date(0);
 
 	private ItemsLoader(App a) {
 	    this.a = Test.notNull(a);
@@ -101,26 +102,43 @@ public class App extends ListActivity {
 	    progressDialog.setTitle("Lade Elemente");
 	    progressDialog.setIndeterminate(true);
 	    progressDialog.show();
-	    super.onPreExecute();
 	}
 
 	@Override
 	protected List<Item> doInBackground(Object... unused) {
-	    a.restoreLatestItemDate();
-	    Date newLatestItemDate = a.getLatestItemDate();
+	    restoreLatestItemDate();
+	    Date newLatestItemDate = latestItemDate;
 	    final List<Item> allItems = a.getAllItems(a.getProviders());
 	    for (Item i : allItems) {
-		if (i.getFrom().compareTo(a.getLatestItemDate()) > 0) {
+		if (i.getFrom().compareTo(latestItemDate) > 0) {
 		    noOfNewItems++;
 		    i.setNew();
 		    if (i.getFrom().compareTo(newLatestItemDate) > 0)
 			newLatestItemDate = i.getFrom();
 		}
 	    }
-	    a.setLatestItemDate(newLatestItemDate);
-	    userNodeForPackage.put("latestItemDate",
-		    new SimpleDateFormat().format(a.getLatestItemDate()));
+	    latestItemDate = newLatestItemDate;
+	    saveLatestItemDate();
 	    return allItems;
+	}
+
+	void saveLatestItemDate() {
+	    userNodeForPackage.put(LATEST_ITEM_DATE,
+		    new SimpleDateFormat().format(latestItemDate));
+	}
+
+	void restoreLatestItemDate() {
+	    final String savedLatestItemDate = App.userNodeForPackage.get(
+		    LATEST_ITEM_DATE, null);
+	    if (savedLatestItemDate != null)
+		try {
+		    latestItemDate = new SimpleDateFormat()
+			    .parse(savedLatestItemDate);
+		} catch (ParseException e) {
+		    a.handleError(e, LATEST_ITEM_DATE,
+			    "Could not restore latestItemDate",
+			    "Konnte letzte Aktualisierung nicht wieder herstellen!");
+		}
 	}
 
 	@Override
@@ -195,25 +213,6 @@ public class App extends ListActivity {
 	return onCreateOptionsMenu;
     }
 
-    private void restoreLatestItemDate() {
-	final String savedLatestItemDate = userNodeForPackage.get(
-		"latestItemDate", null);
-	if (savedLatestItemDate != null)
-	    try {
-		latestItemDate = new SimpleDateFormat()
-			.parse(savedLatestItemDate);
-	    } catch (ParseException e) {
-		handleError(e, "latestItemDate",
-			"Could not restore latestItemDate",
-			"Konnte letzte Aktualisierung nicht wieder herstellen!");
-	    }
-    }
-
-    @Override
-    protected void onPause() {
-	super.onPause();
-    }
-
     private void show(final List<Item> items) {
 	final ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(this,
 		R.layout.list_item);
@@ -256,14 +255,6 @@ public class App extends ListActivity {
 		    "Beim Ermitteln der Nachrichtenquellen ist ein Fehler aufgetreten!");
 	}
 	return providers;
-    }
-
-    private Date getLatestItemDate() {
-	return latestItemDate;
-    }
-
-    private void setLatestItemDate(Date latestItemDate) {
-	this.latestItemDate = latestItemDate;
     }
 
 }
