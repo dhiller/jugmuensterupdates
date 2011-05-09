@@ -43,7 +43,9 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -68,19 +70,30 @@ public class App extends ListActivity {
 	    .userNodeForPackage(App.class);
     private Date latestItemDate = new Date(0);
 
+    private static class NotificationData {
+	final int notificationID;
+	final CharSequence contentTitle;
+	final CharSequence contentText;
+
+	public NotificationData(int notificationID, CharSequence contentTitle,
+		CharSequence contentText) {
+	    this.notificationID = notificationID;
+	    this.contentTitle = contentTitle;
+	    this.contentText = contentText;
+	}
+    }
+
     private static final class ItemsLoader extends
 	    AsyncTask<Object, Integer, List<Item>> {
 
 	private static final int NOTIFICATION_NEW_ITEMS = 1;
 	private final App a;
 	private final ProgressDialog progressDialog;
-	private final Notification notification = new Notification();
+	private int noOfNewItems = 0;
 
 	private ItemsLoader(App a) {
 	    this.a = Test.notNull(a);
 	    progressDialog = new ProgressDialog(a);
-	    notification.tickerText = "Neue JUG Elemente";
-	    notification.when = System.currentTimeMillis();
 	}
 
 	@Override
@@ -97,7 +110,7 @@ public class App extends ListActivity {
 	    final List<Item> allItems = a.getAllItems(a.getProviders());
 	    for (Item i : allItems) {
 		if (i.getFrom().compareTo(a.getLatestItemDate()) > 0) {
-		    notification.number++;
+		    noOfNewItems++;
 		    i.setNew();
 		    if (i.getFrom().compareTo(newLatestItemDate) > 0)
 			newLatestItemDate = i.getFrom();
@@ -111,11 +124,14 @@ public class App extends ListActivity {
 	protected void onPostExecute(List<Item> result) {
 	    a.show(result);
 	    progressDialog.dismiss();
-	    if (notification.number > 0) {
-		((NotificationManager) a.getSystemService(NOTIFICATION_SERVICE))
-			.notify(NOTIFICATION_NEW_ITEMS, notification);
+	    final NotificationData notificationData = new NotificationData(
+		    NOTIFICATION_NEW_ITEMS, "Neue JUG Elemente",
+		    MessageFormat.format("{0} neue JUG Elemente", noOfNewItems));
+	    if (noOfNewItems > 0) {
+		a.notify(notificationData);
 	    }
 	}
+
     }
 
     private final class OnClickShowItemLinkInBrowser implements
@@ -131,6 +147,25 @@ public class App extends ListActivity {
     }
 
     public App() {
+    }
+
+    void notify(final NotificationData notificationData) {
+	final Notification notification = this
+		.newNotification(notificationData);
+	((NotificationManager) this.getSystemService(NOTIFICATION_SERVICE))
+		.notify(notificationData.notificationID, notification);
+    }
+
+    Notification newNotification(final NotificationData notificationData) {
+	final Notification notification = new Notification();
+	notification.when = System.currentTimeMillis();
+	Context context = getApplicationContext();
+	Intent notificationIntent = new Intent(this, App.class);
+	PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+		notificationIntent, 0);
+	notification.setLatestEventInfo(context, notificationData.contentTitle,
+		notificationData.contentText, contentIntent);
+	return notification;
     }
 
     @Override
