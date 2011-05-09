@@ -45,17 +45,22 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.text.InputFilter.LengthFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import de.jugmuenster.android.updates.item.ContentProvider;
@@ -196,6 +201,28 @@ public class App extends ListActivity {
 	super.onCreate(savedInstanceState);
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
+	loadItems();
+	bindService(new Intent(this, UpdateService.class),
+		new ServiceConnection() {
+
+		    @Override
+		    public void onServiceDisconnected(ComponentName name) {
+			Toast.makeText(getApplication(),
+				"UpdateService disconnected!",
+				Toast.LENGTH_SHORT).show();
+		    }
+
+		    @Override
+		    public void onServiceConnected(ComponentName name,
+			    IBinder service) {
+			Toast.makeText(getApplication(),
+				"UpdateService connected!", Toast.LENGTH_SHORT)
+				.show();
+		    }
+		}, 0);
+    }
+
+    void loadItems() {
 	new ItemsLoader(this).execute();
     }
 
