@@ -179,7 +179,8 @@ public class App extends ListActivity {
     }
 
     Notification newNotification(final NotificationData notificationData) {
-	final Notification notification = new Notification();
+	final Notification notification = new Notification(R.drawable.icon,
+		"Neue JUG Elemente", System.currentTimeMillis());
 	notification.when = System.currentTimeMillis();
 	Context context = getApplicationContext();
 	Intent notificationIntent = new Intent(this, App.class);
