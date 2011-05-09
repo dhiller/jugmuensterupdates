@@ -66,11 +66,11 @@ import de.jugmuenster.android.util.Test;
 
 public class App extends ListActivity {
 
-    private final Preferences userNodeForPackage = Preferences
+    private static final Preferences userNodeForPackage = Preferences
 	    .userNodeForPackage(App.class);
     private Date latestItemDate = new Date(0);
 
-    private static class NotificationData {
+    private static final class NotificationData {
 	final int notificationID;
 	final CharSequence contentTitle;
 	final CharSequence contentText;
@@ -106,6 +106,7 @@ public class App extends ListActivity {
 
 	@Override
 	protected List<Item> doInBackground(Object... unused) {
+	    a.restoreLatestItemDate();
 	    Date newLatestItemDate = a.getLatestItemDate();
 	    final List<Item> allItems = a.getAllItems(a.getProviders());
 	    for (Item i : allItems) {
@@ -117,6 +118,8 @@ public class App extends ListActivity {
 		}
 	    }
 	    a.setLatestItemDate(newLatestItemDate);
+	    userNodeForPackage.put("latestItemDate",
+		    new SimpleDateFormat().format(a.getLatestItemDate()));
 	    return allItems;
 	}
 
@@ -124,10 +127,11 @@ public class App extends ListActivity {
 	protected void onPostExecute(List<Item> result) {
 	    a.show(result);
 	    progressDialog.dismiss();
-	    final NotificationData notificationData = new NotificationData(
-		    NOTIFICATION_NEW_ITEMS, "Neue JUG Elemente",
-		    MessageFormat.format("{0} neue JUG Elemente", noOfNewItems));
 	    if (noOfNewItems > 0) {
+		final NotificationData notificationData = new NotificationData(
+			NOTIFICATION_NEW_ITEMS, "Neue JUG Elemente",
+			MessageFormat.format("{0} neue JUG Elemente",
+				noOfNewItems));
 		a.notify(notificationData);
 	    }
 	}
@@ -173,7 +177,6 @@ public class App extends ListActivity {
 	super.onCreate(savedInstanceState);
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
-	restoreLatestItemDate();
 	new ItemsLoader(this).execute();
     }
 
@@ -209,8 +212,6 @@ public class App extends ListActivity {
     @Override
     protected void onPause() {
 	super.onPause();
-	userNodeForPackage.put("latestItemDate",
-		new SimpleDateFormat().format(getLatestItemDate()));
     }
 
     private void show(final List<Item> items) {
