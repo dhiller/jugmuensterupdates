@@ -31,9 +31,12 @@
 package de.jugmuenster.android.updates;
 
 import android.app.IntentService;
+import android.app.Service;
 import android.content.Intent;
+import android.os.IBinder;
+import android.widget.Toast;
 
-public class UpdateService extends IntentService {
+public class UpdateService extends Service {
 
     private static final int UPDATE_TIME_IN_MINUTES = 60 * 4;// TODO:
     // Aktualisierungsservice
@@ -41,25 +44,9 @@ public class UpdateService extends IntentService {
     // einstellbar
     private static final int MINUTE_IN_MSECS = 1000 * 60;
 
-    public UpdateService() {
-	super("UpdateService");
-    }
-
     @Override
-    protected void onHandleIntent(Intent arg0) {
-	final Object mutex = new Object();
-	while (true) {
-	    synchronized (mutex) {
-		try {
-		    mutex.wait(5 * 1000);// MINUTE_IN_MSECS *
-					 // UPDATE_TIME_IN_MINUTES);
-		} catch (InterruptedException e) {
-		    e.printStackTrace();
-		    return;
-		}
-	    }
-	    ((App) getApplicationContext()).loadItems();
-	}
+    public IBinder onBind(Intent intent) {
+	return null;
     }
 
 }

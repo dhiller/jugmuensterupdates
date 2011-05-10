@@ -202,24 +202,29 @@ public class App extends ListActivity {
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
 	loadItems();
-	bindService(new Intent(this, UpdateService.class),
-		new ServiceConnection() {
-
-		    @Override
-		    public void onServiceDisconnected(ComponentName name) {
-			Toast.makeText(getApplication(),
-				"UpdateService disconnected!",
-				Toast.LENGTH_SHORT).show();
-		    }
-
-		    @Override
-		    public void onServiceConnected(ComponentName name,
-			    IBinder service) {
-			Toast.makeText(getApplication(),
-				"UpdateService connected!", Toast.LENGTH_SHORT)
-				.show();
-		    }
-		}, 0);
+	final Intent intent = new Intent(this, UpdateService.class);
+	final ComponentName componentName = startService(intent);
+	// (intent, new ServiceConnection() {
+	//
+	// private IBinder service;
+	//
+	// @Override
+	// public void onServiceConnected(ComponentName name, IBinder service) {
+	// Toast.makeText(App.this, "UpdateService connected!",
+	// Toast.LENGTH_SHORT).show();
+	// this.service = service;
+	// }
+	//
+	// @Override
+	// public void onServiceDisconnected(ComponentName name) {
+	// Toast.makeText(App.this, "UpdateService disconnected!",
+	// Toast.LENGTH_SHORT).show();
+	// this.service = null;
+	// }
+	// }, 0);
+	Toast.makeText(App.this,
+		MessageFormat.format("Started service {0}!", componentName),
+		Toast.LENGTH_SHORT).show();
     }
 
     void loadItems() {
