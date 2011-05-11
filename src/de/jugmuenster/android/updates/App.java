@@ -49,6 +49,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -128,13 +129,18 @@ public class App extends ListActivity {
 	}
 
 	void saveLatestItemDate() {
-	    userNodeForPackage.put(LATEST_ITEM_DATE,
-		    new SimpleDateFormat().format(latestItemDate));
+	    final SharedPreferences preferences = a
+		    .getPreferences(MODE_PRIVATE);
+	    preferences
+		    .edit()
+		    .putString(LATEST_ITEM_DATE,
+			    new SimpleDateFormat().format(latestItemDate))
+		    .commit();
 	}
 
 	void restoreLatestItemDate() {
-	    final String savedLatestItemDate = App.userNodeForPackage.get(
-		    LATEST_ITEM_DATE, null);
+	    final String savedLatestItemDate = a.getPreferences(MODE_PRIVATE)
+		    .getString(LATEST_ITEM_DATE, null);
 	    if (savedLatestItemDate != null)
 		try {
 		    latestItemDate = new SimpleDateFormat()
