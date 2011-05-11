@@ -33,12 +33,10 @@ import java.net.URI;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -49,22 +47,19 @@ import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.text.InputFilter.LengthFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Source;
@@ -73,8 +68,6 @@ import de.jugmuenster.android.util.Test;
 
 public class App extends ListActivity {
 
-    private static final Preferences userNodeForPackage = Preferences
-	    .systemNodeForPackage(App.class);
     private static final int NOTIFICATION_NEW_ITEMS = 1;
 
     private static final class NotificationData {
