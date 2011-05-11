@@ -30,6 +30,7 @@
 package de.jugmuenster.android.updates;
 
 import java.net.URI;
+import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -134,7 +135,7 @@ public class App extends ListActivity {
 	    preferences
 		    .edit()
 		    .putString(LATEST_ITEM_DATE,
-			    new SimpleDateFormat().format(latestItemDate))
+			    Utils.newGMTDateFormat().format(latestItemDate))
 		    .commit();
 	}
 
@@ -143,7 +144,9 @@ public class App extends ListActivity {
 		    .getString(LATEST_ITEM_DATE, null);
 	    if (savedLatestItemDate != null)
 		try {
-		    latestItemDate = new SimpleDateFormat()
+		    final DateFormat simpleDateFormat = Utils
+			    .newGMTDateFormat();
+		    latestItemDate = simpleDateFormat
 			    .parse(savedLatestItemDate);
 		} catch (ParseException e) {
 		    a.handleError(e, LATEST_ITEM_DATE,

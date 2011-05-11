@@ -36,12 +36,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -61,15 +63,20 @@ public final class Extractor {
     final Handler handler = new Handler();
     final SAXParser saxParser;
 
-    public Extractor() throws ParserConfigurationException,
-	    SAXException {
+    public Extractor() throws ParserConfigurationException, SAXException {
 	saxParser = factory.newSAXParser();
+    }
+
+    static DateFormat newRSSGMTDateFormat() {
+	final SimpleDateFormat gmtDateFormat = new SimpleDateFormat(
+		"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+	gmtDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+	return gmtDateFormat;
     }
 
     private static final class Handler extends DefaultHandler {
 
-	private static final SimpleDateFormat RSS_DATE_PARSER = new SimpleDateFormat(
-		"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+	private final DateFormat RSS_DATE_PARSER = newRSSGMTDateFormat();
 
 	final List<Item> items = new ArrayList<Item>();
 	Item current;
