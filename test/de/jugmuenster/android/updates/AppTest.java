@@ -34,8 +34,20 @@ import android.test.ActivityInstrumentationTestCase2;
 
 public class AppTest extends ActivityInstrumentationTestCase2<App> {
 
+    private App activity;
+
     public AppTest() {
-	super(App.class.getPackage().toString(), App.class);
+	super("de.jugmuenster.android.updates", App.class);
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+	super.setUp();
+	activity = this.getActivity();
+    }
+
+    public void testCreation() throws Exception {
+	assertNotNull(activity);
     }
 
 }
