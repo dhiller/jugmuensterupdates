@@ -30,28 +30,20 @@
 package de.jugmuenster.android.updates;
 
 import java.net.URI;
-import java.text.DateFormat;
 import java.text.MessageFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -64,13 +56,12 @@ import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Source;
 import de.jugmuenster.android.updates.item.Type;
-import de.jugmuenster.android.util.Test;
 
 public class App extends ListActivity {
 
-    private static final int NOTIFICATION_NEW_ITEMS = 1;
+    static final int NOTIFICATION_NEW_ITEMS = 1;
 
-    private static final class NotificationData {
+    static final class NotificationData {
 	final int notificationID;
 	final CharSequence contentTitle;
 	final CharSequence contentText;
@@ -81,86 +72,6 @@ public class App extends ListActivity {
 	    this.contentTitle = contentTitle;
 	    this.contentText = contentText;
 	}
-    }
-
-    private static final class ItemsLoader extends
-	    AsyncTask<Object, Integer, List<Item>> {
-
-	private static final String LATEST_ITEM_DATE = "latestItemDate";
-	private final App a;
-	private final ProgressDialog progressDialog;
-	private int noOfNewItems = 0;
-	private Date latestItemDate = new Date(0);
-
-	private ItemsLoader(App a) {
-	    this.a = Test.notNull(a);
-	    progressDialog = new ProgressDialog(a);
-	}
-
-	@Override
-	protected void onPreExecute() {
-	    progressDialog.setTitle("Lade Elemente");
-	    progressDialog.setIndeterminate(true);
-	    progressDialog.show();
-	}
-
-	@Override
-	protected List<Item> doInBackground(Object... unused) {
-	    restoreLatestItemDate();
-	    Date newLatestItemDate = latestItemDate;
-	    final List<Item> allItems = a.getAllItems(a.getProviders());
-	    for (Item i : allItems) {
-		if (i.getFrom().compareTo(latestItemDate) > 0) {
-		    noOfNewItems++;
-		    i.setNew();
-		    if (i.getFrom().compareTo(newLatestItemDate) > 0)
-			newLatestItemDate = i.getFrom();
-		}
-	    }
-	    latestItemDate = newLatestItemDate;
-	    saveLatestItemDate();
-	    return allItems;
-	}
-
-	void saveLatestItemDate() {
-	    final SharedPreferences preferences = a
-		    .getPreferences(MODE_PRIVATE);
-	    preferences
-		    .edit()
-		    .putString(LATEST_ITEM_DATE,
-			    Utils.newGMTDateFormat().format(latestItemDate))
-		    .commit();
-	}
-
-	void restoreLatestItemDate() {
-	    final String savedLatestItemDate = a.getPreferences(MODE_PRIVATE)
-		    .getString(LATEST_ITEM_DATE, null);
-	    if (savedLatestItemDate != null)
-		try {
-		    final DateFormat simpleDateFormat = Utils
-			    .newGMTDateFormat();
-		    latestItemDate = simpleDateFormat
-			    .parse(savedLatestItemDate);
-		} catch (ParseException e) {
-		    a.handleError(e, LATEST_ITEM_DATE,
-			    "Could not restore latestItemDate",
-			    "Konnte letzte Aktualisierung nicht wieder herstellen!");
-		}
-	}
-
-	@Override
-	protected void onPostExecute(List<Item> result) {
-	    a.show(result);
-	    progressDialog.dismiss();
-	    if (noOfNewItems > 0) {
-		final NotificationData notificationData = new NotificationData(
-			NOTIFICATION_NEW_ITEMS, "Neue JUG Elemente",
-			MessageFormat.format("{0} neue JUG Elemente",
-				noOfNewItems));
-		a.notify(notificationData);
-	    }
-	}
-
     }
 
     private final class OnClickShowItemLinkInBrowser implements
@@ -176,26 +87,6 @@ public class App extends ListActivity {
     }
 
     public App() {
-    }
-
-    void notify(final NotificationData notificationData) {
-	final Notification notification = this
-		.newNotification(notificationData);
-	((NotificationManager) this.getSystemService(NOTIFICATION_SERVICE))
-		.notify(notificationData.notificationID, notification);
-    }
-
-    Notification newNotification(final NotificationData notificationData) {
-	final Notification notification = new Notification(R.drawable.icon,
-		"Neue JUG Elemente", System.currentTimeMillis());
-	notification.when = System.currentTimeMillis();
-	Context context = getApplicationContext();
-	Intent notificationIntent = new Intent(this, App.class);
-	PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-		notificationIntent, 0);
-	notification.setLatestEventInfo(context, notificationData.contentTitle,
-		notificationData.contentText, contentIntent);
-	return notification;
     }
 
     @Override
@@ -229,10 +120,6 @@ public class App extends ListActivity {
 		Toast.LENGTH_SHORT).show();
     }
 
-    void loadItems() {
-	new ItemsLoader(this).execute();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	final boolean onCreateOptionsMenu = super.onCreateOptionsMenu(menu);
@@ -248,7 +135,7 @@ public class App extends ListActivity {
 	return onCreateOptionsMenu;
     }
 
-    private void show(final List<Item> items) {
+    public void show(final List<Item> items) {
 	final ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(this,
 		R.layout.list_item);
 	for (Item i : items)
@@ -256,9 +143,9 @@ public class App extends ListActivity {
 	setListAdapter(arrayAdapter);
     }
 
-    private List<Item> getAllItems(List<ContentProvider> providers) {
+    public List<Item> getAllItems() {
 	final List<Item> items = new ArrayList<Item>();
-	for (ContentProvider p : providers) {
+	for (ContentProvider p : getProviders()) {
 	    try {
 		items.addAll(p.extract());
 	    } catch (Exception e) {
@@ -270,16 +157,12 @@ public class App extends ListActivity {
 	return items;
     }
 
-    void handleError(Throwable t, final String logTag, final String logMessage,
-	    String userMessage) {
-	Log.e(logTag, logMessage, t);
-	final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	builder.setTitle("Fehler");
-	builder.setMessage(MessageFormat.format("{0}\n\n{1}", userMessage, t));
-	builder.create().show();
+    public void handleError(Throwable t, final String logTag,
+	    final String logMessage, String userMessage) {
+	ErrorHandler.handleError(this, t, logTag, logMessage, userMessage);
     }
 
-    private List<ContentProvider> getProviders() {
+    public List<ContentProvider> getProviders() {
 	final List<ContentProvider> providers = new ArrayList<ContentProvider>();
 	try {
 	    final Source source = new Source("Blog", Type.RSS, new URI(
@@ -290,6 +173,30 @@ public class App extends ListActivity {
 		    "Beim Ermitteln der Nachrichtenquellen ist ein Fehler aufgetreten!");
 	}
 	return providers;
+    }
+
+    public void notify(final NotificationData notificationData) {
+	final Notification notification = this
+		.newNotification(notificationData);
+	((NotificationManager) this.getSystemService(NOTIFICATION_SERVICE))
+		.notify(notificationData.notificationID, notification);
+    }
+
+    Notification newNotification(final NotificationData notificationData) {
+	final Notification notification = new Notification(R.drawable.icon,
+		"Neue JUG Elemente", System.currentTimeMillis());
+	notification.when = System.currentTimeMillis();
+	Context context = getApplicationContext();
+	Intent notificationIntent = new Intent(this, App.class);
+	PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+		notificationIntent, 0);
+	notification.setLatestEventInfo(context, notificationData.contentTitle,
+		notificationData.contentText, contentIntent);
+	return notification;
+    }
+
+    void loadItems() {
+	new ItemsLoader(this).execute();
     }
 
 }
