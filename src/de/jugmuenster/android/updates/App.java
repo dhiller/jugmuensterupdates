@@ -42,6 +42,7 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -180,6 +181,10 @@ public class App extends ListActivity {
 		.newNotification(notificationData);
 	((NotificationManager) this.getSystemService(NOTIFICATION_SERVICE))
 		.notify(notificationData.notificationID, notification);
+    }
+
+    public SharedPreferences getPreferences() {
+	return getPreferences(App.MODE_PRIVATE);
     }
 
     Notification newNotification(final NotificationData notificationData) {

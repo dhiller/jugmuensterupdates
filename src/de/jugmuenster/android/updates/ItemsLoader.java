@@ -102,10 +102,6 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 		"Konnte letzte Aktualisierung nicht wieder herstellen!");
     }
 
-    protected SharedPreferences getPreferences() {
-	return app().getPreferences(App.MODE_PRIVATE);
-    }
-
     protected void notify(final NotificationData notificationData) {
 	app().notify(notificationData);
     }
@@ -119,7 +115,7 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     }
 
     private void saveLatestItemDate() {
-	final SharedPreferences preferences = getPreferences();
+	final SharedPreferences preferences = app().getPreferences();
 	preferences
 		.edit()
 		.putString(LATEST_ITEM_DATE,
@@ -128,7 +124,7 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     }
 
     private void restoreLatestItemDate() {
-	final String savedLatestItemDate = getPreferences().getString(
+	final String savedLatestItemDate = app().getPreferences().getString(
 		LATEST_ITEM_DATE, null);
 	if (savedLatestItemDate != null)
 	    try {
