@@ -58,7 +58,7 @@ import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Source;
 import de.jugmuenster.android.updates.item.Type;
 
-public class App extends ListActivity {
+public class App extends ListActivity implements Application {
 
     static final int NOTIFICATION_NEW_ITEMS = 1;
 
@@ -136,6 +136,10 @@ public class App extends ListActivity {
 	return onCreateOptionsMenu;
     }
 
+    /**
+     * @see de.jugmuenster.android.updates.Application#show(java.util.List)
+     */
+    @Override
     public void show(final List<Item> items) {
 	final ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(this,
 		R.layout.list_item);
@@ -144,6 +148,10 @@ public class App extends ListActivity {
 	setListAdapter(arrayAdapter);
     }
 
+    /**
+     * @see de.jugmuenster.android.updates.Application#getAllItems()
+     */
+    @Override
     public List<Item> getAllItems() {
 	final List<Item> items = new ArrayList<Item>();
 	for (ContentProvider p : getProviders()) {
@@ -158,11 +166,19 @@ public class App extends ListActivity {
 	return items;
     }
 
+    /**
+     * @see de.jugmuenster.android.updates.Application#handleError(java.lang.Throwable, java.lang.String, java.lang.String, java.lang.String)
+     */
+    @Override
     public void handleError(Throwable t, final String logTag,
 	    final String logMessage, String userMessage) {
 	ErrorHandler.handleError(this, t, logTag, logMessage, userMessage);
     }
 
+    /**
+     * @see de.jugmuenster.android.updates.Application#getProviders()
+     */
+    @Override
     public List<ContentProvider> getProviders() {
 	final List<ContentProvider> providers = new ArrayList<ContentProvider>();
 	try {
@@ -176,6 +192,10 @@ public class App extends ListActivity {
 	return providers;
     }
 
+    /**
+     * @see de.jugmuenster.android.updates.Application#notify(de.jugmuenster.android.updates.App.NotificationData)
+     */
+    @Override
     public void notify(final NotificationData notificationData) {
 	final Notification notification = this
 		.newNotification(notificationData);
@@ -183,6 +203,10 @@ public class App extends ListActivity {
 		.notify(notificationData.notificationID, notification);
     }
 
+    /**
+     * @see de.jugmuenster.android.updates.Application#getPreferences()
+     */
+    @Override
     public SharedPreferences getPreferences() {
 	return getPreferences(App.MODE_PRIVATE);
     }

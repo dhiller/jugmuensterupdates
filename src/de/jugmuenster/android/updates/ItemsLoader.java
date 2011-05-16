@@ -46,7 +46,7 @@ import de.jugmuenster.android.util.Test;
 final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 
     private static final String LATEST_ITEM_DATE = "latestItemDate";
-    private final App a;
+    private final Application a;
     private final ProgressDialog progressDialog;
     private int noOfNewItems = 0;
     private Date latestItemDate = new Date(0);
@@ -93,29 +93,29 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 	}
     }
 
-    protected List<Item> getAllItems() {
-	return app().getAllItems();
-    }
-
-    protected void handleError(ParseException e) {
-	app().handleError(e, LATEST_ITEM_DATE, "Could not restore latestItemDate",
-		"Konnte letzte Aktualisierung nicht wieder herstellen!");
-    }
-
-    protected void notify(final NotificationData notificationData) {
-	app().notify(notificationData);
-    }
-
-    protected void show(List<Item> result) {
-	app().show(result);
-    }
-
-    protected App app() {
+    protected Application application() {
 	return a;
     }
 
+    private List<Item> getAllItems() {
+	return application().getAllItems();
+    }
+
+    private void handleError(ParseException e) {
+	application().handleError(e, LATEST_ITEM_DATE, "Could not restore latestItemDate",
+		"Konnte letzte Aktualisierung nicht wieder herstellen!");
+    }
+
+    private void notify(final NotificationData notificationData) {
+	application().notify(notificationData);
+    }
+
+    private void show(List<Item> result) {
+	application().show(result);
+    }
+
     private void saveLatestItemDate() {
-	final SharedPreferences preferences = app().getPreferences();
+	final SharedPreferences preferences = application().getPreferences();
 	preferences
 		.edit()
 		.putString(LATEST_ITEM_DATE,
@@ -124,7 +124,7 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     }
 
     private void restoreLatestItemDate() {
-	final String savedLatestItemDate = app().getPreferences().getString(
+	final String savedLatestItemDate = application().getPreferences().getString(
 		LATEST_ITEM_DATE, null);
 	if (savedLatestItemDate != null)
 	    try {

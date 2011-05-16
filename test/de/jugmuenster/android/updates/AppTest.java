@@ -34,7 +34,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 public class AppTest extends ActivityInstrumentationTestCase2<App> {
 
-    private App activity;
+    private Application activity;
 
     public AppTest() {
 	super("de.jugmuenster.android.updates", App.class);
