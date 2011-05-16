@@ -37,6 +37,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import de.jugmuenster.android.updates.App.NotificationData;
@@ -51,9 +52,9 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     private int noOfNewItems = 0;
     private Date latestItemDate = new Date(0);
 
-    ItemsLoader(App a) {
+    ItemsLoader(Application a) {
 	this.a = Test.notNull(a);
-	progressDialog = new ProgressDialog(a);
+	progressDialog = new ProgressDialog((Context) a);
     }
 
     @Override
@@ -102,7 +103,8 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     }
 
     private void handleError(ParseException e) {
-	application().handleError(e, LATEST_ITEM_DATE, "Could not restore latestItemDate",
+	application().handleError(e, LATEST_ITEM_DATE,
+		"Could not restore latestItemDate",
 		"Konnte letzte Aktualisierung nicht wieder herstellen!");
     }
 
@@ -124,8 +126,8 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     }
 
     private void restoreLatestItemDate() {
-	final String savedLatestItemDate = application().getPreferences().getString(
-		LATEST_ITEM_DATE, null);
+	final String savedLatestItemDate = application().getPreferences()
+		.getString(LATEST_ITEM_DATE, null);
 	if (savedLatestItemDate != null)
 	    try {
 		final DateFormat simpleDateFormat = Utils.newGMTDateFormat();

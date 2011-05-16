@@ -8,7 +8,7 @@
 <booleanAttribute key="com.android.ide.eclipse.adt.target" value="true"/>
 <booleanAttribute key="com.android.ide.eclipse.adt.wipedata" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/JugMuensterUpdates/test/de/jugmuenster/android/updates/AppTest.java"/>
+<listEntry value="/JugMuensterUpdates/test/de/jugmuenster/android/updates/ItemsLoaderTest.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -18,7 +18,7 @@
 <booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
 <stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
 <stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit3"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="de.jugmuenster.android.updates.AppTest"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="de.jugmuenster.android.updates.ItemsLoaderTest"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="JugMuensterUpdates"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value=""/>
 </launchConfiguration>
