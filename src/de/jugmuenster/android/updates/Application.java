@@ -32,7 +32,6 @@ package de.jugmuenster.android.updates;
 
 import java.util.List;
 
-import android.content.SharedPreferences;
 import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
@@ -50,6 +49,8 @@ public interface Application {
 
     public abstract void notify(final NotificationData notificationData);
 
-    public abstract SharedPreferences getPreferences();
+    public String getPreference(final String name, final String defaultValue);
+
+    public void setPreference(final String name, final String newValue);
 
 }

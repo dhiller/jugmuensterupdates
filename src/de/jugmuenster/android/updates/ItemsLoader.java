@@ -38,7 +38,6 @@ import java.util.List;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.item.Item;
@@ -117,17 +116,18 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     }
 
     private void saveLatestItemDate() {
-	final SharedPreferences preferences = application().getPreferences();
-	preferences
-		.edit()
-		.putString(LATEST_ITEM_DATE,
-			Utils.newGMTDateFormat().format(latestItemDate))
-		.commit();
+	setPreference(LATEST_ITEM_DATE,
+		Utils.newGMTDateFormat().format(latestItemDate));
+    }
+
+    public void setPreference(final String name, final String newValue) {
+	application().setPreference(name, newValue);
     }
 
     private void restoreLatestItemDate() {
-	final String savedLatestItemDate = application().getPreferences()
-		.getString(LATEST_ITEM_DATE, null);
+	final String name = LATEST_ITEM_DATE;
+	final String defaultValue = null;
+	final String savedLatestItemDate = getPreference(name, defaultValue);
 	if (savedLatestItemDate != null)
 	    try {
 		final DateFormat simpleDateFormat = Utils.newGMTDateFormat();
@@ -135,6 +135,10 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 	    } catch (ParseException e) {
 		handleError(e);
 	    }
+    }
+
+    public String getPreference(final String name, final String defaultValue) {
+	return application().getPreference(name, defaultValue);
     }
 
 }

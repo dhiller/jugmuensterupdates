@@ -34,7 +34,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import android.content.SharedPreferences;
 import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
@@ -69,13 +68,17 @@ public class ItemsLoaderTest {
 	    }
 
 	    @Override
-	    public SharedPreferences getPreferences() {
+	    public List<Item> getAllItems() {
 		return null;
 	    }
 
 	    @Override
-	    public List<Item> getAllItems() {
+	    public String getPreference(String name, String defaultValue) {
 		return null;
+	    }
+
+	    @Override
+	    public void setPreference(String name, String newValue) {
 	    }
 	});
     }

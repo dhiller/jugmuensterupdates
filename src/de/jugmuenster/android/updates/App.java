@@ -167,7 +167,8 @@ public class App extends ListActivity implements Application {
     }
 
     /**
-     * @see de.jugmuenster.android.updates.Application#handleError(java.lang.Throwable, java.lang.String, java.lang.String, java.lang.String)
+     * @see de.jugmuenster.android.updates.Application#handleError(java.lang.Throwable,
+     *      java.lang.String, java.lang.String, java.lang.String)
      */
     @Override
     public void handleError(Throwable t, final String logTag,
@@ -203,12 +204,18 @@ public class App extends ListActivity implements Application {
 		.notify(notificationData.notificationID, notification);
     }
 
-    /**
-     * @see de.jugmuenster.android.updates.Application#getPreferences()
-     */
-    @Override
-    public SharedPreferences getPreferences() {
+    private SharedPreferences getPreferences() {
 	return getPreferences(App.MODE_PRIVATE);
+    }
+
+    public String getPreference(final String name, final String defaultValue) {
+	return getPreferences()
+		.getString(name, defaultValue);
+    }
+
+    public void setPreference(final String name, final String newValue) {
+	final SharedPreferences preferences = getPreferences();
+	preferences.edit().putString(name, newValue).commit();
     }
 
     Notification newNotification(final NotificationData notificationData) {
