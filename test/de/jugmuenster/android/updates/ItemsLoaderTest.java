@@ -34,11 +34,13 @@ import java.util.List;
 
 import org.junit.Test;
 
+import android.test.AndroidTestCase;
+
 import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 
-public class ItemsLoaderTest {
+public class ItemsLoaderTest extends AndroidTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testApplicationNull() throws Exception {
