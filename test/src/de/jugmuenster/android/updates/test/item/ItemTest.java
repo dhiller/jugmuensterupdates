@@ -28,26 +28,55 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates;
+package de.jugmuenster.android.updates.test.item;
 
-import android.test.ActivityInstrumentationTestCase2;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class AppTest extends ActivityInstrumentationTestCase2<App> {
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    private Application activity;
+import org.junit.Test;
 
-    public AppTest() {
-	super("de.jugmuenster.android.updates", App.class);
+import de.jugmuenster.android.updates.item.Item;
+
+public class ItemTest {
+
+    @Test
+    public void isComparable() throws Exception {
+	final Item item = new Item();
+	assertTrue(item instanceof Comparable);
     }
 
-    @Override
-    protected void setUp() throws Exception {
-	super.setUp();
-	activity = this.getActivity();
+    @Test
+    public void compareNoDate() throws Exception {
+	assertEquals(0, new Item().compareTo(new Item()));
     }
 
-    public void testCreation() throws Exception {
-	assertNotNull(activity);
+    @Test
+    public void itemWithDateSetIsLessThanItemWithoutDate() throws Exception {
+	assertTrue(new Item().compareTo(newItem(new Date())) > 0);
+    }
+
+    @Test
+    public void itemWithoutDateSetIsGreaterThanItemWithDateSet()
+	    throws Exception {
+	assertTrue(newItem(new Date()).compareTo(new Item()) < 0);
+    }
+
+    @Test
+    public void itemWithLaterDateIsLessThanItemWithEarlierDate()
+	    throws Exception {
+	final SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+	final Date earlierDate = parser.parse("2011-05-01");
+	final Date laterDate = parser.parse("2011-05-02");
+	assertTrue(newItem(laterDate).compareTo(newItem(earlierDate)) < 0);
+    }
+
+    private Item newItem(final Date from) {
+	final Item another = new Item();
+	another.setFrom(from);
+	return another;
     }
 
 }

@@ -62,7 +62,7 @@ public class App extends ListActivity implements Application {
 
     static final int NOTIFICATION_NEW_ITEMS = 1;
 
-    static final class NotificationData {
+    public static final class NotificationData {
 	final int notificationID;
 	final CharSequence contentTitle;
 	final CharSequence contentText;

@@ -43,7 +43,7 @@ import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.util.Test;
 
-final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
+public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 
     private static final String LATEST_ITEM_DATE = "latestItemDate";
     private final Application a;
@@ -51,7 +51,7 @@ final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     private int noOfNewItems = 0;
     private Date latestItemDate = new Date(0);
 
-    ItemsLoader(Application a) {
+    public ItemsLoader(Application a) {
 	this.a = Test.notNull(a);
 	progressDialog = new ProgressDialog((Context) a);
     }

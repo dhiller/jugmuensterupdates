@@ -28,7 +28,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.updates.rss;
+package de.jugmuenster.android.updates.test.rss;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -47,6 +47,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import de.jugmuenster.android.updates.item.Item;
+import de.jugmuenster.android.updates.rss.Extractor;
 
 public class ExtractorTest {
 
