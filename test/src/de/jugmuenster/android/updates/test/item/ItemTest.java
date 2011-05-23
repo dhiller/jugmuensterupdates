@@ -30,42 +30,34 @@
 
 package de.jugmuenster.android.updates.test.item;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.junit.Test;
+import junit.framework.TestCase;
 
 import de.jugmuenster.android.updates.item.Item;
 
-public class ItemTest {
+public class ItemTest extends TestCase {
 
-    @Test
-    public void isComparable() throws Exception {
+    public void testIsComparable() throws Exception {
 	final Item item = new Item();
 	assertTrue(item instanceof Comparable);
     }
 
-    @Test
-    public void compareNoDate() throws Exception {
+    public void testCompareNoDate() throws Exception {
 	assertEquals(0, new Item().compareTo(new Item()));
     }
 
-    @Test
-    public void itemWithDateSetIsLessThanItemWithoutDate() throws Exception {
+    public void testItemWithDateSetIsLessThanItemWithoutDate() throws Exception {
 	assertTrue(new Item().compareTo(newItem(new Date())) > 0);
     }
 
-    @Test
-    public void itemWithoutDateSetIsGreaterThanItemWithDateSet()
+    public void testItemWithoutDateSetIsGreaterThanItemWithDateSet()
 	    throws Exception {
 	assertTrue(newItem(new Date()).compareTo(new Item()) < 0);
     }
 
-    @Test
-    public void itemWithLaterDateIsLessThanItemWithEarlierDate()
+    public void testItemWithLaterDateIsLessThanItemWithEarlierDate()
 	    throws Exception {
 	final SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
 	final Date earlierDate = parser.parse("2011-05-01");

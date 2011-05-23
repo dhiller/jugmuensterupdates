@@ -30,9 +30,6 @@
 
 package de.jugmuenster.android.updates.test.rss;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,42 +40,37 @@ import java.util.List;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.Test;
+import junit.framework.TestCase;
+
 import org.xml.sax.SAXException;
 
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.rss.Extractor;
 
-public class ExtractorTest {
+public class ExtractorTest extends TestCase {
 
-    @Test
-    public void streamHasItems() throws IOException {
+    public void testStreamHasItems() throws IOException {
 	final String rss = getFullRss();
 	System.out.println(rss); //$NON-NLS-1$ // TODO: Remove
     }
 
-    @Test
-    public void itemsFromStringNotNull() throws Exception {
+    public void testItemsFromStringNotNull() throws Exception {
 	assertNotNull(new Extractor().extract(getFullRss()));
     }
 
-    @Test
-    public void itemsFromStringNotEmpty() throws Exception {
+    public void testItemsFromStringNotEmpty() throws Exception {
 	assertFalse(new Extractor().extract(getFullRss()).isEmpty());
     }
 
-    @Test
-    public void itemsNotNull() throws Exception {
+    public void testItemsNotNull() throws Exception {
 	assertNotNull(extractTestItems());
     }
 
-    @Test
-    public void hasItems() throws Exception {
+    public void testHasItems() throws Exception {
 	assertFalse(extractTestItems().isEmpty());
     }
 
-    @Test
-    public void itemsHaveDate() throws Exception {
+    public void testItemsHaveDate() throws Exception {
 	assertNotNull(extractTestItems().get(0).getFrom());
     }
 

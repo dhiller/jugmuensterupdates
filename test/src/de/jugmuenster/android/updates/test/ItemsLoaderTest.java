@@ -32,23 +32,23 @@ package de.jugmuenster.android.updates.test;
 
 import java.util.List;
 
-import org.junit.Test;
-
-import android.test.AndroidTestCase;
+import junit.framework.TestCase;
 import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.Application;
 import de.jugmuenster.android.updates.ItemsLoader;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 
-public class ItemsLoaderTest extends AndroidTestCase {
+public class ItemsLoaderTest extends TestCase {
 
-    @Test(expected = IllegalArgumentException.class)
     public void testApplicationNull() throws Exception {
-	new ItemsLoader(null);
+	try {
+	    new ItemsLoader(null);
+	    fail("IllegalArgumentException expected!");
+	} catch (IllegalArgumentException e) {
+	}
     }
 
-    @Test
     public void testCreation() throws Exception {
 	new ItemsLoader(new Application() {
 
