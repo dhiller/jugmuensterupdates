@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, Java User Group Münster, NRW, Germany, 
+ * Copyright (c) 2011, Java User Group Mï¿½nster, NRW, Germany, 
  * http://www.jug-muenster.de
  * All rights reserved.
  * 
@@ -11,7 +11,7 @@
  *  - 	Redistributions in binary form must reproduce the above copyright notice, 
  * 	this list of conditions and the following disclaimer in the documentation 
  * 	and/or other materials provided with the distribution.
- *  - 	Neither the name of the Java User Group Münster nor the names of its contributors may 
+ *  - 	Neither the name of the Java User Group Mï¿½nster nor the names of its contributors may 
  * 	be used to endorse or promote products derived from this software without 
  * 	specific prior written permission.
  * 
@@ -35,7 +35,8 @@ import java.util.Date;
 public class Item implements Comparable<Item> {
 
     private Type type;
-
+    private String marker;
+    
     private String title;
     private String link;
     private String description;
@@ -49,7 +50,7 @@ public class Item implements Comparable<Item> {
 
     @Override
     public String toString() {
-	return getTitle() + (isNew() ? " (*)" : "");
+	return getMarker() + ": " + getTitle() + (isNew() ? " (*)" : "");
     }
 
     public void setTitle(String title) {
@@ -82,6 +83,14 @@ public class Item implements Comparable<Item> {
 
     public void setType(Type type) {
 	this.type = type;
+    }
+    
+    public String getMarker(){
+    	return marker;
+    }
+    
+    public void setMarker(String marker){
+    	this.marker = marker;
     }
 
     public void setFrom(Date from) {

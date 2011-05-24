@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, Java User Group Münster, NRW, Germany, 
+ * Copyright (c) 2011, Java User Group Mï¿½nster, NRW, Germany, 
  * http://www.jug-muenster.de
  * All rights reserved.
  * 
@@ -11,7 +11,7 @@
  *  - 	Redistributions in binary form must reproduce the above copyright notice, 
  * 	this list of conditions and the following disclaimer in the documentation 
  * 	and/or other materials provided with the distribution.
- *  - 	Neither the name of the Java User Group Münster nor the names of its contributors may 
+ *  - 	Neither the name of the Java User Group Mï¿½nster nor the names of its contributors may 
  * 	be used to endorse or promote products derived from this software without 
  * 	specific prior written permission.
  * 
@@ -36,30 +36,36 @@ import de.jugmuenster.android.util.Test;
 
 public class Source {
 
-    private final Type type;
-    private final URI uri;
-    private final String name;
+	private final Type type;
+	private final URI uri;
+	private final String longName;
+	private final String shortName;
 
-    public Source(String name, Type type, URI source) {
-	this.name = Test.notNull(name);
-	this.type = Test.notNull(type);
-	this.uri = Test.notNull(source);
-    }
+	public Source(String longName, String shortName, Type type, URI source) {
+		this.longName = Test.notNull(longName);
+		this.shortName = Test.notNull(shortName);
+		this.type = Test.notNull(type);
+		this.uri = Test.notNull(source);
+	}
 
-    public String name() {
-	return name;
-    }
+	public String longName() {
+		return longName;
+	}
 
-    public Type type() {
-	return type;
-    }
+	public String shortName() {
+		return shortName;
+	}
 
-    public URI uri() {
-	return uri;
-    }
+	public Type type() {
+		return type;
+	}
 
-    public ContentProvider createProvider() {
-	return type().createProvider(this);
-    }
+	public URI uri() {
+		return uri;
+	}
+
+	public ContentProvider createProvider() {
+		return type().createProvider(this);
+	}
 
 }

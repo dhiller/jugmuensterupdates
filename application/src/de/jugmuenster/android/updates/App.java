@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, Java User Group Münster, NRW, Germany, 
+ * Copyright (c) 2011, Java User Group Mï¿½nster, NRW, Germany, 
  * http://www.jug-muenster.de
  * All rights reserved.
  * 
@@ -11,7 +11,7 @@
  *  - 	Redistributions in binary form must reproduce the above copyright notice, 
  * 	this list of conditions and the following disclaimer in the documentation 
  * 	and/or other materials provided with the distribution.
- *  - 	Neither the name of the Java User Group Münster nor the names of its contributors may 
+ *  - 	Neither the name of the Java User Group Mï¿½nster nor the names of its contributors may 
  * 	be used to endorse or promote products derived from this software without 
  * 	specific prior written permission.
  * 
@@ -33,6 +33,7 @@ import java.net.URI;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -156,10 +157,15 @@ public class App extends ListActivity implements Application {
 	final List<Item> items = new ArrayList<Item>();
 	for (ContentProvider p : getProviders()) {
 	    try {
-		items.addAll(p.extract());
+	    	List<Item> tmpItems = p.extract();
+	    	for (Iterator<Item> iterator = tmpItems.iterator(); iterator.hasNext();) {
+				Item item = (Item) iterator.next();
+				item.setMarker(p.source().shortName());
+			}
+	    	items.addAll(tmpItems);
 	    } catch (Exception e) {
 		handleError(e, "GetItems", "Could not fetch new items!",
-			"Beim Ermitteln der neuen Beiträge ist ein Fehler aufgetreten!");
+			"Beim Ermitteln der neuen Beitrï¿½ge ist ein Fehler aufgetreten!");
 	    }
 	}
 	Collections.sort(items);
@@ -183,9 +189,14 @@ public class App extends ListActivity implements Application {
     public List<ContentProvider> getProviders() {
 	final List<ContentProvider> providers = new ArrayList<ContentProvider>();
 	try {
-	    final Source source = new Source("Blog", Type.RSS, new URI(
+	    final Source sourceBlog = new Source("Blog", "B", Type.RSS, new URI(
 		    "http://www.jug-muenster.de/feed/"));
-	    providers.add(source.createProvider());
+	    providers.add(sourceBlog.createProvider());
+
+	    final Source sourceTwitter = new Source("Twitter", "T", Type.RSS, new URI(
+	    	"http://search.twitter.com/search.rss?q=from%3AJug_MS%20include%3Aretweets"));
+	    providers.add(sourceTwitter.createProvider());
+
 	} catch (Exception e) {
 	    handleError(e, "GetProviders", "Could not get item providers!",
 		    "Beim Ermitteln der Nachrichtenquellen ist ein Fehler aufgetreten!");
