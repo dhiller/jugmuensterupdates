@@ -36,7 +36,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import de.jugmuenster.android.updates.App.NotificationData;
@@ -47,20 +46,19 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 
     private static final String LATEST_ITEM_DATE = "latestItemDate";
     private final Application a;
-    private final ProgressDialog progressDialog;
+    private ProgressDialogController progressDialogController;
     private int noOfNewItems = 0;
     private Date latestItemDate = new Date(0);
 
-    public ItemsLoader(Application a) {
+    public ItemsLoader(Application a, ProgressDialogController c) {
 	this.a = Test.notNull(a);
-	progressDialog = new ProgressDialog((Context) a);
+	this.progressDialogController = Test.notNull(c);
+	progressDialogController.createProgressDialog((Context) application());
     }
 
     @Override
     protected void onPreExecute() {
-	progressDialog.setTitle("Lade Elemente");
-	progressDialog.setIndeterminate(true);
-	progressDialog.show();
+	progressDialogController.showProgressDialog("Lade Elemente", true);
     }
 
     @Override
@@ -84,7 +82,7 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     @Override
     protected void onPostExecute(List<Item> result) {
 	show(result);
-	progressDialog.dismiss();
+	progressDialogController.dismissProgressDialog();
 	if (noOfNewItems > 0) {
 	    final NotificationData notificationData = new NotificationData(
 		    App.NOTIFICATION_NEW_ITEMS, "Neue JUG Elemente",

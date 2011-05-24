@@ -36,53 +36,65 @@ import junit.framework.TestCase;
 import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.Application;
 import de.jugmuenster.android.updates.ItemsLoader;
+import de.jugmuenster.android.updates.ProgressDialogController;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 
 public class ItemsLoaderTest extends TestCase {
 
+    private final class MockApplication extends
+	    android.test.mock.MockApplication implements
+	    Application {
+	//
+	// @Override
+	// public Object getSystemService(String name) {
+	// if (name.equals(MockContext.WINDOW_SERVICE))
+	// return MockContext.WINDOW_SERVICE;
+	// throw new UnsupportedOperationException(name + " not found!");
+	// }
+
+	@Override
+	public void show(List<Item> items) {
+	}
+
+	@Override
+	public void notify(NotificationData notificationData) {
+	}
+
+	@Override
+	public void handleError(Throwable t, String logTag,
+	    String logMessage, String userMessage) {
+	}
+
+	@Override
+	public List<ContentProvider> getProviders() {
+	return null;
+	}
+
+	@Override
+	public List<Item> getAllItems() {
+	return null;
+	}
+
+	@Override
+	public String getPreference(String name, String defaultValue) {
+	return null;
+	}
+
+	@Override
+	public void setPreference(String name, String newValue) {
+	}
+    }
+
     public void testApplicationNull() throws Exception {
 	try {
-	    new ItemsLoader(null);
+	    new ItemsLoader(null, new ProgressDialogController());
 	    fail("IllegalArgumentException expected!");
 	} catch (IllegalArgumentException e) {
 	}
     }
 
     public void testCreation() throws Exception {
-	new ItemsLoader(new Application() {
-
-	    @Override
-	    public void show(List<Item> items) {
-	    }
-
-	    @Override
-	    public void notify(NotificationData notificationData) {
-	    }
-
-	    @Override
-	    public void handleError(Throwable t, String logTag,
-		    String logMessage, String userMessage) {
-	    }
-
-	    @Override
-	    public List<ContentProvider> getProviders() {
-		return null;
-	    }
-
-	    @Override
-	    public List<Item> getAllItems() {
-		return null;
-	    }
-
-	    @Override
-	    public String getPreference(String name, String defaultValue) {
-		return null;
-	    }
-
-	    @Override
-	    public void setPreference(String name, String newValue) {
-	    }
-	});
+	new ItemsLoader(new MockApplication(), new ProgressDialogController());
     }
 }

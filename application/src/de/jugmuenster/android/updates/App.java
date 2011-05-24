@@ -129,7 +129,7 @@ public class App extends ListActivity implements Application {
 
 	    @Override
 	    public boolean onMenuItemClick(MenuItem item) {
-		new ItemsLoader(App.this).execute();
+		new ItemsLoader(App.this, new ProgressDialogController()).execute();
 		return false;
 	    }
 	});
@@ -232,7 +232,7 @@ public class App extends ListActivity implements Application {
     }
 
     void loadItems() {
-	new ItemsLoader(this).execute();
+	new ItemsLoader(this, new ProgressDialogController()).execute();
     }
 
 }
