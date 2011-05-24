@@ -102,6 +102,14 @@ public class ItemsLoaderTest extends TestCase {
 	}
     }
 
+    public void testDialogControllerNull() throws Exception {
+	try {
+	    new ItemsLoader(new MockApplication(), null);
+	    fail("IllegalArgumentException expected!");
+	} catch (IllegalArgumentException e) {
+	}
+    }
+
     public void testCreation() throws Exception {
 	newInstance();
     }
