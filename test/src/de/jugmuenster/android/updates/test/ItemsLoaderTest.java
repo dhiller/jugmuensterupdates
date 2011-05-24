@@ -32,6 +32,8 @@ package de.jugmuenster.android.updates.test;
 
 import java.util.List;
 
+import android.content.Context;
+
 import junit.framework.TestCase;
 import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.Application;
@@ -42,9 +44,22 @@ import de.jugmuenster.android.updates.item.Item;
 
 public class ItemsLoaderTest extends TestCase {
 
+    private final class MockDialogController extends ProgressDialogController {
+	@Override
+	public void createProgressDialog(Context c) {
+	}
+
+	@Override
+	public void showProgressDialog(String title, boolean indeterminate) {
+	}
+
+	@Override
+	public void dismissProgressDialog() {
+	}
+    }
+
     private final class MockApplication extends
-	    android.test.mock.MockApplication implements
-	    Application {
+	    android.test.mock.MockApplication implements Application {
 	//
 	// @Override
 	// public Object getSystemService(String name) {
@@ -62,23 +77,23 @@ public class ItemsLoaderTest extends TestCase {
 	}
 
 	@Override
-	public void handleError(Throwable t, String logTag,
-	    String logMessage, String userMessage) {
+	public void handleError(Throwable t, String logTag, String logMessage,
+		String userMessage) {
 	}
 
 	@Override
 	public List<ContentProvider> getProviders() {
-	return null;
+	    return null;
 	}
 
 	@Override
 	public List<Item> getAllItems() {
-	return null;
+	    return null;
 	}
 
 	@Override
 	public String getPreference(String name, String defaultValue) {
-	return null;
+	    return null;
 	}
 
 	@Override
@@ -88,13 +103,13 @@ public class ItemsLoaderTest extends TestCase {
 
     public void testApplicationNull() throws Exception {
 	try {
-	    new ItemsLoader(null, new ProgressDialogController());
+	    new ItemsLoader(null, new MockDialogController());
 	    fail("IllegalArgumentException expected!");
 	} catch (IllegalArgumentException e) {
 	}
     }
 
     public void testCreation() throws Exception {
-	new ItemsLoader(new MockApplication(), new ProgressDialogController());
+	new ItemsLoader(new MockApplication(), new MockDialogController());
     }
 }
