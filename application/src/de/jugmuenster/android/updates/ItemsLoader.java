@@ -44,7 +44,8 @@ import de.jugmuenster.android.util.Test;
 
 public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 
-    private static final String LATEST_ITEM_DATE = "latestItemDate";
+    public static final String LATEST_ITEM_DATE = "latestItemDate";
+
     private final Application a;
     private ProgressDialogController progressDialogController;
     private int noOfNewItems = 0;

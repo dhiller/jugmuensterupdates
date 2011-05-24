@@ -30,6 +30,7 @@
 
 package de.jugmuenster.android.updates.test;
 
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -39,6 +40,7 @@ import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.Application;
 import de.jugmuenster.android.updates.ItemsLoader;
 import de.jugmuenster.android.updates.ProgressDialogController;
+import de.jugmuenster.android.updates.Utils;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 
@@ -60,6 +62,16 @@ public class ItemsLoaderTest extends TestCase {
 
     private final class MockApplication extends
 	    android.test.mock.MockApplication implements Application {
+
+	private Date latestItemDate;
+
+	private Date getLatestItemDate() {
+	    return latestItemDate;
+	}
+
+	private void setLatestItemDate(Date latestItemDate) {
+	    this.latestItemDate = latestItemDate;
+	}
 
 	@Override
 	public void show(List<Item> items) {
@@ -86,6 +98,10 @@ public class ItemsLoaderTest extends TestCase {
 
 	@Override
 	public String getPreference(String name, String defaultValue) {
+	    if (name.equals(ItemsLoader.LATEST_ITEM_DATE)
+		    && latestItemDate != null) {
+		return Utils.newGMTDateFormat().format(latestItemDate);
+	    }
 	    return null;
 	}
 
@@ -118,9 +134,23 @@ public class ItemsLoaderTest extends TestCase {
 	newInstance().execute();
     }
 
+    public void testExecuteWithLatestItemDate() throws Exception {
+	newInstance(new Date()).execute();
+    }
+
     protected ItemsLoader newInstance() {
-	return new ItemsLoader(new MockApplication(),
-		new MockDialogController());
+	return newInstance(null);
+    }
+
+    protected ItemsLoader newInstance(final Date latestItemDate) {
+	final MockApplication a = newApplication(latestItemDate);
+	return new ItemsLoader(a, new MockDialogController());
+    }
+
+    protected MockApplication newApplication(final Date latestItemDate) {
+	final MockApplication a = new MockApplication();
+	a.setLatestItemDate(latestItemDate);
+	return a;
     }
 
 }
