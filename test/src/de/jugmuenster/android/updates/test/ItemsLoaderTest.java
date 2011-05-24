@@ -103,6 +103,16 @@ public class ItemsLoaderTest extends TestCase {
     }
 
     public void testCreation() throws Exception {
-	new ItemsLoader(new MockApplication(), new MockDialogController());
+	newInstance();
     }
+
+    public void testExecute() throws Exception {
+	newInstance().execute();
+    }
+
+    protected ItemsLoader newInstance() {
+	return new ItemsLoader(new MockApplication(),
+		new MockDialogController());
+    }
+
 }

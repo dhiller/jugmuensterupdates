@@ -114,18 +114,15 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     }
 
     private void saveLatestItemDate() {
-	setPreference(LATEST_ITEM_DATE,
+	application().setPreference(LATEST_ITEM_DATE,
 		Utils.newGMTDateFormat().format(latestItemDate));
-    }
-
-    public void setPreference(final String name, final String newValue) {
-	application().setPreference(name, newValue);
     }
 
     private void restoreLatestItemDate() {
 	final String name = LATEST_ITEM_DATE;
 	final String defaultValue = null;
-	final String savedLatestItemDate = getPreference(name, defaultValue);
+	final String savedLatestItemDate = application().getPreference(name,
+		defaultValue);
 	if (savedLatestItemDate != null)
 	    try {
 		final DateFormat simpleDateFormat = Utils.newGMTDateFormat();
@@ -133,10 +130,6 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 	    } catch (ParseException e) {
 		handleError(e);
 	    }
-    }
-
-    public String getPreference(final String name, final String defaultValue) {
-	return application().getPreference(name, defaultValue);
     }
 
 }
