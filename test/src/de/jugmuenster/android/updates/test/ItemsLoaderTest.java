@@ -60,13 +60,6 @@ public class ItemsLoaderTest extends TestCase {
 
     private final class MockApplication extends
 	    android.test.mock.MockApplication implements Application {
-	//
-	// @Override
-	// public Object getSystemService(String name) {
-	// if (name.equals(MockContext.WINDOW_SERVICE))
-	// return MockContext.WINDOW_SERVICE;
-	// throw new UnsupportedOperationException(name + " not found!");
-	// }
 
 	@Override
 	public void show(List<Item> items) {
