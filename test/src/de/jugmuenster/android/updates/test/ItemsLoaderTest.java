@@ -30,6 +30,9 @@
 
 package de.jugmuenster.android.updates.test;
 
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +46,7 @@ import de.jugmuenster.android.updates.ProgressDialogController;
 import de.jugmuenster.android.updates.Utils;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
+import de.jugmuenster.android.util.Test;
 
 public class ItemsLoaderTest extends TestCase {
 
@@ -64,6 +68,7 @@ public class ItemsLoaderTest extends TestCase {
 	    android.test.mock.MockApplication implements Application {
 
 	private Date latestItemDate;
+	private List<Item> items = Collections.<Item> emptyList();
 
 	private Date getLatestItemDate() {
 	    return latestItemDate;
@@ -93,7 +98,7 @@ public class ItemsLoaderTest extends TestCase {
 
 	@Override
 	public List<Item> getAllItems() {
-	    return null;
+	    return this.items;
 	}
 
 	@Override
@@ -107,6 +112,17 @@ public class ItemsLoaderTest extends TestCase {
 
 	@Override
 	public void setPreference(String name, String newValue) {
+	    if (name.equals(ItemsLoader.LATEST_ITEM_DATE)) {
+		try {
+		    setLatestItemDate(Utils.newGMTDateFormat().parse(newValue));
+		} catch (ParseException e) {
+		    throw new AssertionError(e);
+		}
+	    }
+	}
+
+	public void setItems(List<Item> items) {
+	    this.items = Test.notNull(items);
 	}
     }
 
@@ -135,15 +151,44 @@ public class ItemsLoaderTest extends TestCase {
     }
 
     public void testExecuteWithLatestItemDate() throws Exception {
-	newInstance(new Date()).execute();
+	final Date current = latestItemDate();
+	final MockApplication newApplication = newApplication(current);
+	final ItemsLoader newInstance = newInstance(newApplication);
+	newInstance.execute();
+	assertEquals(current, newApplication.getLatestItemDate());
+    }
+
+    public void testExecuteWithNewerItemUpdatesLatestItemDate()
+	    throws Exception {
+	final Date current = new Date();
+	final MockApplication newApplication = newApplication(current);
+	final Item newerItem = new Item();
+	final String format = Utils.newGMTDateFormat().format(new Date());
+	final Date newerDate = Utils.newGMTDateFormat().parse("1/1/11 7:37 PM");
+	newerItem
+		.setFrom(newerDate);
+	newApplication.setItems(Arrays.asList(newerItem));
+	final ItemsLoader newInstance = newInstance(newApplication);
+	newInstance.execute();
+	assertEquals(newerDate, newApplication.getLatestItemDate());
+    }
+
+    protected Date latestItemDate() throws ParseException {
+	// 5/25/11 5:09 AM
+	return Utils.newGMTDateFormat().parse("12/31/10 5:42 AM");
     }
 
     protected ItemsLoader newInstance() {
-	return newInstance(null);
+	return newInstanceWithLatestItemDate((Date) null);
     }
 
-    protected ItemsLoader newInstance(final Date latestItemDate) {
+    protected ItemsLoader newInstanceWithLatestItemDate(
+	    final Date latestItemDate) {
 	final MockApplication a = newApplication(latestItemDate);
+	return newInstance(a);
+    }
+
+    protected ItemsLoader newInstance(final MockApplication a) {
 	return new ItemsLoader(a, new MockDialogController());
     }
 
