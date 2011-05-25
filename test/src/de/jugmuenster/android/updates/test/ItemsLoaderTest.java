@@ -151,26 +151,36 @@ public class ItemsLoaderTest extends TestCase {
     }
 
     public void testExecuteWithLatestItemDate() throws Exception {
-	final Date current = latestItemDate();
-	final MockApplication newApplication = newApplication(current);
-	final ItemsLoader newInstance = newInstance(newApplication);
-	newInstance.execute();
-	assertEquals(current, newApplication.getLatestItemDate());
+	final MockApplication newApplication = newApplication(latestItemDate());
+	newInstance(newApplication).execute();
+	assertEquals(latestItemDate(), newApplication.getLatestItemDate());
+    }
+
+    public void testExecuteWithNewerItemUpdatesNoOfNewItems() throws Exception {
+	final MockApplication newApplication = newApplication(latestItemDate());
+	newApplication.setItems(Arrays.asList(newItem()));
+	final ItemsLoader newInstance = (ItemsLoader) newInstance(
+		newApplication).execute();
+	assertEquals(1, newInstance.noOfNewItems());
     }
 
     public void testExecuteWithNewerItemUpdatesLatestItemDate()
 	    throws Exception {
-	final Date current = new Date();
-	final MockApplication newApplication = newApplication(current);
-	final Item newerItem = new Item();
-	final String format = Utils.newGMTDateFormat().format(new Date());
-	final Date newerDate = Utils.newGMTDateFormat().parse("1/1/11 7:37 PM");
-	newerItem
-		.setFrom(newerDate);
+	final MockApplication newApplication = newApplication(latestItemDate());
+	final Item newerItem = newItem();
 	newApplication.setItems(Arrays.asList(newerItem));
-	final ItemsLoader newInstance = newInstance(newApplication);
-	newInstance.execute();
-	assertEquals(newerDate, newApplication.getLatestItemDate());
+	newInstance(newApplication).execute();
+	assertEquals(laterDate(), newApplication.getLatestItemDate());
+    }
+
+    protected Item newItem() throws ParseException {
+	final Item newerItem = new Item();
+	newerItem.setFrom(laterDate());
+	return newerItem;
+    }
+
+    protected Date laterDate() throws ParseException {
+	return Utils.newGMTDateFormat().parse("1/1/11 7:37 PM");
     }
 
     protected Date latestItemDate() throws ParseException {
@@ -179,11 +189,10 @@ public class ItemsLoaderTest extends TestCase {
     }
 
     protected ItemsLoader newInstance() {
-	return newInstanceWithLatestItemDate((Date) null);
+	return newInstanceWithDate((Date) null);
     }
 
-    protected ItemsLoader newInstanceWithLatestItemDate(
-	    final Date latestItemDate) {
+    protected ItemsLoader newInstanceWithDate(final Date latestItemDate) {
 	final MockApplication a = newApplication(latestItemDate);
 	return newInstance(a);
     }

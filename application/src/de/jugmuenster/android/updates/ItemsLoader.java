@@ -133,4 +133,12 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 	    }
     }
 
+    public void setNoOfNewItems(int noOfNewItems) {
+	this.noOfNewItems = noOfNewItems;
+    }
+
+    public int noOfNewItems() {
+	return noOfNewItems;
+    }
+
 }
