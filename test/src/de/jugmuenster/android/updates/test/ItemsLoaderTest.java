@@ -34,7 +34,9 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.content.Context;
 
@@ -51,8 +53,11 @@ import de.jugmuenster.android.util.Test;
 public class ItemsLoaderTest extends TestCase {
 
     private final class MockDialogController extends ProgressDialogController {
+	private boolean createProgressDialog;
+
 	@Override
 	public void createProgressDialog(Context c) {
+	    createProgressDialog = true;
 	}
 
 	@Override
@@ -62,6 +67,11 @@ public class ItemsLoaderTest extends TestCase {
 	@Override
 	public void dismissProgressDialog() {
 	}
+
+	public boolean createProgressDialogCalled() {
+	    return createProgressDialog;
+	}
+
     }
 
     private final class MockApplication extends
@@ -69,6 +79,7 @@ public class ItemsLoaderTest extends TestCase {
 
 	private Date latestItemDate;
 	private List<Item> items = Collections.<Item> emptyList();
+	private final Set<String> getPreferenceCalled = new HashSet<String>();
 
 	private Date getLatestItemDate() {
 	    return latestItemDate;
@@ -103,6 +114,7 @@ public class ItemsLoaderTest extends TestCase {
 
 	@Override
 	public String getPreference(String name, String defaultValue) {
+	    getPreferenceCalled.add(name);
 	    if (name.equals(ItemsLoader.LATEST_ITEM_DATE)
 		    && latestItemDate != null) {
 		return Utils.newGMTDateFormat().format(latestItemDate);
@@ -124,11 +136,15 @@ public class ItemsLoaderTest extends TestCase {
 	public void setItems(List<Item> items) {
 	    this.items = Test.notNull(items);
 	}
+
+	public boolean getPreferenceCalled(String name) {
+	    return getPreferenceCalled.contains(name);
+	}
     }
 
     public void testApplicationNull() throws Exception {
 	try {
-	    new ItemsLoader(null, new MockDialogController());
+	    new ItemsLoader(null, newController());
 	    fail("IllegalArgumentException expected!");
 	} catch (IllegalArgumentException e) {
 	}
@@ -148,6 +164,20 @@ public class ItemsLoaderTest extends TestCase {
 
     public void testExecute() throws Exception {
 	newInstance().execute();
+    }
+
+    public void testExecuteCallsCreateProgressDialog() throws Exception {
+	final MockDialogController newController = newController();
+	newInstance(newApplication(latestItemDate()), newController).execute();
+	assertTrue(newController.createProgressDialogCalled());
+    }
+
+    public void testExecuteCallsGetPreference() throws Exception {
+	final MockDialogController newController = newController();
+	final MockApplication newApplication = newApplication(latestItemDate());
+	newInstance(newApplication, newController).execute();
+	assertTrue(newApplication
+		.getPreferenceCalled(ItemsLoader.LATEST_ITEM_DATE));
     }
 
     public void testExecuteWithLatestItemDate() throws Exception {
@@ -198,7 +228,17 @@ public class ItemsLoaderTest extends TestCase {
     }
 
     protected ItemsLoader newInstance(final MockApplication a) {
-	return new ItemsLoader(a, new MockDialogController());
+	final MockDialogController c = newController();
+	return newInstance(a, c);
+    }
+
+    protected ItemsLoader newInstance(final MockApplication a,
+	    final MockDialogController c) {
+	return new ItemsLoader(a, c);
+    }
+
+    protected MockDialogController newController() {
+	return new MockDialogController();
     }
 
     protected MockApplication newApplication(final Date latestItemDate) {
