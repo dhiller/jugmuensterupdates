@@ -7,3 +7,23 @@ syntax: regexp
 ^bin$
 syntax: regexp
 \.dex$
+syntax: regexp
+^test/bin$
+syntax: regexp
+^test/bin/JugMuensterUpdatesTest\.apk$
+syntax: regexp
+^test/bin/JugMuensterUpdatesTest\.apk$
+syntax: regexp
+^test/bin/resources\.ap_$
+syntax: regexp
+^application/bin/JugMuensterUpdates\.apk$
+syntax: regexp
+^application/bin/JugMuensterUpdates\.apk$
+syntax: regexp
+^application/bin$
+syntax: regexp
+^application/bin/resources\.ap_$
+syntax: regexp
+/\.DS_Store$
+syntax: regexp
+^application/gen/
