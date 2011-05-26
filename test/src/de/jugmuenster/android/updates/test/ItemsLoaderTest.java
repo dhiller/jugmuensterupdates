@@ -104,6 +104,13 @@ public class ItemsLoaderTest extends TestCase {
 		.getPreferenceCalled(ItemsLoader.LATEST_ITEM_DATE));
     }
 
+    public void testExecuteCallsGetAllItems() throws Exception {
+	final MockDialogController newController = newController();
+	final MockApplication newApplication = newApplication(latestItemDate());
+	newInstance(newApplication, newController).execute();
+	assertTrue(newApplication.getAllItemsCalled());
+    }
+
     public void testExecuteWithLatestItemDate() throws Exception {
 	final MockApplication newApplication = newApplication(latestItemDate());
 	newInstance(newApplication).execute();
