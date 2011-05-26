@@ -66,7 +66,7 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     protected List<Item> doInBackground(Object... unused) {
 	restoreLatestItemDate();
 	Date newLatestItemDate = latestItemDate;
-	final List<Item> allItems = getAllItems();
+	final List<Item> allItems = application().getAllItems();
 	for (Item i : allItems) {
 	    if (i.getFrom().compareTo(latestItemDate) > 0) {
 		noOfNewItems++;
@@ -82,36 +82,18 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 
     @Override
     protected void onPostExecute(List<Item> result) {
-	show(result);
+	application().show(result);
 	progressDialogController.dismissProgressDialog();
 	if (noOfNewItems > 0) {
 	    final NotificationData notificationData = new NotificationData(
 		    App.NOTIFICATION_NEW_ITEMS, "Neue JUG Elemente",
 		    MessageFormat.format("{0} neue JUG Elemente", noOfNewItems));
-	    notify(notificationData);
+	    application().notify(notificationData);
 	}
     }
 
     protected Application application() {
 	return a;
-    }
-
-    private List<Item> getAllItems() {
-	return application().getAllItems();
-    }
-
-    private void handleError(ParseException e) {
-	application().handleError(e, LATEST_ITEM_DATE,
-		"Could not restore latestItemDate",
-		"Konnte letzte Aktualisierung nicht wieder herstellen!");
-    }
-
-    private void notify(final NotificationData notificationData) {
-	application().notify(notificationData);
-    }
-
-    private void show(List<Item> result) {
-	application().show(result);
     }
 
     private void saveLatestItemDate() {
@@ -129,7 +111,9 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
 		final DateFormat simpleDateFormat = Utils.newGMTDateFormat();
 		latestItemDate = simpleDateFormat.parse(savedLatestItemDate);
 	    } catch (ParseException e) {
-		handleError(e);
+		application().handleError(e, LATEST_ITEM_DATE,
+		"Could not restore latestItemDate",
+		"Konnte letzte Aktualisierung nicht wieder herstellen!");
 	    }
     }
 

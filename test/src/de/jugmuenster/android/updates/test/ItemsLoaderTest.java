@@ -32,23 +32,15 @@ package de.jugmuenster.android.updates.test;
 
 import java.text.ParseException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import android.content.Context;
 
 import junit.framework.TestCase;
-import de.jugmuenster.android.updates.App.NotificationData;
-import de.jugmuenster.android.updates.Application;
 import de.jugmuenster.android.updates.ItemsLoader;
 import de.jugmuenster.android.updates.ProgressDialogController;
 import de.jugmuenster.android.updates.Utils;
-import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
-import de.jugmuenster.android.util.Test;
 
 public class ItemsLoaderTest extends TestCase {
 
@@ -72,74 +64,6 @@ public class ItemsLoaderTest extends TestCase {
 	    return createProgressDialog;
 	}
 
-    }
-
-    private final class MockApplication extends
-	    android.test.mock.MockApplication implements Application {
-
-	private Date latestItemDate;
-	private List<Item> items = Collections.<Item> emptyList();
-	private final Set<String> getPreferenceCalled = new HashSet<String>();
-
-	private Date getLatestItemDate() {
-	    return latestItemDate;
-	}
-
-	private void setLatestItemDate(Date latestItemDate) {
-	    this.latestItemDate = latestItemDate;
-	}
-
-	@Override
-	public void show(List<Item> items) {
-	}
-
-	@Override
-	public void notify(NotificationData notificationData) {
-	}
-
-	@Override
-	public void handleError(Throwable t, String logTag, String logMessage,
-		String userMessage) {
-	}
-
-	@Override
-	public List<ContentProvider> getProviders() {
-	    return null;
-	}
-
-	@Override
-	public List<Item> getAllItems() {
-	    return this.items;
-	}
-
-	@Override
-	public String getPreference(String name, String defaultValue) {
-	    getPreferenceCalled.add(name);
-	    if (name.equals(ItemsLoader.LATEST_ITEM_DATE)
-		    && latestItemDate != null) {
-		return Utils.newGMTDateFormat().format(latestItemDate);
-	    }
-	    return null;
-	}
-
-	@Override
-	public void setPreference(String name, String newValue) {
-	    if (name.equals(ItemsLoader.LATEST_ITEM_DATE)) {
-		try {
-		    setLatestItemDate(Utils.newGMTDateFormat().parse(newValue));
-		} catch (ParseException e) {
-		    throw new AssertionError(e);
-		}
-	    }
-	}
-
-	public void setItems(List<Item> items) {
-	    this.items = Test.notNull(items);
-	}
-
-	public boolean getPreferenceCalled(String name) {
-	    return getPreferenceCalled.contains(name);
-	}
     }
 
     public void testApplicationNull() throws Exception {
