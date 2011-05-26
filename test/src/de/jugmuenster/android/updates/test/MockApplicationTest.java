@@ -48,4 +48,10 @@ public class MockApplicationTest extends TestCase {
 	assertFalse(mockApplication.setPreferenceCalled("37"));
     }
 
+    public void testGetAllItemsCalled() {
+	final MockApplication mockApplication = new MockApplication();
+	mockApplication.getAllItems();
+	assertTrue(mockApplication.getAllItemsCalled());
+    }
+
 }

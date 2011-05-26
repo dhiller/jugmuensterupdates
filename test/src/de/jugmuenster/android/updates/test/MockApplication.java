@@ -52,6 +52,7 @@ final class MockApplication extends
     private List<Item> items = Collections.<Item> emptyList();
     private final Set<String> getPreferenceCalled = new HashSet<String>();
     private final Set<String> setPreferenceCalled = new HashSet<String>();
+    private boolean getAllItemsCalled;
 
     Date getLatestItemDate() {
         return latestItemDate;
@@ -81,6 +82,7 @@ final class MockApplication extends
 
     @Override
     public List<Item> getAllItems() {
+	getAllItemsCalled = true;
         return this.items;
     }
 
@@ -116,5 +118,9 @@ final class MockApplication extends
 
     public boolean setPreferenceCalled(String name) {
 	return setPreferenceCalled.contains(name);
+    }
+
+    public boolean getAllItemsCalled() {
+	return getAllItemsCalled;
     }
 }
