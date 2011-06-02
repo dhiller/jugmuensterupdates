@@ -227,7 +227,8 @@ public class App extends ListActivity implements Application {
 	notification.when = System.currentTimeMillis();
 	Context context = getApplicationContext();
 	Intent notificationIntent = new Intent(this, App.class);
-	notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+	notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP
+		| Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 	PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 		notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 	notification.setLatestEventInfo(context, notificationData.contentTitle,
