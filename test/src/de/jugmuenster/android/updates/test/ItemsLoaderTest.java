@@ -98,62 +98,56 @@ public class ItemsLoaderTest extends InstrumentationTestCase {
     public void testExecuteStatus() throws Throwable {
 	final ItemsLoader newInstance = newInstance();
 	executeInUIThread(newInstance);
-	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+	new AsyncAssertion() {
 	    @Override
 	    public void run() {
 		assertEquals(Status.FINISHED, newInstance.getStatus());
 	    }
-	});
+	}.assertOrTimeout();
     }
 
     public void testExecuteCallsCreateProgressDialog() throws Throwable {
 	final MockDialogController newController = newController();
 	executeInUIThread(newInstance(newApplication(latestItemDate()),
 		newController));
-	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
-
-	    @Override
+	new AsyncAssertion() {
 	    public void run() {
 		assertTrue(newController.createProgressDialogCalled());
 	    }
-	});
+	}.assertOrTimeout();
     }
 
     public void testExecuteCallsGetPreference() throws Throwable {
 	final MockDialogController newController = newController();
 	final MockApplication newApplication = newApplication(latestItemDate());
 	executeInUIThread(newInstance(newApplication, newController));
-	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
-
-	    @Override
+	new AsyncAssertion() {
 	    public void run() {
 		assertTrue(newApplication.getPreferenceCalled(ItemsLoader.LATEST_ITEM_DATE));
 	    }
-	});
+	}.assertOrTimeout();
     }
 
     public void testExecuteCallsGetAllItems() throws Throwable {
 	final MockDialogController newController = newController();
 	final MockApplication newApplication = newApplication(latestItemDate());
 	executeInUIThread(newInstance(newApplication, newController));
-	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+	new AsyncAssertion() {
 	    public void run() {
 		assertTrue(newApplication.getAllItemsCalled());
 	    }
-	});
+	}.assertOrTimeout();
     }
 
     public void testExecuteWithLatestItemDate() throws Throwable {
 	final MockApplication newApplication = newApplication(latestItemDate());
 	executeInUIThread(newInstance(newApplication));
-	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
-
-	    @Override
+	new AsyncAssertion() {
 	    public void run() throws Throwable {
 		assertEquals(latestItemDate(),
 			newApplication.getLatestItemDate());
 	    }
-	});
+	}.assertOrTimeout();
     }
 
     public void testExecuteWithNewerItemUpdatesNoOfNewItems() throws Throwable {
@@ -161,13 +155,11 @@ public class ItemsLoaderTest extends InstrumentationTestCase {
 	newApplication.setItems(Arrays.asList(newItem()));
 	final ItemsLoader newInstance = (ItemsLoader) newInstance(newApplication);
 	executeInUIThread(newInstance);
-	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
-
-	    @Override
+	new AsyncAssertion() {
 	    public void run() throws Throwable {
 		assertEquals(1, newInstance.noOfNewItems());
 	    }
-	});
+	}.assertOrTimeout();
     }
 
     public void testExecuteWithNewerItemUpdatesLatestItemDate()
@@ -176,13 +168,11 @@ public class ItemsLoaderTest extends InstrumentationTestCase {
 	final Item newerItem = newItem();
 	newApplication.setItems(Arrays.asList(newerItem));
 	executeInUIThread(newInstance(newApplication));
-	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
-
-	    @Override
+	new AsyncAssertion() {
 	    public void run() throws Throwable {
 		assertEquals(laterDate(), newApplication.getLatestItemDate());
 	    }
-	});
+	}.assertOrTimeout();
     }
 
     protected Item newItem() throws ParseException {

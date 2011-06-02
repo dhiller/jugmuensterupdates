@@ -60,20 +60,19 @@ public abstract class AsyncAssertion {
 
     public abstract void run() throws Throwable;
 
-    public static void assertOrTimeout(final AsyncAssertion assertion)
-	    throws Throwable {
+    public void assertOrTimeout() throws Throwable {
 	final long start = System.currentTimeMillis();
 	AssertionFailedError error = null;
-	while (System.currentTimeMillis() - start < assertion.timeOutAfterMSecs) {
+	while (System.currentTimeMillis() - start < timeOutAfterMSecs) {
 	    try {
-		assertion.run();
+		run();
 		return;
 	    } catch (AssertionFailedError e) {
 		error = e;
 	    }
 	    final Object mutex = new Object();
 	    synchronized (mutex) {
-		mutex.wait(assertion.retryEachMSecs);
+		mutex.wait(retryEachMSecs);
 	    }
 	}
 	if (error != null)
