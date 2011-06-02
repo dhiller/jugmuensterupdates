@@ -60,7 +60,7 @@ public class App extends ListActivity implements Application {
 
     private static final long NOT_LOADED = -1L;
     static final int NOTIFICATION_NEW_ITEMS = 1;
-    long lastLoad = NOT_LOADED;
+    private long lastLoad = NOT_LOADED;
 
     public static final class NotificationData {
 	final int notificationID;
@@ -121,7 +121,7 @@ public class App extends ListActivity implements Application {
 	    public boolean onMenuItemClick(MenuItem item) {
 		new ItemsLoader(App.this, new ProgressDialogController())
 			.execute();
-		return false;
+		return true;
 	    }
 	});
 	return onCreateOptionsMenu;
@@ -147,13 +147,7 @@ public class App extends ListActivity implements Application {
 	final List<Item> items = new ArrayList<Item>();
 	for (ContentProvider p : getProviders()) {
 	    try {
-		List<Item> tmpItems = p.extract();
-		for (Iterator<Item> iterator = tmpItems.iterator(); iterator
-			.hasNext();) {
-		    Item item = (Item) iterator.next();
-		    item.setMarker(p.source().shortName());
-		}
-		items.addAll(tmpItems);
+		items.addAll(p.extract());
 	    } catch (Exception e) {
 		handleError(e, "GetItems", "Could not fetch new items!",
 			"Beim Ermitteln der neuen Beiträge ist ein Fehler aufgetreten!");

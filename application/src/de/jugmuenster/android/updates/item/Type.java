@@ -43,7 +43,7 @@ public enum Type {
 	public List<Item> extract(ContentProvider p) throws Exception {
 	    final InputStream content = p.provideContent();
 	    try {
-		return new Extractor().extract(content);
+		return new Extractor(p.source()).extract(content);
 	    } finally {
 		content.close();
 	    }

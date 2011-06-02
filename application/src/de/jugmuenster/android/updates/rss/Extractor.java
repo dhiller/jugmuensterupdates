@@ -55,16 +55,22 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import de.jugmuenster.android.updates.item.Item;
+import de.jugmuenster.android.updates.item.Source;
 import de.jugmuenster.android.updates.item.Type;
+import de.jugmuenster.android.util.Test;
 
 public final class Extractor {
 
     final SAXParserFactory factory = SAXParserFactory.newInstance();
-    final Handler handler = new Handler();
+    final Handler handler;
     final SAXParser saxParser;
+    final Source source;
 
-    public Extractor() throws ParserConfigurationException, SAXException {
+    public Extractor(Source s) throws ParserConfigurationException,
+	    SAXException {
 	saxParser = factory.newSAXParser();
+	this.source = Test.notNull(s);
+	this.handler = new Handler(this.source);
     }
 
     static DateFormat newRSSGMTDateFormat() {
@@ -82,12 +88,19 @@ public final class Extractor {
 	Item current;
 	StringBuilder builder;
 
+	private Source source;
+
+	public Handler(Source source) {
+	    this.source = source;
+	}
+
 	@Override
 	public void startElement(String uri, String localName, String qName,
 		org.xml.sax.Attributes attributes) throws SAXException {
 	    if (elementName(localName, qName).equals("item")) {
 		current = new Item();
 		current.setType(Type.RSS);
+		current.setMarker(source.shortName());
 	    }
 	    builder = new StringBuilder();
 	}
