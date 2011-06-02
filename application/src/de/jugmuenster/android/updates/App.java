@@ -61,7 +61,9 @@ import de.jugmuenster.android.updates.item.Type;
 
 public class App extends ListActivity implements Application {
 
+    private static final long NOT_LOADED = -1L;
     static final int NOTIFICATION_NEW_ITEMS = 1;
+    long lastLoad = NOT_LOADED;
 
     public static final class NotificationData {
 	final int notificationID;
@@ -96,30 +98,18 @@ public class App extends ListActivity implements Application {
 	super.onCreate(savedInstanceState);
 	getListView()
 		.setOnItemClickListener(new OnClickShowItemLinkInBrowser());
+    }
+
+    @Override
+    protected void onStart() {
+	super.onStart();
 	loadItems();
-	final Intent intent = new Intent(this, UpdateService.class);
-	final ComponentName componentName = startService(intent);
-	// (intent, new ServiceConnection() {
-	//
-	// private IBinder service;
-	//
-	// @Override
-	// public void onServiceConnected(ComponentName name, IBinder service) {
-	// Toast.makeText(App.this, "UpdateService connected!",
-	// Toast.LENGTH_SHORT).show();
-	// this.service = service;
-	// }
-	//
-	// @Override
-	// public void onServiceDisconnected(ComponentName name) {
-	// Toast.makeText(App.this, "UpdateService disconnected!",
-	// Toast.LENGTH_SHORT).show();
-	// this.service = null;
-	// }
-	// }, 0);
-	Toast.makeText(App.this,
-		MessageFormat.format("Started service {0}!", componentName),
-		Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+	super.onResume();
+	loadItems();
     }
 
     @Override
@@ -130,7 +120,8 @@ public class App extends ListActivity implements Application {
 
 	    @Override
 	    public boolean onMenuItemClick(MenuItem item) {
-		new ItemsLoader(App.this, new ProgressDialogController()).execute();
+		new ItemsLoader(App.this, new ProgressDialogController())
+			.execute();
 		return false;
 	    }
 	});
@@ -157,12 +148,13 @@ public class App extends ListActivity implements Application {
 	final List<Item> items = new ArrayList<Item>();
 	for (ContentProvider p : getProviders()) {
 	    try {
-	    	List<Item> tmpItems = p.extract();
-	    	for (Iterator<Item> iterator = tmpItems.iterator(); iterator.hasNext();) {
-				Item item = (Item) iterator.next();
-				item.setMarker(p.source().shortName());
-			}
-	    	items.addAll(tmpItems);
+		List<Item> tmpItems = p.extract();
+		for (Iterator<Item> iterator = tmpItems.iterator(); iterator
+			.hasNext();) {
+		    Item item = (Item) iterator.next();
+		    item.setMarker(p.source().shortName());
+		}
+		items.addAll(tmpItems);
 	    } catch (Exception e) {
 		handleError(e, "GetItems", "Could not fetch new items!",
 			"Beim Ermitteln der neuen Beiträge ist ein Fehler aufgetreten!");
@@ -189,12 +181,16 @@ public class App extends ListActivity implements Application {
     public List<ContentProvider> getProviders() {
 	final List<ContentProvider> providers = new ArrayList<ContentProvider>();
 	try {
-	    final Source sourceBlog = new Source("Blog", "B", Type.RSS, new URI(
-		    "http://www.jug-muenster.de/feed/"));
+	    final Source sourceBlog = new Source("Blog", "B", Type.RSS,
+		    new URI("http://www.jug-muenster.de/feed/"));
 	    providers.add(sourceBlog.createProvider());
 
-	    final Source sourceTwitter = new Source("Twitter", "T", Type.RSS, new URI(
-	    	"http://search.twitter.com/search.rss?q=from%3AJug_MS%20include%3Aretweets"));
+	    final Source sourceTwitter = new Source(
+		    "Twitter",
+		    "T",
+		    Type.RSS,
+		    new URI(
+			    "http://search.twitter.com/search.rss?q=from%3AJug_MS%20include%3Aretweets"));
 	    providers.add(sourceTwitter.createProvider());
 
 	} catch (Exception e) {
@@ -220,8 +216,7 @@ public class App extends ListActivity implements Application {
     }
 
     public String getPreference(final String name, final String defaultValue) {
-	return getPreferences()
-		.getString(name, defaultValue);
+	return getPreferences().getString(name, defaultValue);
     }
 
     public void setPreference(final String name, final String newValue) {
@@ -235,15 +230,20 @@ public class App extends ListActivity implements Application {
 	notification.when = System.currentTimeMillis();
 	Context context = getApplicationContext();
 	Intent notificationIntent = new Intent(this, App.class);
+	notificationIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 	PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-		notificationIntent, 0);
+		notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 	notification.setLatestEventInfo(context, notificationData.contentTitle,
 		notificationData.contentText, contentIntent);
 	return notification;
     }
 
     void loadItems() {
+	if (lastLoad != NOT_LOADED
+		&& System.currentTimeMillis() - lastLoad < 15 * 60 * 1000)
+	    return;
 	new ItemsLoader(this, new ProgressDialogController()).execute();
+	lastLoad = System.currentTimeMillis();
     }
 
 }

@@ -87,7 +87,7 @@ public class ItemsLoader extends AsyncTask<Void, Integer, List<Item>> {
 	if (noOfNewItems > 0) {
 	    final NotificationData notificationData = new NotificationData(
 		    App.NOTIFICATION_NEW_ITEMS, "Neue JUG Elemente",
-		    MessageFormat.format("{0} neue JUG Elemente", noOfNewItems));
+		    String.format("%d neue JUG Elemente", noOfNewItems));
 	    application().notify(notificationData);
 	}
     }
