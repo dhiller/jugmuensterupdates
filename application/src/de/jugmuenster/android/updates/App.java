@@ -43,6 +43,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +63,7 @@ public class App extends ListActivity implements Application {
     private static final long NOT_LOADED = -1L;
     static final int NOTIFICATION_NEW_ITEMS = 1;
     private long lastLoad = NOT_LOADED;
+    private AsyncTask<Void, Integer, List<Item>> itemsLoader;
 
     public static final class NotificationData {
 	final int notificationID;
@@ -100,7 +103,6 @@ public class App extends ListActivity implements Application {
     @Override
     protected void onStart() {
 	super.onStart();
-	loadItems();
     }
 
     @Override
@@ -234,10 +236,15 @@ public class App extends ListActivity implements Application {
     }
 
     void loadItems() {
+	if (itemsLoader != null
+		&& itemsLoader.getStatus().equals(Status.FINISHED))
+	    return;
+	itemsLoader = null;
 	if (lastLoad != NOT_LOADED
 		&& System.currentTimeMillis() - lastLoad < 15 * 60 * 1000)
 	    return;
-	new ItemsLoader(this, new ProgressDialogController()).execute();
+	itemsLoader = new ItemsLoader(this, new ProgressDialogController())
+		.execute();
 	lastLoad = System.currentTimeMillis();
     }
 

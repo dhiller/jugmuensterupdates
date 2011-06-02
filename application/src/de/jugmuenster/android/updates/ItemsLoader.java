@@ -31,7 +31,6 @@
 package de.jugmuenster.android.updates;
 
 import java.text.DateFormat;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +48,6 @@ public class ItemsLoader extends AsyncTask<Void, Integer, List<Item>> {
     private final Application a;
     private ProgressDialogController progressDialogController;
     private int noOfNewItems = 0;
-    private Date latestItemDate = new Date(0);
 
     public ItemsLoader(Application a, ProgressDialogController c) {
 	this.a = Test.notNull(a);
@@ -64,7 +62,7 @@ public class ItemsLoader extends AsyncTask<Void, Integer, List<Item>> {
 
     @Override
     protected List<Item> doInBackground(Void... unused) {
-	restoreLatestItemDate();
+	final Date latestItemDate = restoreLatestItemDate();
 	Date newLatestItemDate = latestItemDate;
 	final List<Item> allItems = application().getAllItems();
 	for (Item i : allItems) {
@@ -75,8 +73,7 @@ public class ItemsLoader extends AsyncTask<Void, Integer, List<Item>> {
 		    newLatestItemDate = i.getFrom();
 	    }
 	}
-	latestItemDate = newLatestItemDate;
-	saveLatestItemDate();
+	saveLatestItemDate(newLatestItemDate);
 	return allItems;
     }
 
@@ -96,25 +93,32 @@ public class ItemsLoader extends AsyncTask<Void, Integer, List<Item>> {
 	return a;
     }
 
-    private void saveLatestItemDate() {
+    private void saveLatestItemDate(Date latestItemDate) {
 	application().setPreference(LATEST_ITEM_DATE,
 		Utils.newGMTDateFormat().format(latestItemDate));
     }
 
-    private void restoreLatestItemDate() {
+    private Date restoreLatestItemDate() {
+	Date latestItemDate;
 	final String name = LATEST_ITEM_DATE;
 	final String defaultValue = null;
 	final String savedLatestItemDate = application().getPreference(name,
 		defaultValue);
-	if (savedLatestItemDate != null)
+	if (savedLatestItemDate != null) {
 	    try {
 		final DateFormat simpleDateFormat = Utils.newGMTDateFormat();
 		latestItemDate = simpleDateFormat.parse(savedLatestItemDate);
 	    } catch (ParseException e) {
-		application().handleError(e, LATEST_ITEM_DATE,
-		"Could not restore latestItemDate",
-		"Konnte letzte Aktualisierung nicht wieder herstellen!");
+		application()
+			.handleError(e, LATEST_ITEM_DATE,
+				"Could not restore latestItemDate",
+				"Konnte letzte Aktualisierung nicht wieder herstellen!");
+		latestItemDate = new Date(0);
 	    }
+	} else {
+	    latestItemDate = new Date(0);
+	}
+	return latestItemDate;
     }
 
     public void setNoOfNewItems(int noOfNewItems) {
