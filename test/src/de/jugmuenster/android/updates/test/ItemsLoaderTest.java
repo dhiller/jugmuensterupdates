@@ -151,8 +151,7 @@ public class ItemsLoaderTest extends InstrumentationTestCase {
     }
 
     public void testExecuteWithNewerItemUpdatesNoOfNewItems() throws Throwable {
-	final MockApplication newApplication = newApplication(latestItemDate());
-	newApplication.setItems(Arrays.asList(newItem()));
+	final MockApplication newApplication = applicationWithNewerItem();
 	final ItemsLoader newInstance = (ItemsLoader) newInstance(newApplication);
 	executeInUIThread(newInstance);
 	new AsyncAssertion() {
@@ -164,15 +163,19 @@ public class ItemsLoaderTest extends InstrumentationTestCase {
 
     public void testExecuteWithNewerItemUpdatesLatestItemDate()
 	    throws Throwable {
-	final MockApplication newApplication = newApplication(latestItemDate());
-	final Item newerItem = newItem();
-	newApplication.setItems(Arrays.asList(newerItem));
+	final MockApplication newApplication = applicationWithNewerItem();
 	executeInUIThread(newInstance(newApplication));
 	new AsyncAssertion() {
 	    public void run() throws Throwable {
 		assertEquals(laterDate(), newApplication.getLatestItemDate());
 	    }
 	}.assertOrTimeout();
+    }
+
+    protected MockApplication applicationWithNewerItem() throws ParseException {
+	final MockApplication newApplication = newApplication(latestItemDate());
+	newApplication.setItems(Arrays.asList(newItem()));
+	return newApplication;
     }
 
     protected Item newItem() throws ParseException {
