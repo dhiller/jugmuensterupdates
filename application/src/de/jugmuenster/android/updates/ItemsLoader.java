@@ -42,7 +42,7 @@ import de.jugmuenster.android.updates.App.NotificationData;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.util.Test;
 
-public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
+public class ItemsLoader extends AsyncTask<Void, Integer, List<Item>> {
 
     public static final String LATEST_ITEM_DATE = "latestItemDate";
 
@@ -63,7 +63,7 @@ public final class ItemsLoader extends AsyncTask<Object, Integer, List<Item>> {
     }
 
     @Override
-    protected List<Item> doInBackground(Object... unused) {
+    protected List<Item> doInBackground(Void... unused) {
 	restoreLatestItemDate();
 	Date newLatestItemDate = latestItemDate;
 	final List<Item> allItems = application().getAllItems();
