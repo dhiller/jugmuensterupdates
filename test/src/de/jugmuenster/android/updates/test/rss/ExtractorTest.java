@@ -34,6 +34,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -45,9 +46,14 @@ import junit.framework.TestCase;
 import org.xml.sax.SAXException;
 
 import de.jugmuenster.android.updates.item.Item;
+import de.jugmuenster.android.updates.item.Source;
+import de.jugmuenster.android.updates.item.Type;
 import de.jugmuenster.android.updates.rss.Extractor;
 
 public class ExtractorTest extends TestCase {
+
+    private final Source dummySource = new Source("", "", Type.RSS,
+	    URI.create(""));
 
     public void testStreamHasItems() throws IOException {
 	final String rss = getFullRss();
@@ -55,11 +61,11 @@ public class ExtractorTest extends TestCase {
     }
 
     public void testItemsFromStringNotNull() throws Exception {
-	assertNotNull(new Extractor().extract(getFullRss()));
+	assertNotNull(new Extractor(dummySource).extract(getFullRss()));
     }
 
     public void testItemsFromStringNotEmpty() throws Exception {
-	assertFalse(new Extractor().extract(getFullRss()).isEmpty());
+	assertFalse(new Extractor(dummySource).extract(getFullRss()).isEmpty());
     }
 
     public void testItemsNotNull() throws Exception {
@@ -78,7 +84,7 @@ public class ExtractorTest extends TestCase {
 	    ParserConfigurationException, SAXException, IOException {
 	final InputStream openStream = getTestStream();
 	try {
-	    return new Extractor().extract(openStream);
+	    return new Extractor(dummySource).extract(openStream);
 	} finally {
 	    openStream.close();
 	}
