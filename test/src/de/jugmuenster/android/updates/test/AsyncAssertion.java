@@ -28,23 +28,56 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jugmuenster.android.util;
+package de.jugmuenster.android.updates.test;
 
-public final class Test {
+import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
+import de.jugmuenster.android.util.Test;
 
-    private Test() {
+public abstract class AsyncAssertion {
+    private final String message;
+    private int timeOutAfterMSecs;
+    private int retryEachMSecs;
+
+    public AsyncAssertion() {
+	this("", 1000, 50);
     }
 
-    public static <T> T notNull(T t) {
-	if (t == null) {
-	    throw new IllegalArgumentException("t is null!"); //$NON-NLS-1$
+    public AsyncAssertion(String message) {
+	this(message, 1000, 50);
+    }
+
+    public AsyncAssertion(String message, int timeOutAfterMSecs,
+	    int retryEachMSecs) {
+	this.message = Test.notNull(message);
+	this.timeOutAfterMSecs = Test.greaterThanZero(timeOutAfterMSecs);
+	this.retryEachMSecs = Test.greaterThanZero(retryEachMSecs);
+    }
+
+    public String message() {
+	return message;
+    }
+
+    public abstract void run() throws Throwable;
+
+    public static void assertOrTimeout(final AsyncAssertion assertion)
+	    throws Throwable {
+	final long start = System.currentTimeMillis();
+	AssertionFailedError error = null;
+	while (System.currentTimeMillis() - start < assertion.timeOutAfterMSecs) {
+	    try {
+		assertion.run();
+		return;
+	    } catch (AssertionFailedError e) {
+		error = e;
+	    }
+	    final Object mutex = new Object();
+	    synchronized (mutex) {
+		mutex.wait(assertion.retryEachMSecs);
+	    }
 	}
-	return t;
-    }
-
-    public static <T extends Number> T greaterThanZero(T t) {
-	if (t.intValue() <= 0)
-	    throw new IllegalArgumentException("t <= 0!"); //$NON-NLS-1$
-	return t;
+	if (error != null)
+	    throw error;
+	Assert.fail("No assertion failed ?!");
     }
 }

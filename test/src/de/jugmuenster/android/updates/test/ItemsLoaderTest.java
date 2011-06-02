@@ -34,15 +34,20 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
 
-import android.content.Context;
 
-import junit.framework.TestCase;
+import android.content.Context;
+import android.os.AsyncTask.Status;
+import android.test.InstrumentationTestCase;
 import de.jugmuenster.android.updates.ItemsLoader;
 import de.jugmuenster.android.updates.ProgressDialogController;
 import de.jugmuenster.android.updates.Utils;
 import de.jugmuenster.android.updates.item.Item;
 
-public class ItemsLoaderTest extends TestCase {
+public class ItemsLoaderTest extends InstrumentationTestCase {
+
+    public ItemsLoaderTest() {
+	super();
+    }
 
     private final class MockDialogController extends ProgressDialogController {
 	private boolean createProgressDialog;
@@ -66,7 +71,7 @@ public class ItemsLoaderTest extends TestCase {
 
     }
 
-    public void testApplicationNull() throws Exception {
+    public void testApplicationNull() throws Throwable {
 	try {
 	    new ItemsLoader(null, newController());
 	    fail("IllegalArgumentException expected!");
@@ -74,7 +79,7 @@ public class ItemsLoaderTest extends TestCase {
 	}
     }
 
-    public void testDialogControllerNull() throws Exception {
+    public void testDialogControllerNull() throws Throwable {
 	try {
 	    new ItemsLoader(new MockApplication(), null);
 	    fail("IllegalArgumentException expected!");
@@ -82,56 +87,102 @@ public class ItemsLoaderTest extends TestCase {
 	}
     }
 
-    public void testCreation() throws Exception {
+    public void testCreation() throws Throwable {
 	newInstance();
     }
 
-    public void testExecute() throws Exception {
-	newInstance().execute();
+    public void testExecute() throws Throwable {
+	executeInUIThread(newInstance());
     }
 
-    public void testExecuteCallsCreateProgressDialog() throws Exception {
+    public void testExecuteStatus() throws Throwable {
+	final ItemsLoader newInstance = newInstance();
+	executeInUIThread(newInstance);
+	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+	    @Override
+	    public void run() {
+		assertEquals(Status.FINISHED, newInstance.getStatus());
+	    }
+	});
+    }
+
+    public void testExecuteCallsCreateProgressDialog() throws Throwable {
 	final MockDialogController newController = newController();
-	newInstance(newApplication(latestItemDate()), newController).execute();
-	assertTrue(newController.createProgressDialogCalled());
+	executeInUIThread(newInstance(newApplication(latestItemDate()),
+		newController));
+	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+
+	    @Override
+	    public void run() {
+		assertTrue(newController.createProgressDialogCalled());
+	    }
+	});
     }
 
-    public void testExecuteCallsGetPreference() throws Exception {
+    public void testExecuteCallsGetPreference() throws Throwable {
 	final MockDialogController newController = newController();
 	final MockApplication newApplication = newApplication(latestItemDate());
-	newInstance(newApplication, newController).execute();
-	assertTrue(newApplication
-		.getPreferenceCalled(ItemsLoader.LATEST_ITEM_DATE));
+	executeInUIThread(newInstance(newApplication, newController));
+	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+
+	    @Override
+	    public void run() {
+		assertTrue(newApplication.getPreferenceCalled(ItemsLoader.LATEST_ITEM_DATE));
+	    }
+	});
     }
 
-    public void testExecuteCallsGetAllItems() throws Exception {
+    public void testExecuteCallsGetAllItems() throws Throwable {
 	final MockDialogController newController = newController();
 	final MockApplication newApplication = newApplication(latestItemDate());
-	newInstance(newApplication, newController).execute();
-	assertTrue(newApplication.getAllItemsCalled());
+	executeInUIThread(newInstance(newApplication, newController));
+	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+	    public void run() {
+		assertTrue(newApplication.getAllItemsCalled());
+	    }
+	});
     }
 
-    public void testExecuteWithLatestItemDate() throws Exception {
+    public void testExecuteWithLatestItemDate() throws Throwable {
 	final MockApplication newApplication = newApplication(latestItemDate());
-	newInstance(newApplication).execute();
-	assertEquals(latestItemDate(), newApplication.getLatestItemDate());
+	executeInUIThread(newInstance(newApplication));
+	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+
+	    @Override
+	    public void run() throws Throwable {
+		assertEquals(latestItemDate(),
+			newApplication.getLatestItemDate());
+	    }
+	});
     }
 
-    public void testExecuteWithNewerItemUpdatesNoOfNewItems() throws Exception {
+    public void testExecuteWithNewerItemUpdatesNoOfNewItems() throws Throwable {
 	final MockApplication newApplication = newApplication(latestItemDate());
 	newApplication.setItems(Arrays.asList(newItem()));
-	final ItemsLoader newInstance = (ItemsLoader) newInstance(
-		newApplication).execute();
-	assertEquals(1, newInstance.noOfNewItems());
+	final ItemsLoader newInstance = (ItemsLoader) newInstance(newApplication);
+	executeInUIThread(newInstance);
+	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+
+	    @Override
+	    public void run() throws Throwable {
+		assertEquals(1, newInstance.noOfNewItems());
+	    }
+	});
     }
 
     public void testExecuteWithNewerItemUpdatesLatestItemDate()
-	    throws Exception {
+	    throws Throwable {
 	final MockApplication newApplication = newApplication(latestItemDate());
 	final Item newerItem = newItem();
 	newApplication.setItems(Arrays.asList(newerItem));
-	newInstance(newApplication).execute();
-	assertEquals(laterDate(), newApplication.getLatestItemDate());
+	executeInUIThread(newInstance(newApplication));
+	AsyncAssertion.assertOrTimeout(new AsyncAssertion() {
+
+	    @Override
+	    public void run() throws Throwable {
+		assertEquals(laterDate(), newApplication.getLatestItemDate());
+	    }
+	});
     }
 
     protected Item newItem() throws ParseException {
@@ -176,6 +227,15 @@ public class ItemsLoaderTest extends TestCase {
 	final MockApplication a = new MockApplication();
 	a.setLatestItemDate(latestItemDate);
 	return a;
+    }
+
+    protected void executeInUIThread(final ItemsLoader l) throws Throwable {
+	runTestOnUiThread(new Runnable() {
+	    @Override
+	    public void run() {
+		l.execute();
+	    }
+	});
     }
 
 }
