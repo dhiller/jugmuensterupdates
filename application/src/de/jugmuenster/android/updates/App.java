@@ -30,7 +30,6 @@
 package de.jugmuenster.android.updates;
 
 import java.net.URI;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -40,7 +39,6 @@ import android.app.ListActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -53,7 +51,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 import de.jugmuenster.android.updates.item.ContentProvider;
 import de.jugmuenster.android.updates.item.Item;
 import de.jugmuenster.android.updates.item.Source;
@@ -109,6 +106,8 @@ public class App extends ListActivity implements Application {
     @Override
     protected void onResume() {
 	super.onResume();
+	((NotificationManager) this.getSystemService(NOTIFICATION_SERVICE))
+		.cancel(App.NOTIFICATION_NEW_ITEMS);
 	loadItems();
     }
 
@@ -227,6 +226,8 @@ public class App extends ListActivity implements Application {
     Notification newNotification(final NotificationData notificationData) {
 	final Notification notification = new Notification(R.drawable.icon,
 		"Neue JUG Elemente", System.currentTimeMillis());
+	notification.defaults = Notification.FLAG_ONLY_ALERT_ONCE
+		| Notification.FLAG_AUTO_CANCEL;
 	notification.when = System.currentTimeMillis();
 	Context context = getApplicationContext();
 	Intent notificationIntent = new Intent(this, App.class);
