@@ -63,18 +63,14 @@ public class ItemsLoader extends AsyncTask<Void, Integer, List<Item>> {
     @Override
     protected List<Item> doInBackground(Void... unused) {
 	final Date latestItemDate = restoreLatestItemDate();
-	Date newLatestItemDate = latestItemDate;
-	final List<Item> allItems = application().getAllItems();
-	for (Item i : allItems) {
-	    if (i.getFrom().compareTo(latestItemDate) > 0) {
-		noOfNewItems++;
-		i.setNew();
-		if (i.getFrom().compareTo(newLatestItemDate) > 0)
-		    newLatestItemDate = i.getFrom();
-	    }
-	}
-	saveLatestItemDate(newLatestItemDate);
-	return allItems;
+
+	final NewItemsMarker newItemsMarker = new NewItemsMarker(
+		latestItemDate, application().getAllItems());
+	newItemsMarker.mark();
+
+	noOfNewItems = newItemsMarker.noOfNewItems;
+	saveLatestItemDate(newItemsMarker.newLatestItemDate());
+	return newItemsMarker.allItems;
     }
 
     @Override
